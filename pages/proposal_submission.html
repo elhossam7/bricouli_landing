@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Submit Proposal - Bricouli</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fbricoulil1075back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.5"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-craft sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="landing_page_with_role_selection.html" class="flex items-center">
+                        <svg class="h-8 w-8 text-primary" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 4L24 4C26.2091 4 28 5.79086 28 8V24C28 26.2091 26.2091 28 24 28H8C5.79086 28 4 26.2091 4 24V8C4 5.79086 5.79086 4 8 4Z" fill="currentColor"/>
+                            <path d="M12 12H20V14H12V12Z" fill="white"/>
+                            <path d="M12 16H20V18H12V16Z" fill="white"/>
+                            <path d="M12 20H16V22H12V20Z" fill="white"/>
+                        </svg>
+                        <span class="ml-2 text-xl font-bold text-gray-900">Bricouli</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-6">
+                    <button class="text-gray-600 hover:text-primary font-medium">Save Draft</button>
+                    <button class="btn-outline">Preview</button>
+                    <a href="artisan_dashboard.html" class="text-gray-600 hover:text-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="lg:hidden p-2 text-gray-600 hover:text-primary transition-colors duration-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-20 lg:pb-6">
+        <!-- Header Section -->
+        <div class="mb-8">
+            <div class="flex items-center mb-4">
+                <a href="artisan_dashboard.html" class="text-primary hover:text-primary-700 flex items-center mr-4">
+                    <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                    Back to Dashboard
+                </a>
+            </div>
+            <h1 class="text-fluid-3xl font-bold text-gray-900 mb-2">Submit Proposal</h1>
+            <p class="text-fluid-base text-gray-600">Create a compelling bid that showcases your expertise and wins the project</p>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between text-sm font-medium text-gray-500 mb-2">
+                <span>Proposal Progress</span>
+                <span id="progress-text">3 of 6 sections completed</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div id="progress-bar" class="bg-primary h-2 rounded-full transition-all duration-300" style="width: 50%"></div>
+            </div>
+        </div>
+
+        <!-- Project Summary Display -->
+        <div class="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-lg p-6 mb-8 border border-primary-200">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Project Overview</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                    <h3 class="font-medium text-gray-900 mb-2">Kitchen Cabinet Installation</h3>
+                    <p class="text-gray-600 text-sm mb-4">Complete installation of custom kitchen cabinets with crown molding and soft-close hardware. High-quality materials provided by client.</p>
+                    <div class="flex items-center space-x-4 text-sm text-gray-600">
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            </svg>
+                            Seattle, WA
+                        </span>
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2"/>
+                            </svg>
+                            Budget: $2,500
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-medium text-gray-900 mb-2">Client Profile</h4>
+                    <div class="flex items-center space-x-3">
+                        <img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Client" class="w-10 h-10 rounded-full object-cover" loading="lazy" />
+                        <div>
+                            <p class="font-medium text-gray-900">Sarah Johnson</p>
+                            <p class="text-sm text-gray-600">4.8 rating • 12 projects completed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Proposal Form -->
+        <form id="proposal-form" class="space-y-8">
+            <!-- Cover Letter Section -->
+            <section class="bg-white rounded-lg p-6 shadow-craft">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-900">Cover Letter</h2>
+                    <div class="flex items-center space-x-2">
+                        <button type="button" class="text-sm text-primary hover:text-primary-700" onclick="loadTemplate('cover')">Load Template</button>
+                        <button type="button" class="text-sm text-primary hover:text-primary-700" onclick="voiceInput('cover-letter')">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="cover-letter" class="form-label">Introduction & Why You're Perfect for This Job</label>
+                    <textarea id="cover-letter" name="cover-letter" rows="6" class="form-input resize-none" placeholder="Dear Sarah, I'm excited about your kitchen cabinet installation project. With 8+ years of carpentry experience..." oninput="updateCharCount('cover-letter', 1000); updateProgress();" maxlength="1000" required></textarea>
+                    <div class="flex justify-between mt-2">
+                        <p class="form-hint">Highlight your relevant experience and enthusiasm for the project</p>
+                        <span class="text-sm text-gray-500" id="cover-letter-count">0/1000</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work Plan Section -->
+            <section class="bg-white rounded-lg p-6 shadow-craft">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Detailed Work Plan</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label for="approach" class="form-label">Project Approach & Methodology</label>
+                        <textarea id="approach" name="approach" rows="4" class="form-input resize-none" placeholder="I will begin with a thorough site assessment and precise measurements..." oninput="updateCharCount('approach', 800); updateProgress();" maxlength="800" required></textarea>
+                        <div class="flex justify-between mt-2">
+                            <p class="form-hint">Describe your step-by-step approach</p>
+                            <span class="text-sm text-gray-500" id="approach-count">0/800</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="tools-materials" class="form-label">Tools & Additional Materials Needed</label>
+                        <textarea id="tools-materials" name="tools-materials" rows="3" class="form-input resize-none" placeholder="Professional installation tools, shims, screws, brackets..." oninput="updateCharCount('tools-materials', 500); updateProgress();" maxlength="500"></textarea>
+                        <div class="flex justify-between mt-2">
+                            <p class="form-hint">List any tools or materials you'll provide</p>
+                            <span class="text-sm text-gray-500" id="tools-materials-count">0/500</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline Section -->
+            <section class="bg-white rounded-lg p-6 shadow-craft">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Project Timeline</h2>
+                <div class="space-y-4">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="start-date" class="form-label">Proposed Start Date</label>
+                            <input type="date" id="start-date" name="start-date" class="form-input" min="2024-12-01" onchange="updateProgress();" required />
+                        </div>
+                        <div>
+                            <label for="completion-date" class="form-label">Estimated Completion</label>
+                            <input type="date" id="completion-date" name="completion-date" class="form-input" min="2024-12-01" onchange="updateProgress();" required />
+                        </div>
+                    </div>
+                    
+                    <!-- Milestone Breakdown -->
+                    <div>
+                        <label class="form-label">Project Milestones</label>
+                        <div id="milestones-container" class="space-y-3">
+                            <div class="milestone-item border border-gray-200 rounded-lg p-4">
+                                <div class="grid md:grid-cols-3 gap-4">
+                                    <input type="text" placeholder="Milestone name" class="form-input text-sm" name="milestone-name-1" />
+                                    <input type="date" class="form-input text-sm" name="milestone-date-1" />
+                                    <input type="text" placeholder="Duration (days)" class="form-input text-sm" name="milestone-duration-1" />
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addMilestone()" class="mt-3 text-primary hover:text-primary-700 text-sm font-medium flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                            Add Milestone
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pricing Section -->
+            <section class="bg-white rounded-lg p-6 shadow-craft">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-900">Pricing Breakdown</h2>
+                    <div class="flex items-center space-x-2">
+                        <button type="button" onclick="calculateMarketRate()" class="text-sm text-primary hover:text-primary-700">Market Analysis</button>
+                        <button type="button" onclick="showPricingCalculator()" class="text-sm text-primary hover:text-primary-700">Calculator</button>
+                    </div>
+                </div>
+                
+                <!-- Market Rate Indicator -->
+                <div id="market-rate-info" class="hidden bg-accent-50 border border-accent-200 rounded-lg p-4 mb-4">
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="font-medium text-accent-600">Market Rate Analysis</span>
+                    </div>
+                    <p class="mt-2 text-sm text-accent-700">Similar projects in Seattle: $2,200 - $2,800 • Your bid competitiveness: <span class="font-semibold">Competitive</span></p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="pricing-type" value="fixed" class="mr-2" checked onchange="togglePricingType()" />
+                            <span class="text-sm font-medium">Fixed Price</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="pricing-type" value="hourly" class="mr-2" onchange="togglePricingType()" />
+                            <span class="text-sm font-medium">Hourly Rate</span>
+                        </label>
+                    </div>
+
+                    <!-- Fixed Price Section -->
+                    <div id="fixed-pricing" class="space-y-4">
+                        <div>
+                            <label for="total-price" class="form-label">Total Project Price</label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-3 text-gray-500">$</span>
+                                <input type="number" id="total-price" name="total-price" class="form-input pl-8" placeholder="2500" min="0" step="50" oninput="updateProgress(); updatePricingBreakdown();" required />
+                            </div>
+                        </div>
+
+                        <!-- Itemized Breakdown -->
+                        <div>
+                            <label class="form-label">Cost Breakdown (Optional)</label>
+                            <div id="cost-breakdown" class="space-y-2">
+                                <div class="flex items-center space-x-2">
+                                    <input type="text" placeholder="Labor" class="form-input text-sm flex-1" name="cost-item-1" />
+                                    <div class="relative">
+                                        <span class="absolute left-2 top-2 text-gray-500 text-sm">$</span>
+                                        <input type="number" placeholder="1800" class="form-input text-sm w-24 pl-6" name="cost-amount-1" />
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" onclick="addCostItem()" class="mt-2 text-primary hover:text-primary-700 text-sm font-medium">
+                                + Add Cost Item
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Hourly Rate Section -->
+                    <div id="hourly-pricing" class="hidden space-y-4">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="hourly-rate" class="form-label">Hourly Rate</label>
+                                <div class="relative">
+                                    <span class="absolute left-3 top-3 text-gray-500">$</span>
+                                    <input type="number" id="hourly-rate" name="hourly-rate" class="form-input pl-8" placeholder="85" min="0" step="5" />
+                                </div>
+                            </div>
+                            <div>
+                                <label for="estimated-hours" class="form-label">Estimated Hours</label>
+                                <input type="number" id="estimated-hours" name="estimated-hours" class="form-input" placeholder="30" min="0" step="0.5" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Portfolio Integration -->
+            <section class="bg-white rounded-lg p-6 shadow-craft">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Relevant Work Examples</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Portfolio Selection -->
+                    <div>
+                        <label class="form-label">Select from Your Portfolio</label>
+                        <div class="space-y-3 max-h-48 overflow-y-auto border border-gray-200 rounded-lg p-3">
+                            <label class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded cursor-pointer">
+                                <input type="checkbox" name="portfolio-items" value="kitchen-remodel-2023" class="rounded" />
+                                <img src="https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Kitchen Remodel" class="w-12 h-12 rounded object-cover" />
+                                <div class="flex-1">
+                                    <p class="font-medium text-sm">Modern Kitchen Remodel</p>
+                                    <p class="text-xs text-gray-500">Completed 2023</p>
+                                </div>
+                            </label>
+                            <label class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded cursor-pointer">
+                                <input type="checkbox" name="portfolio-items" value="cabinet-install-2024" class="rounded" />
+                                <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Cabinet Installation" class="w-12 h-12 rounded object-cover" />
+                                <div class="flex-1">
+                                    <p class="font-medium text-sm">Custom Cabinet Installation</p>
+                                    <p class="text-xs text-gray-500">Completed 2024</p>
+                                </div>
+                            </label>
+                            <label class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded cursor-pointer">
+                                <input type="checkbox" name="portfolio-items" value="woodwork-2023" class="rounded" />
+                                <img src="https://images.pexels.com/photos/1669799/pexels-photo-1669799.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Custom Woodwork" class="w-12 h-12 rounded object-cover" />
+                                <div class="flex-1">
+                                    <p class="font-medium text-sm">Custom Woodwork Project</p>
+                                    <p class="text-xs text-gray-500">Completed 2023</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Photo Upload -->
+                    <div>
+                        <label class="form-label">Upload New Images</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-colors">
+                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <div class="mt-4">
+                                <label for="file-upload" class="cursor-pointer">
+                                    <span class="text-primary font-medium">Upload photos</span>
+                                    <span class="text-gray-500"> or drag and drop</span>
+                                    <input id="file-upload" name="file-upload" type="file" class="sr-only" multiple accept="image/*" onchange="handleFileUpload(this)" />
+                                </label>
+                                <p class="text-xs text-gray-500 mt-1">PNG, JPG up to 10MB each</p>
+                            </div>
+                        </div>
+                        <div id="uploaded-files" class="mt-3 space-y-2"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Supporting Documents -->
+            <section class="bg-white rounded-lg p-6 shadow-craft">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Supporting Documents</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="form-label">Certificates & Licenses</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="certificates" value="license" class="rounded" />
+                                <span class="text-sm">Contractor License</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="certificates" value="insurance" class="rounded" />
+                                <span class="text-sm">Liability Insurance</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="certificates" value="certification" class="rounded" />
+                                <span class="text-sm">Trade Certification</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="document-upload" class="form-label">Additional Documents</label>
+                        <div class="border border-gray-300 rounded-lg p-4">
+                            <input type="file" id="document-upload" name="documents" multiple accept=".pdf,.doc,.docx" class="w-full text-sm" />
+                            <p class="text-xs text-gray-500 mt-1">PDF, DOC, DOCX up to 5MB each</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Proposal Strength Score -->
+            <div class="bg-gradient-to-r from-success-50 to-primary-50 rounded-lg p-6 border border-success-200">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-gray-900">Proposal Strength</h3>
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-success" id="strength-score">85</div>
+                        <div class="text-sm text-gray-600">Score</div>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-4 text-sm">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-success"></div>
+                        <span>Complete sections: 5/6</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-success"></div>
+                        <span>Portfolio examples: 2</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-accent"></div>
+                        <span>Price competitiveness: Good</span>
+                    </div>
+                </div>
+                <div id="improvement-suggestions" class="mt-3 text-sm text-gray-600">
+                    <p>💡 <strong>Tip:</strong> Add one more milestone to boost your score to 90+</p>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button type="button" class="btn-outline flex-1 sm:flex-none" onclick="saveDraft()">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12"/>
+                    </svg>
+                    Save Draft
+                </button>
+                <button type="button" class="btn-outline flex-1 sm:flex-none" onclick="previewProposal()">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                    Preview
+                </button>
+                <button type="submit" class="btn-primary flex-1">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                    </svg>
+                    Submit Proposal
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40">
+        <div class="grid grid-cols-3 h-16">
+            <button onclick="saveDraft()" class="flex flex-col items-center justify-center text-gray-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3"/>
+                </svg>
+                <span class="text-xs mt-1">Save</span>
+            </button>
+            
+            <button onclick="previewProposal()" class="flex flex-col items-center justify-center text-gray-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                <span class="text-xs mt-1">Preview</span>
+            </button>
+            
+            <button onclick="submitProposal()" class="flex flex-col items-center justify-center text-primary">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                </svg>
+                <span class="text-xs mt-1 font-medium">Submit</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-semibold">Proposal Preview</h3>
+                    <button onclick="closePreview()" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div id="preview-content" class="p-6">
+                <!-- Preview content will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Character count functionality
+        function updateCharCount(fieldId, maxLength) {
+            const field = document.getElementById(fieldId);
+            const counter = document.getElementById(fieldId + '-count');
+            const currentLength = field.value.length;
+            counter.textContent = `${currentLength}/${maxLength}`;
+            
+            if (currentLength > maxLength * 0.9) {
+                counter.classList.add('text-accent');
+            } else {
+                counter.classList.remove('text-accent');
+            }
+        }
+
+        // Progress tracking
+        function updateProgress() {
+            const requiredFields = [
+                'cover-letter', 'approach', 'start-date', 
+                'completion-date', 'total-price'
+            ];
+            
+            let completed = 0;
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field && field.value.trim()) {
+                    completed++;
+                }
+            });
+            
+            const percentage = (completed / requiredFields.length) * 100;
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            
+            progressBar.style.width = `${percentage}%`;
+            progressText.textContent = `${completed} of ${requiredFields.length} sections completed`;
+            
+            // Update proposal strength score
+            updateStrengthScore(completed, requiredFields.length);
+        }
+
+        // Proposal strength calculation
+        function updateStrengthScore(completed, total) {
+            const baseScore = (completed / total) * 70; // 70% for completion
+            const portfolioBonus = document.querySelectorAll('input[name="portfolio-items"]:checked').length * 5;
+            const certificateBonus = document.querySelectorAll('input[name="certificates"]:checked').length * 3;
+            
+            const totalScore = Math.min(100, Math.round(baseScore + portfolioBonus + certificateBonus));
+            document.getElementById('strength-score').textContent = totalScore;
+            
+            updateImprovementSuggestions(totalScore);
+        }
+
+        function updateImprovementSuggestions(score) {
+            const suggestions = document.getElementById('improvement-suggestions');
+            let tip = '';
+            
+            if (score < 70) {
+                tip = '💡 <strong>Tip:</strong> Complete all required sections to boost your score';
+            } else if (score < 85) {
+                tip = '💡 <strong>Tip:</strong> Add portfolio examples and certificates to improve competitiveness';
+            } else if (score < 95) {
+                tip = '💡 <strong>Tip:</strong> Include project milestones for better planning visibility';
+            } else {
+                tip = '🎉 <strong>Excellent!</strong> Your proposal is highly competitive';
+            }
+            
+            suggestions.innerHTML = `<p>${tip}</p>`;
+        }
+
+        // Pricing type toggle
+        function togglePricingType() {
+            const fixedPricing = document.getElementById('fixed-pricing');
+            const hourlyPricing = document.getElementById('hourly-pricing');
+            const selectedType = document.querySelector('input[name="pricing-type"]:checked').value;
+            
+            if (selectedType === 'fixed') {
+                fixedPricing.classList.remove('hidden');
+                hourlyPricing.classList.add('hidden');
+            } else {
+                fixedPricing.classList.add('hidden');
+                hourlyPricing.classList.remove('hidden');
+            }
+        }
+
+        // Add milestone functionality
+        let milestoneCount = 1;
+        function addMilestone() {
+            milestoneCount++;
+            const container = document.getElementById('milestones-container');
+            const milestoneHtml = `
+                <div class="milestone-item border border-gray-200 rounded-lg p-4">
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <input type="text" placeholder="Milestone name" class="form-input text-sm" name="milestone-name-${milestoneCount}" />
+                        <input type="date" class="form-input text-sm" name="milestone-date-${milestoneCount}" />
+                        <div class="flex items-center space-x-2">
+                            <input type="text" placeholder="Duration (days)" class="form-input text-sm flex-1" name="milestone-duration-${milestoneCount}" />
+                            <button type="button" onclick="removeMilestone(this)" class="text-red-500 hover:text-red-700">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', milestoneHtml);
+        }
+
+        function removeMilestone(button) {
+            button.closest('.milestone-item').remove();
+        }
+
+        // Cost breakdown functionality
+        let costItemCount = 1;
+        function addCostItem() {
+            costItemCount++;
+            const container = document.getElementById('cost-breakdown');
+            const costHtml = `
+                <div class="flex items-center space-x-2">
+                    <input type="text" placeholder="Item description" class="form-input text-sm flex-1" name="cost-item-${costItemCount}" />
+                    <div class="relative">
+                        <span class="absolute left-2 top-2 text-gray-500 text-sm">$</span>
+                        <input type="number" placeholder="0" class="form-input text-sm w-24 pl-6" name="cost-amount-${costItemCount}" />
+                    </div>
+                    <button type="button" onclick="removeCostItem(this)" class="text-red-500 hover:text-red-700">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7"/>
+                        </svg>
+                    </button>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', costHtml);
+        }
+
+        function removeCostItem(button) {
+            button.closest('div').remove();
+        }
+
+        // Market rate analysis
+        function calculateMarketRate() {
+            const marketInfo = document.getElementById('market-rate-info');
+            marketInfo.classList.remove('hidden');
+            
+            // Simulate market analysis
+            setTimeout(() => {
+                const totalPrice = document.getElementById('total-price').value;
+                let competitiveness = 'Competitive';
+                
+                if (totalPrice < 2200) {
+                    competitiveness = 'Very Competitive';
+                } else if (totalPrice > 2800) {
+                    competitiveness = 'Above Market';
+                }
+                
+                marketInfo.querySelector('span.font-semibold').textContent = competitiveness;
+            }, 500);
+        }
+
+        // File upload handling
+        function handleFileUpload(input) {
+            const files = input.files;
+            const container = document.getElementById('uploaded-files');
+            
+            Array.from(files).forEach(file => {
+                if (file.size > 10 * 1024 * 1024) { // 10MB limit
+                    alert(`File ${file.name} is too large. Maximum size is 10MB.`);
+                    return;
+                }
+                
+                const fileElement = document.createElement('div');
+                fileElement.className = 'flex items-center justify-between bg-gray-50 p-2 rounded';
+                fileElement.innerHTML = `
+                    <span class="text-sm text-gray-700">${file.name}</span>
+                    <button type="button" onclick="removeFile(this)" class="text-red-500 hover:text-red-700">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                `;
+                container.appendChild(fileElement);
+            });
+        }
+
+        function removeFile(button) {
+            button.parentElement.remove();
+        }
+
+        // Template loading
+        function loadTemplate(type) {
+            const templates = {
+                cover: `Dear [Client Name],
+
+I'm excited to submit my proposal for your kitchen cabinet installation project. With over 8 years of professional carpentry experience and a specialization in custom cabinet installations, I'm confident I can deliver exceptional results that exceed your expectations.
+
+What sets me apart:
+• Extensive experience with similar kitchen projects
+• Attention to detail and precision craftsmanship
+• Excellent client communication throughout the project
+• Fully licensed and insured
+
+I look forward to discussing your project in detail and answering any questions you may have.
+
+Best regards,
+[Your Name]`
+            };
+            
+            if (templates[type]) {
+                document.getElementById('cover-letter').value = templates[type];
+                updateCharCount('cover-letter', 1000);
+                updateProgress();
+            }
+        }
+
+        // Voice input (mock implementation)
+        function voiceInput(fieldId) {
+            // Mock voice input - in a real app, this would use Web Speech API
+            alert('Voice input feature would be implemented here using Web Speech API');
+        }
+
+        // Preview functionality
+        function previewProposal() {
+            const modal = document.getElementById('preview-modal');
+            const content = document.getElementById('preview-content');
+            
+            // Generate preview content
+            const coverLetter = document.getElementById('cover-letter').value;
+            const approach = document.getElementById('approach').value;
+            const totalPrice = document.getElementById('total-price').value;
+            
+            content.innerHTML = `
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="font-semibold text-gray-900 mb-2">Cover Letter</h4>
+                        <p class="text-gray-700 whitespace-pre-line">${coverLetter || 'Not provided'}</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900 mb-2">Project Approach</h4>
+                        <p class="text-gray-700 whitespace-pre-line">${approach || 'Not provided'}</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900 mb-2">Total Price</h4>
+                        <p class="text-2xl font-bold text-primary">$${totalPrice || '0'}</p>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closePreview() {
+            document.getElementById('preview-modal').classList.add('hidden');
+        }
+
+        // Save draft functionality
+        function saveDraft() {
+            // Mock save functionality
+            const formData = new FormData(document.getElementById('proposal-form'));
+            localStorage.setItem('proposal-draft', JSON.stringify(Object.fromEntries(formData)));
+            
+            // Show feedback
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.innerHTML = '✓ Saved';
+            button.classList.add('bg-success', 'text-white');
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.classList.remove('bg-success', 'text-white');
+            }, 2000);
+        }
+
+        // Form submission
+        function submitProposal() {
+            const form = document.getElementById('proposal-form');
+            if (form.checkValidity()) {
+                // Mock submission
+                alert('Proposal submitted successfully! The client will be notified and you can track the status in your dashboard.');
+                window.location.href = 'artisan_dashboard.html';
+            } else {
+                form.reportValidity();
+            }
+        }
+
+        // Auto-save functionality
+        let autoSaveTimer;
+        function setupAutoSave() {
+            const form = document.getElementById('proposal-form');
+            form.addEventListener('input', () => {
+                clearTimeout(autoSaveTimer);
+                autoSaveTimer = setTimeout(() => {
+                    const formData = new FormData(form);
+                    localStorage.setItem('proposal-autosave', JSON.stringify(Object.fromEntries(formData)));
+                }, 5000); // Auto-save every 5 seconds
+            });
+        }
+
+        // Load saved draft on page load
+        function loadDraft() {
+            const savedDraft = localStorage.getItem('proposal-draft') || localStorage.getItem('proposal-autosave');
+            if (savedDraft) {
+                const data = JSON.parse(savedDraft);
+                Object.keys(data).forEach(key => {
+                    const field = document.querySelector(`[name="${key}"]`);
+                    if (field) {
+                        field.value = data[key];
+                        if (field.type === 'checkbox' || field.type === 'radio') {
+                            field.checked = data[key] === field.value;
+                        }
+                    }
+                });
+                updateProgress();
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDraft();
+            setupAutoSave();
+            updateProgress();
+            
+            // Setup form submission
+            document.getElementById('proposal-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                submitProposal();
+            });
+        });
+
+        // Close modal on outside click
+        document.getElementById('preview-modal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                closePreview();
+            }
+        });
+    </script>
+</body>
+</html>

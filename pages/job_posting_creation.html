@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post a Job - Bricouli</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fbricoulil1075back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.5"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-craft sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="client_dashboard.html" class="flex items-center">
+                        <svg class="h-8 w-8 text-primary" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 4L24 4C26.2091 4 28 5.79086 28 8V24C28 26.2091 26.2091 28 24 28H8C5.79086 28 4 26.2091 4 24V8C4 5.79086 5.79086 4 8 4Z" fill="currentColor"/>
+                            <path d="M12 12H20V14H12V12Z" fill="white"/>
+                            <path d="M12 16H20V18H12V16Z" fill="white"/>
+                            <path d="M12 20H16V22H12V20Z" fill="white"/>
+                        </svg>
+                        <span class="ml-2 text-xl font-bold text-gray-900">Bricouli</span>
+                    </a>
+                </div>
+                
+                <!-- Header Actions -->
+                <div class="flex items-center space-x-4">
+                    <button class="btn-outline text-sm" onclick="saveDraft()">
+                        Save Draft
+                    </button>
+                    <a href="client_dashboard.html" class="text-gray-600 hover:text-gray-700 transition-colors duration-200">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Indicator -->
+    <div class="bg-white border-b border-gray-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-sm font-medium text-gray-700">Step <span id="currentStep">1</span> of 3</span>
+                <span class="text-sm text-gray-500" id="stepTitle">Project Details</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-primary h-2 rounded-full transition-all duration-300" id="progressBar" style="width: 33.33%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <form id="jobPostingForm" class="space-y-8">
+            <!-- Step 1: Project Details -->
+            <div id="step1" class="step-content">
+                <div class="bg-white rounded-lg shadow-craft p-6 md:p-8">
+                    <div class="mb-6">
+                        <h1 class="text-fluid-2xl font-bold text-gray-900 mb-2">Tell us about your project</h1>
+                        <p class="text-gray-600">Provide detailed information to help artisans understand your needs</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Project Title -->
+                        <div>
+                            <label class="form-label" for="projectTitle">Project Title *</label>
+                            <input type="text" id="projectTitle" name="projectTitle" class="form-input" placeholder="e.g., Kitchen renovation with new cabinets" maxlength="100" required />
+                            <div class="form-hint">Be specific and descriptive (max 100 characters)</div>
+                        </div>
+
+                        <!-- Category Selection -->
+                        <div>
+                            <label class="form-label">Category *</label>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <label class="category-option">
+                                    <input type="radio" name="category" value="plumbing" class="sr-only" />
+                                    <div class="category-card">
+                                        <svg class="w-8 h-8 text-accent mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                                        </svg>
+                                        <span class="text-sm font-medium">Plumbing</span>
+                                    </div>
+                                </label>
+                                
+                                <label class="category-option">
+                                    <input type="radio" name="category" value="electrical" class="sr-only" />
+                                    <div class="category-card">
+                                        <svg class="w-8 h-8 text-accent mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                        </svg>
+                                        <span class="text-sm font-medium">Electrical</span>
+                                    </div>
+                                </label>
+                                
+                                <label class="category-option">
+                                    <input type="radio" name="category" value="carpentry" class="sr-only" />
+                                    <div class="category-card">
+                                        <svg class="w-8 h-8 text-accent mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                        </svg>
+                                        <span class="text-sm font-medium">Carpentry</span>
+                                    </div>
+                                </label>
+                                
+                                <label class="category-option">
+                                    <input type="radio" name="category" value="painting" class="sr-only" />
+                                    <div class="category-card">
+                                        <svg class="w-8 h-8 text-accent mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 3H5a2 2 0 00-2 2v12a4 4 0 004 4h2a2 2 0 002-2V5a2 2 0 00-2-2z"/>
+                                        </svg>
+                                        <span class="text-sm font-medium">Painting</span>
+                                    </div>
+                                </label>
+                                
+                                <label class="category-option">
+                                    <input type="radio" name="category" value="roofing" class="sr-only" />
+                                    <div class="category-card">
+                                        <svg class="w-8 h-8 text-accent mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4a6 6 0 016-6h6a6 6 0 016 6v4"/>
+                                        </svg>
+                                        <span class="text-sm font-medium">Roofing</span>
+                                    </div>
+                                </label>
+                                
+                                <label class="category-option">
+                                    <input type="radio" name="category" value="flooring" class="sr-only" />
+                                    <div class="category-card">
+                                        <svg class="w-8 h-8 text-accent mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
+                                        </svg>
+                                        <span class="text-sm font-medium">Flooring</span>
+                                    </div>
+                                </label>
+                                
+                                <label class="category-option">
+                                    <input type="radio" name="category" value="hvac" class="sr-only" />
+                                    <div class="category-card">
+                                        <svg class="w-8 h-8 text-accent mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/>
+                                        </svg>
+                                        <span class="text-sm font-medium">HVAC</span>
+                                    </div>
+                                </label>
+                                
+                                <label class="category-option">
+                                    <input type="radio" name="category" value="other" class="sr-only" />
+                                    <div class="category-card">
+                                        <svg class="w-8 h-8 text-accent mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"/>
+                                        </svg>
+                                        <span class="text-sm font-medium">Other</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Project Description -->
+                        <div>
+                            <label class="form-label" for="projectDescription">Project Description *</label>
+                            <textarea id="projectDescription" name="projectDescription" rows="6" class="form-input" placeholder="Describe your project in detail. Include what needs to be done, any specific requirements, materials needed, and any other relevant information..." maxlength="2000" required></textarea>
+                            <div class="form-hint">
+                                <span>Provide as much detail as possible to help artisans understand your needs</span>
+                                <span class="float-right" id="descriptionCount">0/2000</span>
+                            </div>
+                        </div>
+
+                        <!-- Skill Level Required -->
+                        <div>
+                            <label class="form-label">Required Skill Level</label>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <label class="skill-level-option">
+                                    <input type="radio" name="skillLevel" value="beginner" class="sr-only" />
+                                    <div class="skill-card">
+                                        <div class="text-lg font-semibold text-success mb-1">Beginner</div>
+                                        <div class="text-sm text-gray-600">Simple tasks, basic skills required</div>
+                                    </div>
+                                </label>
+                                
+                                <label class="skill-level-option">
+                                    <input type="radio" name="skillLevel" value="intermediate" class="sr-only" checked />
+                                    <div class="skill-card">
+                                        <div class="text-lg font-semibold text-accent mb-1">Intermediate</div>
+                                        <div class="text-sm text-gray-600">Moderate complexity, some experience needed</div>
+                                    </div>
+                                </label>
+                                
+                                <label class="skill-level-option">
+                                    <input type="radio" name="skillLevel" value="expert" class="sr-only" />
+                                    <div class="skill-card">
+                                        <div class="text-lg font-semibold text-error mb-1">Expert</div>
+                                        <div class="text-sm text-gray-600">Complex project, specialized skills required</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Project Specifics -->
+            <div id="step2" class="step-content hidden">
+                <div class="bg-white rounded-lg shadow-craft p-6 md:p-8">
+                    <div class="mb-6">
+                        <h1 class="text-fluid-2xl font-bold text-gray-900 mb-2">Project specifics</h1>
+                        <p class="text-gray-600">Help artisans understand the timeline, budget, and location</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Budget Range -->
+                        <div>
+                            <label class="form-label">Budget Range *</label>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <label class="budget-option">
+                                    <input type="radio" name="budget" value="under-500" class="sr-only" />
+                                    <div class="budget-card">
+                                        <div class="text-lg font-semibold text-gray-900">Under $500</div>
+                                        <div class="text-sm text-gray-600">Small repairs & fixes</div>
+                                    </div>
+                                </label>
+                                
+                                <label class="budget-option">
+                                    <input type="radio" name="budget" value="500-2000" class="sr-only" />
+                                    <div class="budget-card">
+                                        <div class="text-lg font-semibold text-gray-900">$500 - $2,000</div>
+                                        <div class="text-sm text-gray-600">Medium projects</div>
+                                    </div>
+                                </label>
+                                
+                                <label class="budget-option">
+                                    <input type="radio" name="budget" value="2000-5000" class="sr-only" />
+                                    <div class="budget-card">
+                                        <div class="text-lg font-semibold text-gray-900">$2,000 - $5,000</div>
+                                        <div class="text-sm text-gray-600">Large improvements</div>
+                                    </div>
+                                </label>
+                                
+                                <label class="budget-option">
+                                    <input type="radio" name="budget" value="5000-10000" class="sr-only" />
+                                    <div class="budget-card">
+                                        <div class="text-lg font-semibold text-gray-900">$5,000 - $10,000</div>
+                                        <div class="text-sm text-gray-600">Major renovations</div>
+                                    </div>
+                                </label>
+                                
+                                <label class="budget-option">
+                                    <input type="radio" name="budget" value="10000-plus" class="sr-only" />
+                                    <div class="budget-card">
+                                        <div class="text-lg font-semibold text-gray-900">$10,000+</div>
+                                        <div class="text-sm text-gray-600">Premium projects</div>
+                                    </div>
+                                </label>
+                                
+                                <label class="budget-option">
+                                    <input type="radio" name="budget" value="custom" class="sr-only" />
+                                    <div class="budget-card">
+                                        <div class="text-lg font-semibold text-gray-900">Custom Range</div>
+                                        <div class="text-sm text-gray-600">Set your own budget</div>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <!-- Custom Budget Input -->
+                            <div id="customBudgetInput" class="mt-4 hidden">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="form-label" for="budgetMin">Minimum Budget</label>
+                                        <div class="relative">
+                                            <span class="absolute left-3 top-3 text-gray-500">$</span>
+                                            <input type="number" id="budgetMin" name="budgetMin" class="form-input pl-8" placeholder="0" min="0" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="budgetMax">Maximum Budget</label>
+                                        <div class="relative">
+                                            <span class="absolute left-3 top-3 text-gray-500">$</span>
+                                            <input type="number" id="budgetMax" name="budgetMax" class="form-input pl-8" placeholder="0" min="0" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Timeline -->
+                        <div>
+                            <label class="form-label">Project Timeline *</label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <label class="timeline-option">
+                                    <input type="radio" name="timeline" value="asap" class="sr-only" />
+                                    <div class="timeline-card">
+                                        <div class="text-lg font-semibold text-error mb-1">ASAP</div>
+                                        <div class="text-sm text-gray-600">Urgent - start within 1-2 days</div>
+                                    </div>
+                                </label>
+                                
+                                <label class="timeline-option">
+                                    <input type="radio" name="timeline" value="this-week" class="sr-only" />
+                                    <div class="timeline-card">
+                                        <div class="text-lg font-semibold text-accent mb-1">This Week</div>
+                                        <div class="text-sm text-gray-600">Start within 7 days</div>
+                                    </div>
+                                </label>
+                                
+                                <label class="timeline-option">
+                                    <input type="radio" name="timeline" value="this-month" class="sr-only" />
+                                    <div class="timeline-card">
+                                        <div class="text-lg font-semibold text-primary mb-1">This Month</div>
+                                        <div class="text-sm text-gray-600">Start within 30 days</div>
+                                    </div>
+                                </label>
+                                
+                                <label class="timeline-option">
+                                    <input type="radio" name="timeline" value="flexible" class="sr-only" checked />
+                                    <div class="timeline-card">
+                                        <div class="text-lg font-semibold text-success mb-1">Flexible</div>
+                                        <div class="text-sm text-gray-600">No rush - planning ahead</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="form-label" for="address">Project Address *</label>
+                                <input type="text" id="address" name="address" class="form-input" placeholder="Enter street address" required />
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="form-label" for="city">City *</label>
+                                    <input type="text" id="city" name="city" class="form-input" placeholder="City" required />
+                                </div>
+                                <div>
+                                    <label class="form-label" for="zipCode">ZIP Code *</label>
+                                    <input type="text" id="zipCode" name="zipCode" class="form-input" placeholder="ZIP" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Materials -->
+                        <div>
+                            <label class="form-label">Materials</label>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <label class="materials-option">
+                                    <input type="radio" name="materials" value="provided" class="sr-only" />
+                                    <div class="materials-card">
+                                        <div class="text-lg font-semibold text-success mb-1">I'll Provide</div>
+                                        <div class="text-sm text-gray-600">Materials already purchased</div>
+                                    </div>
+                                </label>
+                                
+                                <label class="materials-option">
+                                    <input type="radio" name="materials" value="artisan" class="sr-only" checked />
+                                    <div class="materials-card">
+                                        <div class="text-lg font-semibold text-primary mb-1">Artisan Provides</div>
+                                        <div class="text-sm text-gray-600">Include in quote</div>
+                                    </div>
+                                </label>
+                                
+                                <label class="materials-option">
+                                    <input type="radio" name="materials" value="discuss" class="sr-only" />
+                                    <div class="materials-card">
+                                        <div class="text-lg font-semibold text-accent mb-1">Let's Discuss</div>
+                                        <div class="text-sm text-gray-600">Decide together</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Additional Requirements -->
+                        <div>
+                            <label class="form-label" for="requirements">Additional Requirements</label>
+                            <textarea id="requirements" name="requirements" rows="4" class="form-input" placeholder="Any special requirements, access restrictions, preferred working hours, etc..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Photos & Review -->
+            <div id="step3" class="step-content hidden">
+                <div class="space-y-6">
+                    <!-- Photo Upload -->
+                    <div class="bg-white rounded-lg shadow-craft p-6 md:p-8">
+                        <div class="mb-6">
+                            <h2 class="text-xl font-bold text-gray-900 mb-2">Add Photos</h2>
+                            <p class="text-gray-600">Help artisans visualize your project with reference photos</p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Upload Area -->
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary transition-colors duration-200" id="uploadArea">
+                                <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                                </svg>
+                                <div class="text-gray-600">
+                                    <button type="button" class="btn-primary mr-2" onclick="document.getElementById('photoInput').click()">
+                                        Choose Photos
+                                    </button>
+                                    or drag and drop here
+                                </div>
+                                <p class="text-sm text-gray-500 mt-2">PNG, JPG, GIF up to 10MB each (max 5 photos)</p>
+                                <input type="file" id="photoInput" name="photos" multiple accept="image/*" class="hidden" />
+                            </div>
+
+                            <!-- Preview Area -->
+                            <div id="photoPreview" class="grid grid-cols-2 md:grid-cols-5 gap-4 hidden">
+                                <!-- Photo previews will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Summary -->
+                    <div class="bg-white rounded-lg shadow-craft p-6 md:p-8">
+                        <div class="mb-6">
+                            <h2 class="text-xl font-bold text-gray-900 mb-2">Review Your Posting</h2>
+                            <p class="text-gray-600">Make sure everything looks correct before publishing</p>
+                        </div>
+
+                        <div class="space-y-6" id="projectSummary">
+                            <!-- Summary content will be populated by JavaScript -->
+                        </div>
+
+                        <!-- Posting Options -->
+                        <div class="mt-8 p-4 bg-gray-50 rounded-lg">
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">Posting Fee</h3>
+                                    <p class="text-sm text-gray-600">One-time fee to publish your project</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-2xl font-bold text-primary">$9.99</div>
+                                    <div class="text-sm text-gray-500">30-day listing</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-3 text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Get proposals from verified artisans</span>
+                            </div>
+                            
+                            <div class="flex items-center space-x-3 text-sm text-gray-600 mt-2">
+                                <svg class="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Message artisans directly through our platform</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Publishing Options -->
+                    <div class="bg-white rounded-lg shadow-craft p-6 md:p-8">
+                        <h3 class="font-semibold text-gray-900 mb-4">Publishing Options</h3>
+                        
+                        <div class="space-y-3">
+                            <label class="flex items-center">
+                                <input type="radio" name="publishOption" value="now" class="form-radio text-primary" checked />
+                                <span class="ml-2">Publish now and start receiving proposals</span>
+                            </label>
+                            
+                            <label class="flex items-center">
+                                <input type="radio" name="publishOption" value="schedule" class="form-radio text-primary" />
+                                <span class="ml-2">Schedule for later</span>
+                            </label>
+                        </div>
+
+                        <div id="scheduleOptions" class="mt-4 hidden">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="form-label" for="scheduleDate">Publish Date</label>
+                                    <input type="date" id="scheduleDate" name="scheduleDate" class="form-input" />
+                                </div>
+                                <div>
+                                    <label class="form-label" for="scheduleTime">Publish Time</label>
+                                    <input type="time" id="scheduleTime" name="scheduleTime" class="form-input" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex justify-between items-center pt-6">
+                <button type="button" id="prevBtn" class="btn-outline" onclick="previousStep()" disabled>
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                    Previous
+                </button>
+                
+                <div class="text-sm text-gray-500" id="autoSaveStatus">
+                    <!-- Auto-save status will appear here -->
+                </div>
+                
+                <button type="button" id="nextBtn" class="btn-primary" onclick="nextStep()">
+                    Next
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </button>
+                
+                <button type="submit" id="publishBtn" class="btn-primary hidden" onclick="publishProject()">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                    </svg>
+                    Publish Project
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <style>
+        .category-card, .skill-card, .budget-card, .timeline-card, .materials-card {
+            @apply border border-gray-200 rounded-lg p-4 text-center cursor-pointer transition-all duration-200 hover:border-primary hover:shadow-craft-md;
+        }
+        
+        .category-option input:checked + .category-card,
+        .skill-level-option input:checked + .skill-card,
+        .budget-option input:checked + .budget-card,
+        .timeline-option input:checked + .timeline-card,
+        .materials-option input:checked + .materials-card {
+            @apply border-primary bg-primary-50;
+        }
+
+        .form-radio {
+            @apply text-primary focus:ring-primary/20;
+        }
+
+        .photo-preview {
+            @apply relative border border-gray-200 rounded-lg overflow-hidden;
+        }
+
+        .photo-preview img {
+            @apply w-full h-24 object-cover;
+        }
+
+        .photo-preview button {
+            @apply absolute top-1 right-1 bg-error text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-error-600 transition-colors duration-200;
+        }
+    </style>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 3;
+        const stepTitles = ['Project Details', 'Project Specifics', 'Photos & Review'];
+
+        // Initialize form
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStepIndicator();
+            initializeFormHandlers();
+            initializeAutoSave();
+        });
+
+        function initializeFormHandlers() {
+            // Description character counter
+            const descriptionField = document.getElementById('projectDescription');
+            const descriptionCounter = document.getElementById('descriptionCount');
+            
+            descriptionField.addEventListener('input', function() {
+                const count = this.value.length;
+                descriptionCounter.textContent = `${count}/2000`;
+                if (count > 1800) {
+                    descriptionCounter.classList.add('text-accent');
+                } else {
+                    descriptionCounter.classList.remove('text-accent');
+                }
+            });
+
+            // Custom budget toggle
+            const budgetOptions = document.querySelectorAll('input[name="budget"]');
+            const customBudgetInput = document.getElementById('customBudgetInput');
+            
+            budgetOptions.forEach(option => {
+                option.addEventListener('change', function() {
+                    if (this.value === 'custom') {
+                        customBudgetInput.classList.remove('hidden');
+                    } else {
+                        customBudgetInput.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Schedule options toggle
+            const publishOptions = document.querySelectorAll('input[name="publishOption"]');
+            const scheduleOptions = document.getElementById('scheduleOptions');
+            
+            publishOptions.forEach(option => {
+                option.addEventListener('change', function() {
+                    if (this.value === 'schedule') {
+                        scheduleOptions.classList.remove('hidden');
+                    } else {
+                        scheduleOptions.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Photo upload handling
+            const photoInput = document.getElementById('photoInput');
+            const uploadArea = document.getElementById('uploadArea');
+            const photoPreview = document.getElementById('photoPreview');
+            
+            photoInput.addEventListener('change', handlePhotoUpload);
+            
+            // Drag and drop
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.classList.add('border-primary', 'bg-primary-50');
+            });
+            
+            uploadArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                this.classList.remove('border-primary', 'bg-primary-50');
+            });
+            
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('border-primary', 'bg-primary-50');
+                const files = e.dataTransfer.files;
+                handlePhotoFiles(files);
+            });
+        }
+
+        function handlePhotoUpload(e) {
+            const files = e.target.files;
+            handlePhotoFiles(files);
+        }
+
+        function handlePhotoFiles(files) {
+            const photoPreview = document.getElementById('photoPreview');
+            const maxFiles = 5;
+            const maxSize = 10 * 1024 * 1024; // 10MB
+            
+            if (files.length > maxFiles) {
+                alert(`You can only upload up to ${maxFiles} photos.`);
+                return;
+            }
+            
+            photoPreview.innerHTML = '';
+            photoPreview.classList.remove('hidden');
+            
+            Array.from(files).forEach((file, index) => {
+                if (file.size > maxSize) {
+                    alert(`${file.name} is too large. Maximum size is 10MB.`);
+                    return;
+                }
+                
+                if (!file.type.startsWith('image/')) {
+                    alert(`${file.name} is not an image file.`);
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const photoDiv = document.createElement('div');
+                    photoDiv.className = 'photo-preview';
+                    photoDiv.innerHTML = `
+                        <img src="${e.target.result}" alt="Project photo ${index + 1}">
+                        <button type="button" onclick="removePhoto(this)">×</button>
+                    `;
+                    photoPreview.appendChild(photoDiv);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function removePhoto(button) {
+            const photoDiv = button.parentElement;
+            photoDiv.remove();
+            
+            const photoPreview = document.getElementById('photoPreview');
+            if (photoPreview.children.length === 0) {
+                photoPreview.classList.add('hidden');
+            }
+        }
+
+        function nextStep() {
+            if (validateCurrentStep()) {
+                if (currentStep < totalSteps) {
+                    document.getElementById(`step${currentStep}`).classList.add('hidden');
+                    currentStep++;
+                    document.getElementById(`step${currentStep}`).classList.remove('hidden');
+                    updateStepIndicator();
+                    
+                    if (currentStep === 3) {
+                        generateProjectSummary();
+                    }
+                }
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step${currentStep}`).classList.add('hidden');
+                currentStep--;
+                document.getElementById(`step${currentStep}`).classList.remove('hidden');
+                updateStepIndicator();
+            }
+        }
+
+        function updateStepIndicator() {
+            document.getElementById('currentStep').textContent = currentStep;
+            document.getElementById('stepTitle').textContent = stepTitles[currentStep - 1];
+            
+            const progressBar = document.getElementById('progressBar');
+            const progressPercent = (currentStep / totalSteps) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+            
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const publishBtn = document.getElementById('publishBtn');
+            
+            prevBtn.disabled = currentStep === 1;
+            
+            if (currentStep === totalSteps) {
+                nextBtn.classList.add('hidden');
+                publishBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                publishBtn.classList.add('hidden');
+            }
+        }
+
+        function validateCurrentStep() {
+            const currentStepElement = document.getElementById(`step${currentStep}`);
+            const requiredFields = currentStepElement.querySelectorAll('[required]');
+            const radioGroups = ['category', 'budget', 'timeline'];
+            
+            let isValid = true;
+            
+            // Validate required text inputs
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('border-error-500');
+                    isValid = false;
+                } else {
+                    field.classList.remove('border-error-500');
+                }
+            });
+            
+            // Validate radio groups for current step
+            if (currentStep === 1) {
+                if (!document.querySelector('input[name="category"]:checked')) {
+                    alert('Please select a project category.');
+                    isValid = false;
+                }
+            }
+            
+            if (currentStep === 2) {
+                if (!document.querySelector('input[name="budget"]:checked')) {
+                    alert('Please select a budget range.');
+                    isValid = false;
+                }
+                if (!document.querySelector('input[name="timeline"]:checked')) {
+                    alert('Please select a timeline.');
+                    isValid = false;
+                }
+            }
+            
+            return isValid;
+        }
+
+        function generateProjectSummary() {
+            const formData = new FormData(document.getElementById('jobPostingForm'));
+            const summary = document.getElementById('projectSummary');
+            
+            const projectTitle = formData.get('projectTitle');
+            const category = formData.get('category');
+            const description = formData.get('projectDescription');
+            const skillLevel = formData.get('skillLevel');
+            const budget = formData.get('budget');
+            const timeline = formData.get('timeline');
+            const address = formData.get('address');
+            const city = formData.get('city');
+            const zipCode = formData.get('zipCode');
+            const materials = formData.get('materials');
+            
+            summary.innerHTML = `
+                <div class="border-b border-gray-200 pb-4">
+                    <h3 class="text-lg font-semibold text-gray-900">${projectTitle}</h3>
+                    <div class="flex items-center space-x-4 mt-2 text-sm text-gray-600">
+                        <span class="bg-primary-100 text-primary-600 px-2 py-1 rounded">${category.charAt(0).toUpperCase() + category.slice(1)}</span>
+                        <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">${skillLevel.charAt(0).toUpperCase() + skillLevel.slice(1)} Level</span>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                    <div>
+                        <h4 class="font-medium text-gray-900 mb-2">Project Details</h4>
+                        <p class="text-sm text-gray-600 mb-4">${description}</p>
+                        
+                        <h4 class="font-medium text-gray-900 mb-2">Timeline & Budget</h4>
+                        <div class="space-y-1 text-sm text-gray-600">
+                            <div>Timeline: ${timeline.replace('-', ' ').charAt(0).toUpperCase() + timeline.slice(1)}</div>
+                            <div>Budget: ${budget.replace('-', ' to $').replace('plus', '+')}</div>
+                            <div>Materials: ${materials.charAt(0).toUpperCase() + materials.slice(1)}</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium text-gray-900 mb-2">Location</h4>
+                        <div class="text-sm text-gray-600">
+                            <div>${address}</div>
+                            <div>${city}, ${zipCode}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function saveDraft() {
+            const formData = new FormData(document.getElementById('jobPostingForm'));
+            localStorage.setItem('jobDraft', JSON.stringify(Object.fromEntries(formData)));
+            
+            const status = document.getElementById('autoSaveStatus');
+            status.textContent = 'Draft saved';
+            status.classList.add('text-success');
+            
+            setTimeout(() => {
+                status.textContent = '';
+                status.classList.remove('text-success');
+            }, 2000);
+        }
+
+        function initializeAutoSave() {
+            // Auto-save every 30 seconds
+            setInterval(() => {
+                if (document.getElementById('projectTitle').value) {
+                    saveDraft();
+                }
+            }, 30000);
+            
+            // Load draft if exists
+            const draft = localStorage.getItem('jobDraft');
+            if (draft) {
+                const draftData = JSON.parse(draft);
+                Object.keys(draftData).forEach(key => {
+                    const field = document.querySelector(`[name="${key}"]`);
+                    if (field) {
+                        if (field.type === 'radio') {
+                            const radioOption = document.querySelector(`[name="${key}"][value="${draftData[key]}"]`);
+                            if (radioOption) radioOption.checked = true;
+                        } else {
+                            field.value = draftData[key];
+                        }
+                    }
+                });
+            }
+        }
+
+        function publishProject() {
+            if (validateCurrentStep()) {
+                // Show loading state
+                const publishBtn = document.getElementById('publishBtn');
+                const originalText = publishBtn.innerHTML;
+                publishBtn.innerHTML = `
+                    <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Publishing...
+                `;
+                publishBtn.disabled = true;
+
+                // Simulate API call
+                setTimeout(() => {
+                    // Clear draft
+                    localStorage.removeItem('jobDraft');
+                    
+                    // Redirect to success page or dashboard
+                    alert('Project published successfully! You will start receiving proposals soon.');
+                    window.location.href = 'client_dashboard.html';
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>

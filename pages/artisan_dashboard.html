@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artisan Dashboard - Bricouli</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fbricoulil1075back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.5"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-craft sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="landing_page_with_role_selection.html" class="flex items-center">
+                        <svg class="h-8 w-8 text-primary" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 4L24 4C26.2091 4 28 5.79086 28 8V24C28 26.2091 26.2091 28 24 28H8C5.79086 28 4 26.2091 4 24V8C4 5.79086 5.79086 4 8 4Z" fill="currentColor"/>
+                            <path d="M12 12H20V14H12V12Z" fill="white"/>
+                            <path d="M12 16H20V18H12V16Z" fill="white"/>
+                            <path d="M12 20H16V22H12V20Z" fill="white"/>
+                        </svg>
+                        <span class="ml-2 text-xl font-bold text-gray-900">Bricouli</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-6">
+                    <!-- Notifications -->
+                    <button class="relative p-2 text-gray-600 hover:text-primary transition-colors duration-200">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM10.07 2.82l3.93 3.93-3.93 3.93-3.93-3.93 3.93-3.93z"/>
+                        </svg>
+                        <span class="absolute -top-1 -right-1 bg-error text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                    </button>
+                    
+                    <!-- Messages -->
+                    <button class="relative p-2 text-gray-600 hover:text-primary transition-colors duration-200">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                        <span class="absolute -top-1 -right-1 bg-success text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">2</span>
+                    </button>
+                    
+                    <!-- Profile Menu -->
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 text-gray-700 hover:text-primary transition-colors duration-200">
+                            <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Profile" class="w-8 h-8 rounded-full object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                            <span class="font-medium">John Smith</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="lg:hidden p-2 text-gray-600 hover:text-primary transition-colors duration-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-20 lg:pb-6">
+        <!-- Welcome Section -->
+        <div class="mb-8">
+            <h1 class="text-fluid-2xl font-bold text-gray-900 mb-2">
+                Welcome back, John!
+            </h1>
+            <p class="text-fluid-base text-gray-600">
+                Manage your projects and grow your business
+            </p>
+        </div>
+
+        <!-- Profile Completion Banner -->
+        <div class="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-lg p-6 mb-8 border border-primary-200">
+            <div class="flex items-center justify-between">
+                <div class="flex-1">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Complete Your Profile</h3>
+                    <p class="text-gray-600 mb-4">Boost your visibility by 75% with a complete profile</p>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+                        <div class="bg-primary h-2 rounded-full" style="width: 65%"></div>
+                    </div>
+                    <span class="text-sm text-gray-600">65% Complete</span>
+                </div>
+                <div class="ml-6">
+                    <button class="btn-primary">
+                        Complete Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Summary -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Profile Views -->
+            <div class="bg-white rounded-lg p-6 shadow-craft">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">Profile Views</p>
+                        <p class="text-2xl font-bold text-gray-900">247</p>
+                        <p class="text-sm text-success">+12% this week</p>
+                    </div>
+                    <div class="w-12 h-12 bg-primary-50 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Applications -->
+            <div class="bg-white rounded-lg p-6 shadow-craft">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">Applications Sent</p>
+                        <p class="text-2xl font-bold text-gray-900">18</p>
+                        <p class="text-sm text-accent">5 pending responses</p>
+                    </div>
+                    <div class="w-12 h-12 bg-secondary-50 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Earnings -->
+            <div class="bg-white rounded-lg p-6 shadow-craft">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">This Month</p>
+                        <p class="text-2xl font-bold text-gray-900">$3,240</p>
+                        <p class="text-sm text-success">+8% from last month</p>
+                    </div>
+                    <div class="w-12 h-12 bg-success-50 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard Grid -->
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Left Column - Jobs & Applications -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Available Jobs -->
+                <section>
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-fluid-xl font-bold text-gray-900">Available Jobs</h2>
+                        <div class="flex items-center space-x-3">
+                            <!-- Filter Button -->
+                            <button class="btn-outline flex items-center space-x-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.414A1 1 0 013 6.707V4z"/>
+                                </svg>
+                                <span>Filter</span>
+                            </button>
+                            <a href="#" class="btn-primary">
+                                Browse All Jobs
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Job Cards -->
+                    <div class="space-y-4">
+                        <!-- Job Card 1 -->
+                        <div class="bg-white rounded-lg p-6 shadow-craft hover:shadow-craft-md transition-shadow duration-200">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Kitchen Cabinet Installation</h3>
+                                    <p class="text-gray-600 mb-3">Need experienced carpenter for custom kitchen cabinet installation. High-quality materials provided.</p>
+                                    <div class="flex items-center space-x-4 text-sm text-gray-500">
+                                        <span class="flex items-center">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                            </svg>
+                                            Downtown, Seattle
+                                        </span>
+                                        <span class="flex items-center">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                            </svg>
+                                            Posted 2 days ago
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="text-right ml-4">
+                                    <p class="text-xl font-bold text-primary">$2,500</p>
+                                    <p class="text-sm text-gray-500">Fixed Price</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="bg-accent-100 text-accent-600 px-2 py-1 rounded-full text-xs font-medium">Carpentry</span>
+                                    <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs">Urgent</span>
+                                </div>
+                                <button class="btn-primary">
+                                    Apply Now
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Job Card 2 -->
+                        <div class="bg-white rounded-lg p-6 shadow-craft hover:shadow-craft-md transition-shadow duration-200">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Bathroom Plumbing Repair</h3>
+                                    <p class="text-gray-600 mb-3">Emergency plumbing repair needed for bathroom fixtures. Must be available this weekend.</p>
+                                    <div class="flex items-center space-x-4 text-sm text-gray-500">
+                                        <span class="flex items-center">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                            </svg>
+                                            Bellevue, WA
+                                        </span>
+                                        <span class="flex items-center">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                            </svg>
+                                            Posted 1 hour ago
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="text-right ml-4">
+                                    <p class="text-xl font-bold text-primary">$85/hr</p>
+                                    <p class="text-sm text-gray-500">Hourly Rate</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="bg-primary-100 text-primary-600 px-2 py-1 rounded-full text-xs font-medium">Plumbing</span>
+                                    <span class="bg-error-100 text-error-600 px-2 py-1 rounded-full text-xs">Emergency</span>
+                                </div>
+                                <button class="btn-primary">
+                                    Apply Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- My Applications -->
+                <section>
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-fluid-xl font-bold text-gray-900">My Applications</h2>
+                        <a href="#" class="text-primary hover:text-primary-700 font-medium">View All</a>
+                    </div>
+
+                    <!-- Application Cards -->
+                    <div class="space-y-4">
+                        <!-- Application 1 -->
+                        <div class="bg-white rounded-lg p-6 shadow-craft">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-1">Deck Construction Project</h3>
+                                    <p class="text-gray-600 mb-2">Applied 3 days ago</p>
+                                    <div class="flex items-center space-x-4 text-sm text-gray-500">
+                                        <span>Budget: $4,200</span>
+                                        <span>•</span>
+                                        <span>Redmond, WA</span>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <span class="bg-accent-100 text-accent-600 px-3 py-1 rounded-full text-sm font-medium">
+                                        Under Review
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm text-gray-600">Client typically responds within 2 days</p>
+                                <button class="text-primary hover:text-primary-700 font-medium text-sm">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Application 2 -->
+                        <div class="bg-white rounded-lg p-6 shadow-craft">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-1">Electrical Panel Upgrade</h3>
+                                    <p class="text-gray-600 mb-2">Applied 1 week ago</p>
+                                    <div class="flex items-center space-x-4 text-sm text-gray-500">
+                                        <span>Budget: $1,800</span>
+                                        <span>•</span>
+                                        <span>Kirkland, WA</span>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <span class="bg-success-100 text-success-600 px-3 py-1 rounded-full text-sm font-medium">
+                                        Accepted
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm text-gray-600">Project starts next Monday</p>
+                                <button class="text-primary hover:text-primary-700 font-medium text-sm">
+                                    View Contract
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column - Active Projects & Analytics -->
+            <div class="space-y-8">
+                <!-- Active Projects -->
+                <section>
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-fluid-xl font-bold text-gray-900">Active Projects</h2>
+                        <a href="#" class="text-primary hover:text-primary-700 font-medium">View All</a>
+                    </div>
+
+                    <!-- Project Cards -->
+                    <div class="space-y-4">
+                        <!-- Project 1 -->
+                        <div class="bg-white rounded-lg p-6 shadow-craft">
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <h3 class="font-semibold text-gray-900 mb-1">Home Office Renovation</h3>
+                                    <p class="text-sm text-gray-600">Sarah Johnson</p>
+                                </div>
+                                <span class="bg-success-100 text-success-600 px-2 py-1 rounded-full text-xs font-medium">
+                                    In Progress
+                                </span>
+                            </div>
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between text-sm text-gray-600 mb-2">
+                                    <span>Progress</span>
+                                    <span>75%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-success h-2 rounded-full" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-gray-600">Due: Dec 15, 2024</span>
+                                <span class="text-primary font-medium">$3,200</span>
+                            </div>
+                        </div>
+
+                        <!-- Project 2 -->
+                        <div class="bg-white rounded-lg p-6 shadow-craft">
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <h3 class="font-semibold text-gray-900 mb-1">Kitchen Backsplash</h3>
+                                    <p class="text-sm text-gray-600">Mike Chen</p>
+                                </div>
+                                <span class="bg-accent-100 text-accent-600 px-2 py-1 rounded-full text-xs font-medium">
+                                    Starting Soon
+                                </span>
+                            </div>
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between text-sm text-gray-600 mb-2">
+                                    <span>Progress</span>
+                                    <span>0%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-gray-300 h-2 rounded-full" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-gray-600">Starts: Dec 20, 2024</span>
+                                <span class="text-primary font-medium">$1,500</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quick Actions -->
+                <section>
+                    <h2 class="text-fluid-xl font-bold text-gray-900 mb-6">Quick Actions</h2>
+                    <div class="space-y-3">
+                        <button class="w-full btn-primary flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                            <span>Search Jobs</span>
+                        </button>
+                        <button class="w-full btn-outline flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <span>Schedule Calendar</span>
+                        </button>
+                        <button class="w-full btn-outline flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 110-2h4zM9 6v10h6V6H9z"/>
+                            </svg>
+                            <span>Upload Documents</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Earnings Chart -->
+                <section class="hidden lg:block">
+                    <h2 class="text-fluid-xl font-bold text-gray-900 mb-6">Earnings Overview</h2>
+                    <div class="bg-white rounded-lg p-6 shadow-craft">
+                        <div class="h-48 flex items-end justify-between space-x-2">
+                            <!-- Simple Bar Chart -->
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 bg-primary rounded-t" style="height: 60px;"></div>
+                                <span class="text-xs text-gray-500 mt-2">Jan</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 bg-primary rounded-t" style="height: 80px;"></div>
+                                <span class="text-xs text-gray-500 mt-2">Feb</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 bg-primary rounded-t" style="height: 120px;"></div>
+                                <span class="text-xs text-gray-500 mt-2">Mar</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 bg-primary rounded-t" style="height: 100px;"></div>
+                                <span class="text-xs text-gray-500 mt-2">Apr</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 bg-primary rounded-t" style="height: 140px;"></div>
+                                <span class="text-xs text-gray-500 mt-2">May</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 bg-primary rounded-t" style="height: 160px;"></div>
+                                <span class="text-xs text-gray-500 mt-2">Jun</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <p class="text-sm text-gray-600">Monthly earnings trend</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40">
+        <div class="grid grid-cols-4 h-16">
+            <!-- Dashboard -->
+            <a href="artisan_dashboard.html" class="flex flex-col items-center justify-center text-primary">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                </svg>
+                <span class="text-xs mt-1 font-medium">Dashboard</span>
+            </a>
+            
+            <!-- Jobs -->
+            <a href="#" class="flex flex-col items-center justify-center text-gray-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0H8m8 0v2a2 2 0 01-2 2H10a2 2 0 01-2-2V6"/>
+                </svg>
+                <span class="text-xs mt-1">Jobs</span>
+            </a>
+            
+            <!-- Profile -->
+            <a href="#" class="flex flex-col items-center justify-center text-gray-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                </svg>
+                <span class="text-xs mt-1">Profile</span>
+            </a>
+            
+            <!-- Earnings -->
+            <a href="#" class="flex flex-col items-center justify-center text-gray-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+                </svg>
+                <span class="text-xs mt-1">Earnings</span>
+            </a>
+        </div>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join as Artisan - Bricouli</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fbricoulil1075back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.5"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-craft sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="landing_page_with_role_selection.html" class="flex items-center">
+                        <svg class="h-8 w-8 text-primary" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 4L24 4C26.2091 4 28 5.79086 28 8V24C28 26.2091 26.2091 28 24 28H8C5.79086 28 4 26.2091 4 24V8C4 5.79086 5.79086 4 8 4Z" fill="currentColor"/>
+                            <path d="M12 12H20V14H12V12Z" fill="white"/>
+                            <path d="M12 16H20V18H12V16Z" fill="white"/>
+                            <path d="M12 20H16V22H12V20Z" fill="white"/>
+                        </svg>
+                        <span class="ml-2 text-xl font-bold text-gray-900">Bricouli</span>
+                    </a>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="flex items-center space-x-4">
+                    <a href="client_registration.html" class="text-gray-600 hover:text-primary font-medium transition-colors duration-200">
+                        Need Services?
+                    </a>
+                    <a href="login.html" class="text-gray-600 hover:text-primary font-medium transition-colors duration-200">
+                        Sign In
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar - Hidden on mobile -->
+        <aside class="hidden lg:block w-80 bg-gradient-to-br from-accent-50 to-accent-100 border-r border-accent-200">
+            <div class="p-8 h-full flex flex-col">
+                <!-- Success Stories -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Join Successful Artisans</h3>
+                    
+                    <!-- Success Story 1 -->
+                    <div class="bg-white rounded-lg p-6 mb-6 shadow-craft">
+                        <div class="flex items-center mb-4">
+                            <img src="https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Successful artisan" class="w-12 h-12 rounded-full object-cover mr-4" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                            <div>
+                                <div class="font-semibold text-gray-900">Carlos Rodriguez</div>
+                                <div class="text-sm text-gray-600">Master Electrician</div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700 italic">
+                            "Bricouli helped me grow my business by 300%. I now have a steady stream of quality clients."
+                        </p>
+                        <div class="mt-3 text-accent font-semibold text-sm">
+                            $85,000+ earned this year
+                        </div>
+                    </div>
+                    
+                    <!-- Success Story 2 -->
+                    <div class="bg-white rounded-lg p-6 shadow-craft">
+                        <div class="flex items-center mb-4">
+                            <img src="https://images.pixabay.com/photo/2016/11/18/19/07/happy-1836445_1280.jpg" alt="Successful artisan" class="w-12 h-12 rounded-full object-cover mr-4" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                            <div>
+                                <div class="font-semibold text-gray-900">Maria Santos</div>
+                                <div class="text-sm text-gray-600">Interior Painter</div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700 italic">
+                            "The platform is so easy to use. I get verified leads and payments are always on time."
+                        </p>
+                        <div class="mt-3 text-accent font-semibold text-sm">
+                            4.9★ rating • 200+ projects
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Platform Benefits -->
+                <div class="mt-auto">
+                    <h4 class="font-semibold text-gray-900 mb-4">Why Choose Bricouli?</h4>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-success mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            Verified client leads
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-success mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            Secure payment protection
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-success mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            Professional profile tools
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-success mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            24/7 customer support
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Header Section -->
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                    </svg>
+                </div>
+                <h1 class="text-fluid-3xl font-bold text-gray-900 mb-4">
+                    Join as a Professional Artisan
+                </h1>
+                <p class="text-fluid-lg text-gray-600 max-w-2xl mx-auto">
+                    Create your professional profile and start connecting with clients who need your expertise.
+                </p>
+            </div>
+
+            <!-- Progress Indicator -->
+            <div class="mb-8">
+                <div class="flex items-center justify-center space-x-4">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center text-sm font-medium" id="step1-indicator">1</div>
+                        <span class="ml-2 text-sm font-medium text-accent" id="step1-label">Basic Info</span>
+                    </div>
+                    <div class="w-16 h-0.5 bg-gray-200" id="progress1"></div>
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-gray-200 text-gray-500 rounded-full flex items-center justify-center text-sm font-medium" id="step2-indicator">2</div>
+                        <span class="ml-2 text-sm font-medium text-gray-500" id="step2-label">Professional Details</span>
+                    </div>
+                    <div class="w-16 h-0.5 bg-gray-200" id="progress2"></div>
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-gray-200 text-gray-500 rounded-full flex items-center justify-center text-sm font-medium" id="step3-indicator">3</div>
+                        <span class="ml-2 text-sm font-medium text-gray-500" id="step3-label">Business Info</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="bg-white rounded-2xl shadow-craft-lg p-8">
+                <form id="artisan-registration-form">
+                    <!-- Step 1: Basic Information -->
+                    <div id="step1" class="step-content">
+                        <h2 class="text-xl font-bold text-gray-900 mb-6">Basic Information</h2>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="form-label" for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" class="form-input" required placeholder="Enter your first name" />
+                                <div class="form-error" id="firstName-error"></div>
+                            </div>
+                            
+                            <div>
+                                <label class="form-label" for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" class="form-input" required placeholder="Enter your last name" />
+                                <div class="form-error" id="lastName-error"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <label class="form-label" for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-input" required placeholder="your.email@example.com" />
+                            <div class="form-error" id="email-error"></div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <label class="form-label" for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" required placeholder="(555) 123-4567" />
+                            <div class="form-error" id="phone-error"></div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mt-6">
+                            <div>
+                                <label class="form-label" for="password">Password *</label>
+                                <input type="password" id="password" name="password" class="form-input" required placeholder="Create a strong password" />
+                                <div class="form-hint">At least 8 characters with numbers and symbols</div>
+                                <div class="form-error" id="password-error"></div>
+                            </div>
+                            
+                            <div>
+                                <label class="form-label" for="confirmPassword">Confirm Password *</label>
+                                <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required placeholder="Confirm your password" />
+                                <div class="form-error" id="confirmPassword-error"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end mt-8">
+                            <button type="button" class="btn-primary" onclick="nextStep(2)">
+                                Continue to Professional Details
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Professional Details -->
+                    <div id="step2" class="step-content hidden">
+                        <h2 class="text-xl font-bold text-gray-900 mb-6">Professional Details</h2>
+                        
+                        <div class="mb-6">
+                            <label class="form-label" for="businessName">Business Name</label>
+                            <input type="text" id="businessName" name="businessName" class="form-input" placeholder="Your business or company name (optional)" />
+                            <div class="form-hint">Leave blank if you work independently</div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="form-label" for="tradeSpecialties">Trade Specialties *</label>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="tradeSpecialties" value="plumbing" class="mr-2 text-accent" />
+                                    <span class="text-sm">Plumbing</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="tradeSpecialties" value="electrical" class="mr-2 text-accent" />
+                                    <span class="text-sm">Electrical</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="tradeSpecialties" value="carpentry" class="mr-2 text-accent" />
+                                    <span class="text-sm">Carpentry</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="tradeSpecialties" value="painting" class="mr-2 text-accent" />
+                                    <span class="text-sm">Painting</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="tradeSpecialties" value="roofing" class="mr-2 text-accent" />
+                                    <span class="text-sm">Roofing</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="tradeSpecialties" value="hvac" class="mr-2 text-accent" />
+                                    <span class="text-sm">HVAC</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="tradeSpecialties" value="flooring" class="mr-2 text-accent" />
+                                    <span class="text-sm">Flooring</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="tradeSpecialties" value="landscaping" class="mr-2 text-accent" />
+                                    <span class="text-sm">Landscaping</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="tradeSpecialties" value="other" class="mr-2 text-accent" />
+                                    <span class="text-sm">Other</span>
+                                </label>
+                            </div>
+                            <div class="form-error" id="tradeSpecialties-error"></div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="form-label" for="experienceLevel">Experience Level *</label>
+                            <select id="experienceLevel" name="experienceLevel" class="form-input" required>
+                                <option value>Select your experience level</option>
+                                <option value="beginner">Beginner (0-2 years)</option>
+                                <option value="intermediate">Intermediate (3-5 years)</option>
+                                <option value="experienced">Experienced (6-10 years)</option>
+                                <option value="expert">Expert (10+ years)</option>
+                            </select>
+                            <div class="form-error" id="experienceLevel-error"></div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="form-label" for="serviceRadius">Service Radius *</label>
+                                <select id="serviceRadius" name="serviceRadius" class="form-input" required>
+                                    <option value>Select service area</option>
+                                    <option value="5">Within 5 miles</option>
+                                    <option value="10">Within 10 miles</option>
+                                    <option value="25">Within 25 miles</option>
+                                    <option value="50">Within 50 miles</option>
+                                    <option value="statewide">Statewide</option>
+                                </select>
+                                <div class="form-error" id="serviceRadius-error"></div>
+                            </div>
+                            
+                            <div>
+                                <label class="form-label" for="zipCode">Primary Zip Code *</label>
+                                <input type="text" id="zipCode" name="zipCode" class="form-input" required placeholder="12345" maxlength="5" />
+                                <div class="form-error" id="zipCode-error"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="form-label" for="hourlyRate">Hourly Rate (USD) *</label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-3 text-gray-500">$</span>
+                                <input type="number" id="hourlyRate" name="hourlyRate" class="form-input pl-8" required placeholder="50" min="15" max="500" />
+                            </div>
+                            <div class="form-hint">Typical range: $25-$150 per hour</div>
+                            <div class="form-error" id="hourlyRate-error"></div>
+                        </div>
+                        
+                        <div class="flex justify-between mt-8">
+                            <button type="button" class="btn-outline" onclick="previousStep(1)">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                </svg>
+                                Back to Basic Info
+                            </button>
+                            <button type="button" class="btn-primary" onclick="nextStep(3)">
+                                Continue to Business Info
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Business Information -->
+                    <div id="step3" class="step-content hidden">
+                        <h2 class="text-xl font-bold text-gray-900 mb-6">Business Information</h2>
+                        
+                        <div class="mb-6">
+                            <label class="form-label" for="licenseNumber">License Number</label>
+                            <input type="text" id="licenseNumber" name="licenseNumber" class="form-input" placeholder="Enter your professional license number" />
+                            <div class="form-hint">Required for certain trades in most states</div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="form-label">Insurance Coverage</label>
+                            <div class="space-y-3 mt-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="insurance" value="liability" class="mr-2 text-accent" />
+                                    <span class="text-sm">General Liability Insurance</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="insurance" value="bonded" class="mr-2 text-accent" />
+                                    <span class="text-sm">Bonded</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="insurance" value="workers-comp" class="mr-2 text-accent" />
+                                    <span class="text-sm">Workers' Compensation</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="form-label" for="certifications">Certifications & Documents</label>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                                <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                                </svg>
+                                <p class="text-gray-600 mb-2">Upload your certifications, licenses, or portfolio</p>
+                                <p class="text-sm text-gray-500 mb-4">PDF, JPG, PNG up to 10MB each</p>
+                                <input type="file" id="certifications" name="certifications" multiple accept=".pdf,.jpg,.jpeg,.png" class="hidden" />
+                                <button type="button" class="btn-outline" onclick="document.getElementById('certifications').click()">
+                                    Choose Files
+                                </button>
+                            </div>
+                            <div id="file-list" class="mt-4 space-y-2"></div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="form-label" for="bio">Professional Bio</label>
+                            <textarea id="bio" name="bio" rows="4" class="form-input" placeholder="Tell potential clients about your experience, specialties, and what makes you unique..."></textarea>
+                            <div class="form-hint">This will appear on your profile. Keep it professional and engaging.</div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="form-label">Availability</label>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="availability" value="weekdays" class="mr-2 text-accent" />
+                                    <span class="text-sm">Weekdays</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="availability" value="weekends" class="mr-2 text-accent" />
+                                    <span class="text-sm">Weekends</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="availability" value="evenings" class="mr-2 text-accent" />
+                                    <span class="text-sm">Evenings</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="availability" value="emergency" class="mr-2 text-accent" />
+                                    <span class="text-sm">Emergency</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <label class="flex items-start">
+                                <input type="checkbox" name="terms" class="mr-3 mt-1 text-accent" required />
+                                <span class="text-sm text-gray-700">
+                                    I agree to the <a href="#" class="text-accent hover:underline">Terms of Service</a> 
+                                    and <a href="#" class="text-accent hover:underline">Privacy Policy</a>. 
+                                    I understand that my profile will be reviewed before activation.
+                                </span>
+                            </label>
+                            <div class="form-error" id="terms-error"></div>
+                        </div>
+                        
+                        <div class="flex justify-between">
+                            <button type="button" class="btn-outline" onclick="previousStep(2)">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                </svg>
+                                Back to Professional Details
+                            </button>
+                            <button type="submit" class="btn-primary bg-accent hover:bg-accent-600">
+                                Create Artisan Profile
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Alternative Options -->
+            <div class="text-center mt-8">
+                <p class="text-gray-600 mb-4">
+                    Looking for services instead?
+                </p>
+                <a href="client_registration.html" class="text-primary hover:text-primary-700 font-medium">
+                    Register as a Client
+                </a>
+                <span class="text-gray-400 mx-4">|</span>
+                <a href="login.html" class="text-primary hover:text-primary-700 font-medium">
+                    Already have an account? Sign In
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Success Stories (Visible only on mobile) -->
+    <section class="lg:hidden bg-gradient-to-br from-accent-50 to-accent-100 py-8 mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-6 text-center">Join Successful Artisans</h3>
+            
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg p-4 shadow-craft">
+                    <div class="flex items-center mb-3">
+                        <img src="https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Successful artisan" class="w-10 h-10 rounded-full object-cover mr-3" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <div>
+                            <div class="font-semibold text-gray-900 text-sm">Carlos Rodriguez</div>
+                            <div class="text-xs text-gray-600">Master Electrician</div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-700 italic">
+                        "Bricouli helped me grow my business by 300%."
+                    </p>
+                    <div class="mt-2 text-accent font-semibold text-sm">
+                        $85,000+ earned this year
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <svg class="h-8 w-8 text-primary" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 4L24 4C26.2091 4 28 5.79086 28 8V24C28 26.2091 26.2091 28 24 28H8C5.79086 28 4 26.2091 4 24V8C4 5.79086 5.79086 4 8 4Z" fill="currentColor"/>
+                            <path d="M12 12H20V14H12V12Z" fill="white"/>
+                            <path d="M12 16H20V18H12V16Z" fill="white"/>
+                            <path d="M12 20H16V22H12V20Z" fill="white"/>
+                        </svg>
+                        <span class="ml-2 text-xl font-bold">Bricouli</span>
+                    </div>
+                    <p class="text-gray-300 mb-4 max-w-md">
+                        Connecting skilled artisans with clients who need quality craftsmanship. 
+                        Your trusted marketplace for home improvement and repair services.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="landing_page_with_role_selection.html" class="text-gray-300 hover:text-white transition-colors duration-200">Home</a></li>
+                        <li><a href="client_registration.html" class="text-gray-300 hover:text-white transition-colors duration-200">Find Artisans</a></li>
+                        <li><a href="artisan_registration.html" class="text-gray-300 hover:text-white transition-colors duration-200">Join as Artisan</a></li>
+                        <li><a href="login.html" class="text-gray-300 hover:text-white transition-colors duration-200">Sign In</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Support -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Help Center</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">
+                    © 2025 Bricouli. All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentStep = 1;
+        
+        function nextStep(step) {
+            if (validateCurrentStep()) {
+                // Hide current step
+                document.getElementById(`step${currentStep}`).classList.add('hidden');
+                
+                // Show next step
+                document.getElementById(`step${step}`).classList.remove('hidden');
+                
+                // Update progress indicators
+                updateProgressIndicators(step);
+                
+                currentStep = step;
+                
+                // Scroll to top of form
+                document.querySelector('.bg-white.rounded-2xl').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        function previousStep(step) {
+            // Hide current step
+            document.getElementById(`step${currentStep}`).classList.add('hidden');
+            
+            // Show previous step
+            document.getElementById(`step${step}`).classList.remove('hidden');
+            
+            // Update progress indicators
+            updateProgressIndicators(step);
+            
+            currentStep = step;
+            
+            // Scroll to top of form
+            document.querySelector('.bg-white.rounded-2xl').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function updateProgressIndicators(activeStep) {
+            for (let i = 1; i <= 3; i++) {
+                const indicator = document.getElementById(`step${i}-indicator`);
+                const label = document.getElementById(`step${i}-label`);
+                const progress = document.getElementById(`progress${i}`);
+                
+                if (i <= activeStep) {
+                    indicator.classList.remove('bg-gray-200', 'text-gray-500');
+                    indicator.classList.add('bg-accent', 'text-white');
+                    label.classList.remove('text-gray-500');
+                    label.classList.add('text-accent');
+                    
+                    if (progress && i < activeStep) {
+                        progress.classList.remove('bg-gray-200');
+                        progress.classList.add('bg-accent');
+                    }
+                } else {
+                    indicator.classList.remove('bg-accent', 'text-white');
+                    indicator.classList.add('bg-gray-200', 'text-gray-500');
+                    label.classList.remove('text-accent');
+                    label.classList.add('text-gray-500');
+                    
+                    if (progress) {
+                        progress.classList.remove('bg-accent');
+                        progress.classList.add('bg-gray-200');
+                    }
+                }
+            }
+        }
+        
+        function validateCurrentStep() {
+            let isValid = true;
+            
+            if (currentStep === 1) {
+                // Validate basic information
+                const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'password', 'confirmPassword'];
+                
+                requiredFields.forEach(field => {
+                    const input = document.getElementById(field);
+                    const errorDiv = document.getElementById(`${field}-error`);
+                    
+                    if (!input.value.trim()) {
+                        errorDiv.textContent = 'This field is required';
+                        isValid = false;
+                    } else {
+                        errorDiv.textContent = '';
+                    }
+                });
+                
+                // Validate password match
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                if (password !== confirmPassword) {
+                    document.getElementById('confirmPassword-error').textContent = 'Passwords do not match';
+                    isValid = false;
+                }
+                
+                // Validate email format
+                const email = document.getElementById('email').value;
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (email && !emailRegex.test(email)) {
+                    document.getElementById('email-error').textContent = 'Please enter a valid email address';
+                    isValid = false;
+                }
+                
+            } else if (currentStep === 2) {
+                // Validate professional details
+                const tradeSpecialties = document.querySelectorAll('input[name="tradeSpecialties"]:checked');
+                if (tradeSpecialties.length === 0) {
+                    document.getElementById('tradeSpecialties-error').textContent = 'Please select at least one trade specialty';
+                    isValid = false;
+                } else {
+                    document.getElementById('tradeSpecialties-error').textContent = '';
+                }
+                
+                const requiredFields = ['experienceLevel', 'serviceRadius', 'zipCode', 'hourlyRate'];
+                requiredFields.forEach(field => {
+                    const input = document.getElementById(field);
+                    const errorDiv = document.getElementById(`${field}-error`);
+                    
+                    if (!input.value.trim()) {
+                        errorDiv.textContent = 'This field is required';
+                        isValid = false;
+                    } else {
+                        errorDiv.textContent = '';
+                    }
+                });
+            }
+            
+            return isValid;
+        }
+        
+        // File upload handling
+        document.getElementById('certifications').addEventListener('change', function(e) {
+            const fileList = document.getElementById('file-list');
+            fileList.innerHTML = '';
+            
+            Array.from(e.target.files).forEach(file => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'flex items-center justify-between bg-gray-50 p-3 rounded-lg';
+                fileItem.innerHTML = `
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        <span class="text-sm text-gray-700">${file.name}</span>
+                    </div>
+                    <button type="button" class="text-red-500 hover:text-red-700" onclick="this.parentElement.remove()">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                `;
+                fileList.appendChild(fileItem);
+            });
+        });
+        
+        // Form submission
+        document.getElementById('artisan-registration-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate terms checkbox
+            const termsCheckbox = document.querySelector('input[name="terms"]');
+            if (!termsCheckbox.checked) {
+                document.getElementById('terms-error').textContent = 'You must agree to the terms and conditions';
+                return;
+            }
+            
+            // Simulate form submission
+            alert('Registration successful! Your profile is being reviewed and you will receive a confirmation email shortly.');
+            
+            // Redirect to artisan dashboard
+            window.location.href = 'artisan_dashboard.html';
+        });
+        
+        // Real-time validation
+        document.getElementById('email').addEventListener('blur', function() {
+            const email = this.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const errorDiv = document.getElementById('email-error');
+            
+            if (email && !emailRegex.test(email)) {
+                errorDiv.textContent = 'Please enter a valid email address';
+            } else {
+                errorDiv.textContent = '';
+            }
+        });
+        
+        document.getElementById('confirmPassword').addEventListener('blur', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            const errorDiv = document.getElementById('confirmPassword-error');
+            
+            if (confirmPassword && password !== confirmPassword) {
+                errorDiv.textContent = 'Passwords do not match';
+            } else {
+                errorDiv.textContent = '';
+            }
+        });
+    </script>
+</body>
+</html>

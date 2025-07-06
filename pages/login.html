@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In - Bricouli</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fbricoulil1075back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.5"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-craft sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <svg class="h-8 w-8 text-primary" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 4L24 4C26.2091 4 28 5.79086 28 8V24C28 26.2091 26.2091 28 24 28H8C5.79086 28 4 26.2091 4 24V8C4 5.79086 5.79086 4 8 4Z" fill="currentColor"/>
+                        <path d="M12 12H20V14H12V12Z" fill="white"/>
+                        <path d="M12 16H20V18H12V16Z" fill="white"/>
+                        <path d="M12 20H16V22H12V20Z" fill="white"/>
+                    </svg>
+                    <span class="ml-2 text-xl font-bold text-gray-900">Bricouli</span>
+                </div>
+                
+                <!-- Back to Home Link -->
+                <div class="flex items-center">
+                    <a href="landing_page_with_role_selection.html" class="text-gray-600 hover:text-primary font-medium transition-colors duration-200 flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                        </svg>
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <!-- Header Section -->
+            <div class="text-center">
+                <h1 class="text-fluid-3xl font-bold text-gray-900 mb-2">
+                    Welcome Back
+                </h1>
+                <p class="text-fluid-base text-gray-600">
+                    Sign in to your Bricouli account
+                </p>
+            </div>
+
+            <!-- Social Login Options -->
+            <div class="space-y-3">
+                <button type="button" class="w-full flex items-center justify-center px-4 py-3 border border-gray-200 rounded-lg bg-white text-gray-700 font-medium hover:bg-gray-50 focus:bg-gray-50 focus:ring-2 focus:ring-primary/20 transition-all duration-200 shadow-craft hover:shadow-craft-md">
+                    <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Continue with Google
+                </button>
+                
+                <button type="button" class="w-full flex items-center justify-center px-4 py-3 border border-gray-200 rounded-lg bg-white text-gray-700 font-medium hover:bg-gray-50 focus:bg-gray-50 focus:ring-2 focus:ring-primary/20 transition-all duration-200 shadow-craft hover:shadow-craft-md">
+                    <svg class="w-5 h-5 mr-3" fill="#1877F2" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                    Continue with Facebook
+                </button>
+            </div>
+
+            <!-- Divider -->
+            <div class="relative">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-200"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-2 bg-background text-gray-500">Or continue with email</span>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <form class="space-y-6" id="loginForm">
+                <!-- Email Field -->
+                <div>
+                    <label for="email" class="form-label">
+                        Email Address
+                    </label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email address" required autocomplete="email" />
+                    <div class="form-error hidden" id="emailError">
+                        Please enter a valid email address
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div>
+                    <label for="password" class="form-label">
+                        Password
+                    </label>
+                    <div class="relative">
+                        <input type="password" id="password" name="password" class="form-input pr-12" placeholder="Enter your password" required autocomplete="current-password" />
+                        <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center" id="togglePassword">
+                            <svg class="h-5 w-5 text-gray-400 hover:text-gray-600" id="eyeIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                            <svg class="h-5 w-5 text-gray-400 hover:text-gray-600 hidden" id="eyeOffIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="form-error hidden" id="passwordError">
+                        Password is required
+                    </div>
+                </div>
+
+                <!-- Remember Me & Forgot Password -->
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember" name="remember" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded" />
+                        <label for="remember" class="ml-2 block text-sm text-gray-700">
+                            Remember me
+                        </label>
+                    </div>
+                    <div class="text-sm">
+                        <button type="button" class="text-primary hover:text-primary-700 font-medium" id="forgotPasswordBtn">
+                            Forgot password?
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div>
+                    <button type="submit" class="btn-primary w-full flex items-center justify-center" id="submitBtn">
+                        <span id="submitText">Sign In</span>
+                        <svg class="animate-spin -mr-1 ml-3 h-5 w-5 text-white hidden" id="loadingIcon" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Error Message -->
+                <div class="form-error hidden text-center" id="formError">
+                    Invalid email or password. Please try again.
+                </div>
+            </form>
+
+            <!-- Forgot Password Form (Hidden by default) -->
+            <div class="hidden" id="forgotPasswordForm">
+                <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Reset Password</h3>
+                    <form class="space-y-4" id="resetForm">
+                        <div>
+                            <label for="resetEmail" class="form-label">
+                                Email Address
+                            </label>
+                            <input type="email" id="resetEmail" name="resetEmail" class="form-input" placeholder="Enter your email address" required />
+                        </div>
+                        <div class="flex space-x-3">
+                            <button type="submit" class="btn-primary flex-1">
+                                Send Reset Link
+                            </button>
+                            <button type="button" class="btn-outline flex-1" id="cancelResetBtn">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Registration Links -->
+            <div class="text-center space-y-4">
+                <p class="text-sm text-gray-600">
+                    Don't have an account?
+                </p>
+                <div class="grid grid-cols-2 gap-4">
+                    <a href="client_registration.html" class="btn-outline text-center">
+                        Sign up as Client
+                    </a>
+                    <a href="artisan_registration.html" class="btn-outline text-center">
+                        Sign up as Artisan
+                    </a>
+                </div>
+            </div>
+
+            <!-- Security Indicators -->
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-4 text-xs text-gray-500">
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 text-success mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                        </svg>
+                        SSL Encrypted
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 text-success mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        Secure Login
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-sm text-gray-500">
+                    © 2025 Bricouli. All Rights Reserved.
+                </p>
+                <div class="mt-2 flex justify-center space-x-6">
+                    <a href="#" class="text-sm text-gray-500 hover:text-gray-700">Privacy Policy</a>
+                    <a href="#" class="text-sm text-gray-500 hover:text-gray-700">Terms of Service</a>
+                    <a href="#" class="text-sm text-gray-500 hover:text-gray-700">Help Center</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Password toggle functionality
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+        const eyeOffIcon = document.getElementById('eyeOffIcon');
+
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            eyeIcon.classList.toggle('hidden');
+            eyeOffIcon.classList.toggle('hidden');
+        });
+
+        // Forgot password functionality
+        const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+        const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+        const cancelResetBtn = document.getElementById('cancelResetBtn');
+        const loginForm = document.getElementById('loginForm');
+
+        forgotPasswordBtn.addEventListener('click', function() {
+            loginForm.classList.add('hidden');
+            forgotPasswordForm.classList.remove('hidden');
+        });
+
+        cancelResetBtn.addEventListener('click', function() {
+            forgotPasswordForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+        });
+
+        // Form validation and submission
+        const form = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        const formError = document.getElementById('formError');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = document.getElementById('submitText');
+        const loadingIcon = document.getElementById('loadingIcon');
+
+        // Mock user data for demonstration
+        const mockUsers = [
+            { email: 'client@bricouli.com', password: 'client123', role: 'client' },
+            { email: 'artisan@bricouli.com', password: 'artisan123', role: 'artisan' },
+            { email: 'john.doe@example.com', password: 'password123', role: 'client' },
+            { email: 'sarah.smith@example.com', password: 'artisan456', role: 'artisan' }
+        ];
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset errors
+            emailError.classList.add('hidden');
+            passwordError.classList.add('hidden');
+            formError.classList.add('hidden');
+            
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+            
+            let isValid = true;
+            
+            // Email validation
+            if (!email) {
+                emailError.textContent = 'Email is required';
+                emailError.classList.remove('hidden');
+                isValid = false;
+            } else if (!isValidEmail(email)) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailError.classList.remove('hidden');
+                isValid = false;
+            }
+            
+            // Password validation
+            if (!password) {
+                passwordError.classList.remove('hidden');
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitText.textContent = 'Signing In...';
+            loadingIcon.classList.remove('hidden');
+            
+            // Simulate API call
+            setTimeout(() => {
+                const user = mockUsers.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    // Store user session (in real app, this would be handled by backend)
+                    localStorage.setItem('bricouli_user', JSON.stringify({
+                        email: user.email,
+                        role: user.role,
+                        loginTime: new Date().toISOString()
+                    }));
+                    
+                    // Redirect based on role
+                    if (user.role === 'client') {
+                        window.location.href = 'client_dashboard.html';
+                    } else {
+                        window.location.href = 'artisan_dashboard.html';
+                    }
+                } else {
+                    // Show error
+                    formError.classList.remove('hidden');
+                    
+                    // Reset loading state
+                    submitBtn.disabled = false;
+                    submitText.textContent = 'Sign In';
+                    loadingIcon.classList.add('hidden');
+                }
+            }, 1500);
+        });
+
+        // Reset password form
+        const resetForm = document.getElementById('resetForm');
+        resetForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const resetEmail = document.getElementById('resetEmail').value.trim();
+            
+            if (!resetEmail || !isValidEmail(resetEmail)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            
+            // Simulate sending reset email
+            alert('Password reset link has been sent to your email address.');
+            
+            // Return to login form
+            forgotPasswordForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+        });
+
+        // Email validation helper
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Social login handlers (mock)
+        document.querySelectorAll('button[type="button"]').forEach(button => {
+            if (button.textContent.includes('Google') || button.textContent.includes('Facebook')) {
+                button.addEventListener('click', function() {
+                    alert('Social login would be implemented with OAuth providers in production.');
+                });
+            }
+        });
+
+        // Auto-focus email field on page load
+        window.addEventListener('load', function() {
+            emailInput.focus();
+        });
+    </script>
+</body>
+</html>
