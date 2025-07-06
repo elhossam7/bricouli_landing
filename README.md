@@ -76,7 +76,5 @@ The app is built with responsive design using Tailwind CSS breakpoints:
 
 ## 🙏 Acknowledgments
 
-- Built with [Rocket.new](https://rocket.new)
-- Powered by HTML and Tailwind CSS
+- Built by elhossam7 
 
-Built with ❤️ on Rocket.new
