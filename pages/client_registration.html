@@ -133,167 +133,91 @@
                         </div>
                         
                         <!-- Registration Form -->
-                        <form id="clientRegistrationForm" class="space-y-6">
-                            <!-- Essential Fields Section -->
-                            <div class="space-y-4">
-                                <!-- Full Name -->
-                                <div>
-                                    <label for="fullName" class="form-label">
-                                        Full Name *
-                                    </label>
-                                    <input type="text" id="fullName" name="fullName" class="form-input" placeholder="Enter your full name" autocomplete="name" required />
-                                    <div class="form-error hidden" id="fullNameError"></div>
-                                    <div class="form-success hidden" id="fullNameSuccess">
-                                        <svg class="w-4 h-4 text-success inline mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                        </svg>
-                                        <span class="text-sm text-success">Looks good!</span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Email -->
-                                <div>
-                                    <label for="email" class="form-label">
-                                        Email Address *
-                                    </label>
-                                    <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email address" autocomplete="email" required />
-                                    <div class="form-error hidden" id="emailError"></div>
-                                    <div class="form-success hidden" id="emailSuccess">
-                                        <svg class="w-4 h-4 text-success inline mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                        </svg>
-                                        <span class="text-sm text-success">Valid email address</span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Password -->
-                                <div>
-                                    <label for="password" class="form-label">
-                                        Password *
-                                    </label>
-                                    <div class="relative">
-                                        <input type="password" id="password" name="password" class="form-input pr-12" placeholder="Create a strong password" autocomplete="new-password" required />
-                                        <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="eyeIcon">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <!-- Password Strength Indicator -->
-                                    <div class="mt-2">
-                                        <div class="flex space-x-1 mb-1">
-                                            <div class="h-1 flex-1 bg-gray-200 rounded" id="strength1"></div>
-                                            <div class="h-1 flex-1 bg-gray-200 rounded" id="strength2"></div>
-                                            <div class="h-1 flex-1 bg-gray-200 rounded" id="strength3"></div>
-                                            <div class="h-1 flex-1 bg-gray-200 rounded" id="strength4"></div>
-                                        </div>
-                                        <p class="text-xs text-gray-500" id="strengthText">Password strength: Weak</p>
-                                    </div>
-                                    <div class="form-error hidden" id="passwordError"></div>
-                                </div>
-                                
-                                <!-- Confirm Password -->
-                                <div>
-                                    <label for="confirmPassword" class="form-label">
-                                        Confirm Password *
-                                    </label>
-                                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" placeholder="Confirm your password" autocomplete="new-password" required />
-                                    <div class="form-error hidden" id="confirmPasswordError"></div>
-                                    <div class="form-success hidden" id="confirmPasswordSuccess">
-                                        <svg class="w-4 h-4 text-success inline mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                        </svg>
-                                        <span class="text-sm text-success">Passwords match</span>
-                                    </div>
+                        <form id="client-registration-form" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                                <div class="mt-1">
+                                    <input id="name" name="name" type="text" autocomplete="name" required 
+                                           class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
                                 </div>
                             </div>
-                            
-                            <!-- Optional Profile Information -->
-                            <div class="border-t border-gray-200 pt-6">
-                                <h3 class="text-lg font-semibold text-gray-900 mb-4">
-                                    Profile Information (Optional)
-                                </h3>
-                                
-                                <div class="space-y-4">
-                                    <!-- Phone Number -->
-                                    <div>
-                                        <label for="phone" class="form-label">
-                                            Phone Number
-                                        </label>
-                                        <input type="tel" id="phone" name="phone" class="form-input" placeholder="(555) 123-4567" autocomplete="tel" />
-                                        <div class="form-hint">
-                                            We'll use this to send project updates and notifications
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Location -->
-                                    <div>
-                                        <label for="location" class="form-label">
-                                            Location
-                                        </label>
-                                        <input type="text" id="location" name="location" class="form-input" placeholder="City, State" autocomplete="address-level2" />
-                                        <div class="form-hint">
-                                            Help us find artisans in your area
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Service Interests -->
-                                    <div>
-                                        <label class="form-label">
-                                            Service Interests
-                                        </label>
-                                        <div class="grid grid-cols-2 gap-3 mt-2">
-                                            <label class="flex items-center">
-                                                <input type="checkbox" name="services" value="plumbing" class="rounded border-gray-300 text-primary focus:ring-primary" />
-                                                <span class="ml-2 text-sm text-gray-700">Plumbing</span>
-                                            </label>
-                                            <label class="flex items-center">
-                                                <input type="checkbox" name="services" value="electrical" class="rounded border-gray-300 text-primary focus:ring-primary" />
-                                                <span class="ml-2 text-sm text-gray-700">Electrical</span>
-                                            </label>
-                                            <label class="flex items-center">
-                                                <input type="checkbox" name="services" value="carpentry" class="rounded border-gray-300 text-primary focus:ring-primary" />
-                                                <span class="ml-2 text-sm text-gray-700">Carpentry</span>
-                                            </label>
-                                            <label class="flex items-center">
-                                                <input type="checkbox" name="services" value="painting" class="rounded border-gray-300 text-primary focus:ring-primary" />
-                                                <span class="ml-2 text-sm text-gray-700">Painting</span>
-                                            </label>
-                                            <label class="flex items-center">
-                                                <input type="checkbox" name="services" value="roofing" class="rounded border-gray-300 text-primary focus:ring-primary" />
-                                                <span class="ml-2 text-sm text-gray-700">Roofing</span>
-                                            </label>
-                                            <label class="flex items-center">
-                                                <input type="checkbox" name="services" value="hvac" class="rounded border-gray-300 text-primary focus:ring-primary" />
-                                                <span class="ml-2 text-sm text-gray-700">HVAC</span>
-                                            </label>
-                                        </div>
-                                        <div class="form-hint">
-                                            Select services you're interested in to get personalized recommendations
-                                        </div>
-                                    </div>
+
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                                <div class="mt-1">
+                                    <input id="email" name="email" type="email" autocomplete="email" required 
+                                           class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
                                 </div>
                             </div>
-                            
-                            <!-- Terms and Conditions -->
-                            <div class="flex items-start">
-                                <input type="checkbox" id="terms" name="terms" class="rounded border-gray-300 text-primary focus:ring-primary mt-1" required />
-                                <label for="terms" class="ml-2 text-sm text-gray-600">
-                                    I agree to the <a href="#" class="text-primary hover:text-primary-700 underline">Terms of Service</a> 
-                                    and <a href="#" class="text-primary hover:text-primary-700 underline">Privacy Policy</a>
-                                </label>
+
+                            <div>
+                                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                                <div class="mt-1">
+                                    <input id="password" name="password" type="password" autocomplete="new-password" required 
+                                           class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                </div>
                             </div>
-                            
-                            <!-- Submit Button -->
-                            <button type="submit" id="submitBtn" class="btn-primary w-full text-center py-4 text-lg font-semibold">
-                                <span id="submitText">Create Client Account</span>
-                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" id="loadingSpinner" fill="none" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
-                                </svg>
-                            </button>
+
+                            <div>
+                                <label for="confirm-password" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                                <div class="mt-1">
+                                    <input id="confirm-password" name="confirm-password" type="password" autocomplete="new-password" required 
+                                           class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                </div>
+                            </div>
+
+                            <div class="pt-4">
+                                <button type="submit" 
+                                        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark transition-colors duration-200">
+                                    Create Account
+                                </button>
+                            </div>
                         </form>
+
+                        <div id="error-message" class="mt-4 text-red-600"></div>
+
+                        <script>
+                          document.addEventListener('DOMContentLoaded', () => {
+                            const form = document.getElementById('client-registration-form');
+                            const errorMessage = document.getElementById('error-message');
+
+                            form.addEventListener('submit', async (e) => {
+                              e.preventDefault();
+                              errorMessage.textContent = ''; // Clear previous errors
+
+                              const name = document.getElementById('name').value;
+                              const email = document.getElementById('email').value;
+                              const password = document.getElementById('password').value;
+                              const confirmPassword = document.getElementById('confirm-password').value;
+
+                              if (password !== confirmPassword) {
+                                errorMessage.textContent = 'Passwords do not match';
+                                return;
+                              }
+
+                              try {
+                                const response = await fetch('http://localhost:5000/api/users', {
+                                  method: 'POST',
+                                  headers: {
+                                    'Content-Type': 'application/json',
+                                  },
+                                  body: JSON.stringify({ name, email, password, role: 'client' }),
+                                });
+
+                                const data = await response.json();
+
+                                if (!response.ok) {
+                                  throw new Error(data.message || 'Something went wrong');
+                                }
+
+                                // Redirect to login page with a success message
+                                window.location.href = 'login.html?message=Registration successful. Please log in.';
+                              } catch (error) {
+                                errorMessage.textContent = error.message;
+                              }
+                            });
+                          });
+                        </script>
                         
                         <!-- Alternative Options -->
                         <div class="mt-8 text-center">
@@ -329,242 +253,7 @@
     </main>
 
     <!-- JavaScript for Form Validation and Interactions -->
-    <script>
-        // Form validation and interaction logic
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('clientRegistrationForm');
-            const togglePassword = document.getElementById('togglePassword');
-            const passwordInput = document.getElementById('password');
-            const confirmPasswordInput = document.getElementById('confirmPassword');
-            const submitBtn = document.getElementById('submitBtn');
-            const submitText = document.getElementById('submitText');
-            const loadingSpinner = document.getElementById('loadingSpinner');
-            
-            // Password visibility toggle
-            togglePassword.addEventListener('click', function() {
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                
-                const eyeIcon = document.getElementById('eyeIcon');
-                if (type === 'password') {
-                    eyeIcon.innerHTML = `
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                    `;
-                } else {
-                    eyeIcon.innerHTML = `
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"/>
-                    `;
-                }
-            });
-            
-            // Password strength checker
-            passwordInput.addEventListener('input', function() {
-                const password = this.value;
-                const strength = calculatePasswordStrength(password);
-                updatePasswordStrength(strength);
-            });
-            
-            // Real-time validation
-            const inputs = ['fullName', 'email', 'password', 'confirmPassword'];
-            inputs.forEach(inputId => {
-                const input = document.getElementById(inputId);
-                input.addEventListener('blur', () => validateField(inputId));
-                input.addEventListener('input', () => clearErrors(inputId));
-            });
-            
-            // Confirm password validation
-            confirmPasswordInput.addEventListener('input', function() {
-                if (this.value && passwordInput.value) {
-                    if (this.value === passwordInput.value) {
-                        showSuccess('confirmPassword');
-                    } else {
-                        showError('confirmPassword', 'Passwords do not match');
-                    }
-                }
-            });
-            
-            // Form submission
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Validate all required fields
-                let isValid = true;
-                inputs.forEach(inputId => {
-                    if (!validateField(inputId)) {
-                        isValid = false;
-                    }
-                });
-                
-                // Check terms acceptance
-                const termsCheckbox = document.getElementById('terms');
-                if (!termsCheckbox.checked) {
-                    alert('Please accept the Terms of Service and Privacy Policy');
-                    isValid = false;
-                }
-                
-                if (isValid) {
-                    // Show loading state
-                    submitBtn.disabled = true;
-                    submitText.textContent = 'Creating Account...';
-                    loadingSpinner.classList.remove('hidden');
-                    
-                    // Simulate API call
-                    setTimeout(() => {
-                        // Redirect to client dashboard
-                        window.location.href = 'client_dashboard.html';
-                    }, 2000);
-                }
-            });
-            
-            // Validation functions
-            function validateField(fieldId) {
-                const input = document.getElementById(fieldId);
-                const value = input.value.trim();
-                
-                switch(fieldId) {
-                    case 'fullName':
-                        if (!value) {
-                            showError(fieldId, 'Full name is required');
-                            return false;
-                        } else if (value.length < 2) {
-                            showError(fieldId, 'Full name must be at least 2 characters');
-                            return false;
-                        } else {
-                            showSuccess(fieldId);
-                            return true;
-                        }
-                        
-                    case 'email':
-                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                        if (!value) {
-                            showError(fieldId, 'Email address is required');
-                            return false;
-                        } else if (!emailRegex.test(value)) {
-                            showError(fieldId, 'Please enter a valid email address');
-                            return false;
-                        } else {
-                            showSuccess(fieldId);
-                            return true;
-                        }
-                        
-                    case 'password':
-                        if (!value) {
-                            showError(fieldId, 'Password is required');
-                            return false;
-                        } else if (value.length < 8) {
-                            showError(fieldId, 'Password must be at least 8 characters');
-                            return false;
-                        } else {
-                            clearErrors(fieldId);
-                            return true;
-                        }
-                        
-                    case 'confirmPassword':
-                        if (!value) {
-                            showError(fieldId, 'Please confirm your password');
-                            return false;
-                        } else if (value !== passwordInput.value) {
-                            showError(fieldId, 'Passwords do not match');
-                            return false;
-                        } else {
-                            showSuccess(fieldId);
-                            return true;
-                        }
-                        
-                    default:
-                        return true;
-                }
-            }
-            
-            function showError(fieldId, message) {
-                const errorElement = document.getElementById(fieldId + 'Error');
-                const successElement = document.getElementById(fieldId + 'Success');
-                const input = document.getElementById(fieldId);
-                
-                if (errorElement) {
-                    errorElement.textContent = message;
-                    errorElement.classList.remove('hidden');
-                }
-                if (successElement) {
-                    successElement.classList.add('hidden');
-                }
-                input.classList.add('border-error-500');
-                input.classList.remove('border-success-500');
-            }
-            
-            function showSuccess(fieldId) {
-                const errorElement = document.getElementById(fieldId + 'Error');
-                const successElement = document.getElementById(fieldId + 'Success');
-                const input = document.getElementById(fieldId);
-                
-                if (errorElement) {
-                    errorElement.classList.add('hidden');
-                }
-                if (successElement) {
-                    successElement.classList.remove('hidden');
-                }
-                input.classList.add('border-success-500');
-                input.classList.remove('border-error-500');
-            }
-            
-            function clearErrors(fieldId) {
-                const errorElement = document.getElementById(fieldId + 'Error');
-                const successElement = document.getElementById(fieldId + 'Success');
-                const input = document.getElementById(fieldId);
-                
-                if (errorElement) {
-                    errorElement.classList.add('hidden');
-                }
-                if (successElement) {
-                    successElement.classList.add('hidden');
-                }
-                input.classList.remove('border-error-500', 'border-success-500');
-            }
-            
-            function calculatePasswordStrength(password) {
-                let strength = 0;
-                
-                // Length check
-                if (password.length >= 8) strength++;
-                if (password.length >= 12) strength++;
-                
-                // Character variety checks
-                if (/[a-z]/.test(password)) strength++;
-                if (/[A-Z]/.test(password)) strength++;
-                if (/[0-9]/.test(password)) strength++;
-                if (/[^A-Za-z0-9]/.test(password)) strength++;
-                
-                return Math.min(strength, 4);
-            }
-            
-            function updatePasswordStrength(strength) {
-                const strengthBars = ['strength1', 'strength2', 'strength3', 'strength4'];
-                const strengthText = document.getElementById('strengthText');
-                const colors = ['bg-error-500', 'bg-warning-500', 'bg-accent-500', 'bg-success-500'];
-                const labels = ['Very Weak', 'Weak', 'Good', 'Strong'];
-                
-                // Reset all bars
-                strengthBars.forEach(barId => {
-                    const bar = document.getElementById(barId);
-                    bar.className = 'h-1 flex-1 bg-gray-200 rounded';
-                });
-                
-                // Fill bars based on strength
-                for (let i = 0; i < strength; i++) {
-                    const bar = document.getElementById(strengthBars[i]);
-                    bar.classList.remove('bg-gray-200');
-                    bar.classList.add(colors[Math.min(strength - 1, 3)]);
-                }
-                
-                // Update text
-                if (strength > 0) {
-                    strengthText.textContent = `Password strength: ${labels[Math.min(strength - 1, 3)]}`;
-                } else {
-                    strengthText.textContent = 'Password strength: Very Weak';
-                }
-            }
-        });
-    </script>
+    
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
 </body>
 </html>

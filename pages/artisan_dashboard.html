@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fbricoulil1075back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.5"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-background min-h-screen">
     <!-- Header -->
@@ -47,13 +48,18 @@
                     
                     <!-- Profile Menu -->
                     <div class="relative">
-                        <button class="flex items-center space-x-2 text-gray-700 hover:text-primary transition-colors duration-200">
+                        <button id="user-menu-button" class="flex items-center space-x-2 text-gray-700 hover:text-primary transition-colors duration-200">
                             <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Profile" class="w-8 h-8 rounded-full object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
-                            <span class="font-medium">John Smith</span>
+                            <span id="user-name-header" class="font-medium">John Smith</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </button>
+                        <!-- Dropdown Menu -->
+                        <div id="user-menu-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                            <a href="#" id="logout-button" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                        </div>
                     </div>
                 </div>
                 
@@ -71,8 +77,8 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-20 lg:pb-6">
         <!-- Welcome Section -->
         <div class="mb-8">
-            <h1 class="text-fluid-2xl font-bold text-gray-900 mb-2">
-                Welcome back, John!
+            <h1 id="welcome-message" class="text-fluid-2xl font-bold text-gray-900 mb-2">
+                Welcome back!
             </h1>
             <p class="text-fluid-base text-gray-600">
                 Manage your projects and grow your business
@@ -482,5 +488,58 @@
             </a>
         </div>
     </nav>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+<script>
+    const supabaseUrl = 'https://cmvaxbjkyloqgtexmflv.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtdmF4YmpreWxvEWd0ZXhtZmx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjEwNTQxMDIsImV4cCI6MjAzNjYzMDEwMn0.C6k5dtv2Cn5JYWq6ys2s8i_d0eZ2c_2S_ESzO-J2a_g';
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+    const welcomeMessage = document.getElementById('welcome-message');
+    const userNameHeader = document.getElementById('user-name-header');
+    const userMenuButton = document.getElementById('user-menu-button');
+    const userMenuDropdown = document.getElementById('user-menu-dropdown');
+    const logoutButton = document.getElementById('logout-button');
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        const { data: { session } } = await supabase.auth.getSession();
+
+        if (!session) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const user = session.user;
+        const userName = user.user_metadata.name || 'Artisan';
+
+        if (welcomeMessage) {
+            welcomeMessage.textContent = `Welcome back, ${userName}!`;
+        }
+        if (userNameHeader) {
+            userNameHeader.textContent = userName;
+        }
+    });
+
+    userMenuButton.addEventListener('click', () => {
+        userMenuDropdown.classList.toggle('hidden');
+    });
+
+    logoutButton.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+            console.error('Error logging out:', error);
+        } else {
+            window.location.href = 'login.html';
+        }
+    });
+
+    // Close dropdown if clicking outside
+    document.addEventListener('click', (event) => {
+        if (!userMenuButton.contains(event.target) && !userMenuDropdown.contains(event.target)) {
+            userMenuDropdown.classList.add('hidden');
+        }
+    });
+
+</script>
 </body>
 </html>

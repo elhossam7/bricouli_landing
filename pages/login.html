@@ -51,6 +51,8 @@
                 </p>
             </div>
 
+            <div id="message-display" class="mb-4 text-center text-green-600 font-medium"></div>
+
             <!-- Social Login Options -->
             <div class="space-y-3">
                 <button type="button" class="w-full flex items-center justify-center px-4 py-3 border border-gray-200 rounded-lg bg-white text-gray-700 font-medium hover:bg-gray-50 focus:bg-gray-50 focus:ring-2 focus:ring-primary/20 transition-all duration-200 shadow-craft hover:shadow-craft-md">
@@ -82,7 +84,7 @@
             </div>
 
             <!-- Login Form -->
-            <form class="space-y-6" id="loginForm">
+            <form class="space-y-6" id="login-form">
                 <!-- Email Field -->
                 <div>
                     <label for="email" class="form-label">
@@ -112,7 +114,7 @@
                         </button>
                     </div>
                     <div class="form-error hidden" id="passwordError">
-                        Password is required
+                        Password must be at least 8 characters
                     </div>
                 </div>
 
@@ -125,54 +127,91 @@
                         </label>
                     </div>
                     <div class="text-sm">
-                        <button type="button" class="text-primary hover:text-primary-700 font-medium" id="forgotPasswordBtn">
-                            Forgot password?
-                        </button>
+                        <a href="#" class="text-sm font-medium text-primary hover:text-primary-dark">
+                            Forgot your password?
+                        </a>
                     </div>
                 </div>
 
                 <!-- Submit Button -->
                 <div>
-                    <button type="submit" class="btn-primary w-full flex items-center justify-center" id="submitBtn">
-                        <span id="submitText">Sign In</span>
-                        <svg class="animate-spin -mr-1 ml-3 h-5 w-5 text-white hidden" id="loadingIcon" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
-                        </svg>
+                    <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark transition-colors duration-200">
+                        Sign In
                     </button>
-                </div>
-
-                <!-- Error Message -->
-                <div class="form-error hidden text-center" id="formError">
-                    Invalid email or password. Please try again.
                 </div>
             </form>
 
-            <!-- Forgot Password Form (Hidden by default) -->
-            <div class="hidden" id="forgotPasswordForm">
-                <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Reset Password</h3>
-                    <form class="space-y-4" id="resetForm">
-                        <div>
-                            <label for="resetEmail" class="form-label">
-                                Email Address
-                            </label>
-                            <input type="email" id="resetEmail" name="resetEmail" class="form-input" placeholder="Enter your email address" required />
-                        </div>
-                        <div class="flex space-x-3">
-                            <button type="submit" class="btn-primary flex-1">
-                                Send Reset Link
-                            </button>
-                            <button type="button" class="btn-outline flex-1" id="cancelResetBtn">
-                                Cancel
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <div id="error-message" class="mt-4 text-red-600 text-center"></div>
 
-            <!-- Registration Links -->
-            <div class="text-center space-y-4">
+            <script>
+              document.addEventListener('DOMContentLoaded', () => {
+                const form = document.getElementById('login-form');
+                const errorMessage = document.getElementById('error-message');
+                const messageDisplay = document.getElementById('message-display');
+
+                // Display success message from URL if present
+                const urlParams = new URLSearchParams(window.location.search);
+                const message = urlParams.get('message');
+                if (message) {
+                  messageDisplay.textContent = message;
+                }
+
+                form.addEventListener('submit', async (e) => {
+                  e.preventDefault();
+                  errorMessage.textContent = ''; // Clear previous errors
+
+                  const email = document.getElementById('email').value;
+                  const password = document.getElementById('password').value;
+
+                  try {
+                    const response = await fetch('http://localhost:5000/api/users/login', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({ email, password }),
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                      throw new Error(data.message || 'Something went wrong');
+                    }
+
+                    // Store session or token if needed (Supabase handles this automatically)
+
+                    if (data.user.user_metadata.role === 'client') {
+                      window.location.href = 'client_dashboard.html';
+                    } else if (data.user.user_metadata.role === 'artisan') {
+                      window.location.href = 'artisan_dashboard.html';
+                    } else {
+                      // Fallback or error for unknown role
+                      throw new Error('Invalid user role detected.');
+                    }
+                  } catch (error) {
+                    errorMessage.textContent = error.message;
+                  }
+                });
+
+                // Password toggle functionality
+                const togglePassword = document.getElementById('togglePassword');
+                const passwordInput = document.getElementById('password');
+                const eyeIcon = document.getElementById('eyeIcon');
+                const eyeOffIcon = document.getElementById('eyeOffIcon');
+
+                if (togglePassword) {
+                    togglePassword.addEventListener('click', function() {
+                        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                        passwordInput.setAttribute('type', type);
+                        eyeIcon.classList.toggle('hidden');
+                        eyeOffIcon.classList.toggle('hidden');
+                    });
+                }
+              });
+            </script>
+
+            <!-- Sign Up Link -->
+            <div class="text-center mt-6">
                 <p class="text-sm text-gray-600">
                     Don't have an account?
                 </p>
@@ -223,161 +262,7 @@
     </footer>
 
     <!-- JavaScript -->
-    <script>
-        // Password toggle functionality
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordInput = document.getElementById('password');
-        const eyeIcon = document.getElementById('eyeIcon');
-        const eyeOffIcon = document.getElementById('eyeOffIcon');
-
-        togglePassword.addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            
-            eyeIcon.classList.toggle('hidden');
-            eyeOffIcon.classList.toggle('hidden');
-        });
-
-        // Forgot password functionality
-        const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
-        const forgotPasswordForm = document.getElementById('forgotPasswordForm');
-        const cancelResetBtn = document.getElementById('cancelResetBtn');
-        const loginForm = document.getElementById('loginForm');
-
-        forgotPasswordBtn.addEventListener('click', function() {
-            loginForm.classList.add('hidden');
-            forgotPasswordForm.classList.remove('hidden');
-        });
-
-        cancelResetBtn.addEventListener('click', function() {
-            forgotPasswordForm.classList.add('hidden');
-            loginForm.classList.remove('hidden');
-        });
-
-        // Form validation and submission
-        const form = document.getElementById('loginForm');
-        const emailInput = document.getElementById('email');
-        const emailError = document.getElementById('emailError');
-        const passwordError = document.getElementById('passwordError');
-        const formError = document.getElementById('formError');
-        const submitBtn = document.getElementById('submitBtn');
-        const submitText = document.getElementById('submitText');
-        const loadingIcon = document.getElementById('loadingIcon');
-
-        // Mock user data for demonstration
-        const mockUsers = [
-            { email: 'client@bricouli.com', password: 'client123', role: 'client' },
-            { email: 'artisan@bricouli.com', password: 'artisan123', role: 'artisan' },
-            { email: 'john.doe@example.com', password: 'password123', role: 'client' },
-            { email: 'sarah.smith@example.com', password: 'artisan456', role: 'artisan' }
-        ];
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Reset errors
-            emailError.classList.add('hidden');
-            passwordError.classList.add('hidden');
-            formError.classList.add('hidden');
-            
-            const email = emailInput.value.trim();
-            const password = passwordInput.value.trim();
-            
-            let isValid = true;
-            
-            // Email validation
-            if (!email) {
-                emailError.textContent = 'Email is required';
-                emailError.classList.remove('hidden');
-                isValid = false;
-            } else if (!isValidEmail(email)) {
-                emailError.textContent = 'Please enter a valid email address';
-                emailError.classList.remove('hidden');
-                isValid = false;
-            }
-            
-            // Password validation
-            if (!password) {
-                passwordError.classList.remove('hidden');
-                isValid = false;
-            }
-            
-            if (!isValid) return;
-            
-            // Show loading state
-            submitBtn.disabled = true;
-            submitText.textContent = 'Signing In...';
-            loadingIcon.classList.remove('hidden');
-            
-            // Simulate API call
-            setTimeout(() => {
-                const user = mockUsers.find(u => u.email === email && u.password === password);
-                
-                if (user) {
-                    // Store user session (in real app, this would be handled by backend)
-                    localStorage.setItem('bricouli_user', JSON.stringify({
-                        email: user.email,
-                        role: user.role,
-                        loginTime: new Date().toISOString()
-                    }));
-                    
-                    // Redirect based on role
-                    if (user.role === 'client') {
-                        window.location.href = 'client_dashboard.html';
-                    } else {
-                        window.location.href = 'artisan_dashboard.html';
-                    }
-                } else {
-                    // Show error
-                    formError.classList.remove('hidden');
-                    
-                    // Reset loading state
-                    submitBtn.disabled = false;
-                    submitText.textContent = 'Sign In';
-                    loadingIcon.classList.add('hidden');
-                }
-            }, 1500);
-        });
-
-        // Reset password form
-        const resetForm = document.getElementById('resetForm');
-        resetForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const resetEmail = document.getElementById('resetEmail').value.trim();
-            
-            if (!resetEmail || !isValidEmail(resetEmail)) {
-                alert('Please enter a valid email address');
-                return;
-            }
-            
-            // Simulate sending reset email
-            alert('Password reset link has been sent to your email address.');
-            
-            // Return to login form
-            forgotPasswordForm.classList.add('hidden');
-            loginForm.classList.remove('hidden');
-        });
-
-        // Email validation helper
-        function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
-
-        // Social login handlers (mock)
-        document.querySelectorAll('button[type="button"]').forEach(button => {
-            if (button.textContent.includes('Google') || button.textContent.includes('Facebook')) {
-                button.addEventListener('click', function() {
-                    alert('Social login would be implemented with OAuth providers in production.');
-                });
-            }
-        });
-
-        // Auto-focus email field on page load
-        window.addEventListener('load', function() {
-            emailInput.focus();
-        });
-    </script>
+    
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
 </body>
 </html>
