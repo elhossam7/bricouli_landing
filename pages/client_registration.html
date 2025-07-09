@@ -210,8 +210,14 @@
                                   throw new Error(data.message || 'Something went wrong');
                                 }
 
-                                // Redirect to login page with a success message
-                                window.location.href = 'login.html?message=Registration successful. Please log in.';
+                                // Check if email confirmation is required
+                                if (data.emailConfirmationRequired) {
+                                  // Redirect to login page with email confirmation message
+                                  window.location.href = 'login.html?message=' + encodeURIComponent(data.message);
+                                } else {
+                                  // Redirect to login page with success message
+                                  window.location.href = 'login.html?message=Registration successful. Please log in.';
+                                }
                               } catch (error) {
                                 errorMessage.textContent = error.message;
                               }
@@ -254,6 +260,6 @@
 
     <!-- JavaScript for Form Validation and Interactions -->
     
-<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+<script id="dhws-dataInjector" src="/dhws-data-injector.js"></script>
 </body>
 </html>

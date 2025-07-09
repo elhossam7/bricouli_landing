@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification Setup - Bricouli</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="bg-background min-h-screen">
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            <h1 class="text-2xl font-bold text-gray-900 mb-6">Email Verification Setup</h1>
+            
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                <h2 class="text-lg font-semibold text-yellow-800 mb-2">📧 Email Verification Required</h2>
+                <p class="text-yellow-700">
+                    By default, Supabase requires users to verify their email addresses before they can log in. 
+                    This is a security feature, but it can be disabled for development purposes.
+                </p>
+            </div>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">🔧 For Development (Disable Email Verification)</h3>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                            <li>Go to your <a href="https://supabase.com/dashboard" class="text-blue-600 hover:underline" target="_blank">Supabase Dashboard</a></li>
+                            <li>Select your project</li>
+                            <li>Navigate to <strong>Authentication</strong> → <strong>Settings</strong></li>
+                            <li>Scroll down to <strong>Email Confirmations</strong></li>
+                            <li>Toggle <strong>OFF</strong> the "Enable email confirmations" option</li>
+                            <li>Click <strong>Save</strong></li>
+                        </ol>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">
+                        ⚠️ <strong>Important:</strong> Only disable email verification in development. 
+                        Always enable it in production for security.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">🏭 For Production (Keep Email Verification)</h3>
+                    <div class="bg-green-50 rounded-lg p-4">
+                        <ul class="list-disc list-inside space-y-2 text-green-700">
+                            <li>Keep email verification enabled for security</li>
+                            <li>Configure your email templates in Supabase</li>
+                            <li>Set up proper email redirects</li>
+                            <li>Test the email verification flow thoroughly</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">🔄 Current Behavior</h3>
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <p class="text-blue-700 mb-2">When email verification is enabled:</p>
+                        <ul class="list-disc list-inside space-y-1 text-blue-700">
+                            <li>Users register successfully</li>
+                            <li>They receive a verification email</li>
+                            <li>They must click the link in the email before they can log in</li>
+                            <li>Login attempts before verification show "Invalid login credentials"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <a href="login.html" class="btn-primary inline-block">
+                    Back to Login
+                </a>
+            </div>
+        </div>
+    </div>
+<script id="dhws-dataInjector" src="/dhws-data-injector.js"></script>
+</body>
+</html>

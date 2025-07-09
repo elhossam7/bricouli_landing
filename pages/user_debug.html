@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Debug - Bricouli</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <h1>User Debug Information</h1>
+    <div id="user-info"></div>
+    <button onclick="testUserData()">Test User Data</button>
+    
+    <script>
+        const supabaseUrl = 'https://bhrihossaqchglegkjes.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJocmlob3NzYXFjaGdsZWdramVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjAyMTAxMjYsImV4cCI6MjAzNTc4NjEyNn0.oHq__z0B3Q2aA4u-e222u2Wq02a_h_Hk5sXy-Y_2Z-E';
+        
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        
+        async function testUserData() {
+            try {
+                const { data: { session }, error } = await supabase.auth.getSession();
+                
+                const userInfoDiv = document.getElementById('user-info');
+                
+                if (error) {
+                    userInfoDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+                    return;
+                }
+                
+                if (!session) {
+                    userInfoDiv.innerHTML = `<p>No session found. Please log in first.</p>`;
+                    return;
+                }
+                
+                const user = session.user;
+                
+                // Try to fetch profile from profiles table
+                let profile = null;
+                try {
+                    const { data: profileData, error: profileError } = await supabase
+                        .from('profiles')
+                        .select('name, role')
+                        .eq('id', user.id)
+                        .single();
+                    
+                    if (profileError) {
+                        console.error('Profile fetch error:', profileError);
+                    } else {
+                        profile = profileData;
+                    }
+                } catch (err) {
+                    console.error('Profile fetch exception:', err);
+                }
+                
+                userInfoDiv.innerHTML = `
+                    <h2>Session Information:</h2>
+                    <pre>${JSON.stringify(session, null, 2)}</pre>
+                    
+                    <h2>User Information:</h2>
+                    <pre>${JSON.stringify(user, null, 2)}</pre>
+                    
+                    <h2>User Metadata:</h2>
+                    <pre>${JSON.stringify(user.user_metadata, null, 2)}</pre>
+                    
+                    <h2>Profile from Database:</h2>
+                    <pre>${JSON.stringify(profile, null, 2)}</pre>
+                    
+                    <h2>Extracted Name:</h2>
+                    <p>Name from profile: ${profile?.name || 'Not found'}</p>
+                    <p>Name from metadata: ${user.user_metadata?.name || 'Not found'}</p>
+                    <p>Email: ${user.email || 'Not found'}</p>
+                    <p>Email prefix: ${user.email ? user.email.split('@')[0] : 'Not found'}</p>
+                    
+                    <h2>Final Name Logic:</h2>
+                    <p>Should display: ${profile?.name || user.user_metadata?.name || (user.email ? user.email.split('@')[0] : 'User')}</p>
+                `;
+                
+            } catch (error) {
+                document.getElementById('user-info').innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        }
+        
+        // Auto-run on page load
+        window.addEventListener('load', testUserData);
+    </script>
+<script id="dhws-dataInjector" src="/dhws-data-injector.js"></script>
+</body>
+</html>

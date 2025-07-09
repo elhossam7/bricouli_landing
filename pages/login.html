@@ -152,8 +152,16 @@
                 // Display success message from URL if present
                 const urlParams = new URLSearchParams(window.location.search);
                 const message = urlParams.get('message');
+                const verified = urlParams.get('verified');
+                
                 if (message) {
                   messageDisplay.textContent = message;
+                  messageDisplay.className = 'mt-4 p-3 text-sm text-blue-600 bg-blue-50 border border-blue-200 rounded-lg';
+                }
+                
+                if (verified === 'true') {
+                  messageDisplay.textContent = 'Email verified successfully! You can now log in.';
+                  messageDisplay.className = 'mt-4 p-3 text-sm text-green-600 bg-green-50 border border-green-200 rounded-lg';
                 }
 
                 form.addEventListener('submit', async (e) => {
@@ -190,6 +198,12 @@
                     }
                   } catch (error) {
                     errorMessage.textContent = error.message;
+                    
+                    // Add helpful link for email verification issues
+                    if (error.message.includes('verify your account') || error.message.includes('Email not confirmed')) {
+                        errorMessage.innerHTML = error.message + 
+                            '<br><br><a href="email_verification_help.html" class="text-blue-600 hover:underline">Need help with email verification?</a>';
+                    }
                   }
                 });
 
@@ -263,6 +277,6 @@
 
     <!-- JavaScript -->
     
-<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+<script id="dhws-dataInjector" src="/dhws-data-injector.js"></script>
 </body>
 </html>
