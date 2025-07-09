@@ -276,7 +276,167 @@
     </footer>
 
     <!-- JavaScript -->
+<<<<<<< HEAD
     
 <script id="dhws-dataInjector" src="/dhws-data-injector.js"></script>
+=======
+    <script>
+        // Password toggle functionality
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+        const eyeOffIcon = document.getElementById('eyeOffIcon');
+
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            eyeIcon.classList.toggle('hidden');
+            eyeOffIcon.classList.toggle('hidden');
+        });
+
+        // Forgot password functionality
+        const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+        const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+        const cancelResetBtn = document.getElementById('cancelResetBtn');
+        const loginForm = document.getElementById('loginForm');
+
+        forgotPasswordBtn.addEventListener('click', function() {
+            loginForm.classList.add('hidden');
+            forgotPasswordForm.classList.remove('hidden');
+        });
+
+        cancelResetBtn.addEventListener('click', function() {
+            forgotPasswordForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+        });
+
+        // Form validation and submission
+        const form = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        const formError = document.getElementById('formError');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = document.getElementById('submitText');
+        const loadingIcon = document.getElementById('loadingIcon');
+
+        // Mock user data for demonstration
+        const mockUsers = [
+            { email: 'client@bricouli.com', password: 'client123', role: 'client' },
+            { email: 'artisan@bricouli.com', password: 'artisan123', role: 'artisan' },
+            { email: 'john.doe@example.com', password: 'password123', role: 'client' },
+            { email: 'sarah.smith@example.com', password: 'artisan456', role: 'artisan' }
+        ];
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset errors
+            emailError.classList.add('hidden');
+            passwordError.classList.add('hidden');
+            formError.classList.add('hidden');
+            
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+            
+            let isValid = true;
+            
+            // Email validation
+            if (!email) {
+                emailError.textContent = 'Email is required';
+                emailError.classList.remove('hidden');
+                isValid = false;
+            } else if (!isValidEmail(email)) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailError.classList.remove('hidden');
+                isValid = false;
+            }
+            
+            // Password validation
+            if (!password) {
+                passwordError.classList.remove('hidden');
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitText.textContent = 'Signing In...';
+            loadingIcon.classList.remove('hidden');
+            
+            // Simulate API call
+            setTimeout(() => {
+                const user = mockUsers.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    // Store user session (in real app, this would be handled by backend)
+                    localStorage.setItem('bricouli_user', JSON.stringify({
+                        email: user.email,
+                        role: user.role,
+                        loginTime: new Date().toISOString()
+                    }));
+                    
+                    // Redirect based on role
+                    if (user.role === 'client') {
+                        window.location.href = 'client_dashboard.html';
+                    } else {
+                        window.location.href = 'artisan_dashboard.html';
+                    }
+                } else {
+                    // Show error
+                    formError.classList.remove('hidden');
+                    
+                    // Reset loading state
+                    submitBtn.disabled = false;
+                    submitText.textContent = 'Sign In';
+                    loadingIcon.classList.add('hidden');
+                }
+            }, 1500);
+        });
+
+        // Reset password form
+        const resetForm = document.getElementById('resetForm');
+        resetForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const resetEmail = document.getElementById('resetEmail').value.trim();
+            
+            if (!resetEmail || !isValidEmail(resetEmail)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            
+            // Simulate sending reset email
+            alert('Password reset link has been sent to your email address.');
+            
+            // Return to login form
+            forgotPasswordForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+        });
+
+        // Email validation helper
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Social login handlers (mock)
+        document.querySelectorAll('button[type="button"]').forEach(button => {
+            if (button.textContent.includes('Google') || button.textContent.includes('Facebook')) {
+                button.addEventListener('click', function() {
+                    alert('Social login would be implemented with OAuth providers in production.');
+                });
+            }
+        });
+
+        // Auto-focus email field on page load
+        window.addEventListener('load', function() {
+            emailInput.focus();
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+>>>>>>> 4c84454bdab2ca04d7b2eec30f07ef8efae91901
 </body>
 </html>

@@ -259,7 +259,248 @@
     </main>
 
     <!-- JavaScript for Form Validation and Interactions -->
+<<<<<<< HEAD
     
 <script id="dhws-dataInjector" src="/dhws-data-injector.js"></script>
+=======
+    <script>
+        // Form validation and interaction logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('clientRegistrationForm');
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            // Password visibility toggle
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                const eyeIcon = document.getElementById('eyeIcon');
+                if (type === 'password') {
+                    eyeIcon.innerHTML = `
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    `;
+                } else {
+                    eyeIcon.innerHTML = `
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"/>
+                    `;
+                }
+            });
+            
+            // Password strength checker
+            passwordInput.addEventListener('input', function() {
+                const password = this.value;
+                const strength = calculatePasswordStrength(password);
+                updatePasswordStrength(strength);
+            });
+            
+            // Real-time validation
+            const inputs = ['fullName', 'email', 'password', 'confirmPassword'];
+            inputs.forEach(inputId => {
+                const input = document.getElementById(inputId);
+                input.addEventListener('blur', () => validateField(inputId));
+                input.addEventListener('input', () => clearErrors(inputId));
+            });
+            
+            // Confirm password validation
+            confirmPasswordInput.addEventListener('input', function() {
+                if (this.value && passwordInput.value) {
+                    if (this.value === passwordInput.value) {
+                        showSuccess('confirmPassword');
+                    } else {
+                        showError('confirmPassword', 'Passwords do not match');
+                    }
+                }
+            });
+            
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate all required fields
+                let isValid = true;
+                inputs.forEach(inputId => {
+                    if (!validateField(inputId)) {
+                        isValid = false;
+                    }
+                });
+                
+                // Check terms acceptance
+                const termsCheckbox = document.getElementById('terms');
+                if (!termsCheckbox.checked) {
+                    alert('Please accept the Terms of Service and Privacy Policy');
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    // Show loading state
+                    submitBtn.disabled = true;
+                    submitText.textContent = 'Creating Account...';
+                    loadingSpinner.classList.remove('hidden');
+                    
+                    // Simulate API call
+                    setTimeout(() => {
+                        // Redirect to client dashboard
+                        window.location.href = 'client_dashboard.html';
+                    }, 2000);
+                }
+            });
+            
+            // Validation functions
+            function validateField(fieldId) {
+                const input = document.getElementById(fieldId);
+                const value = input.value.trim();
+                
+                switch(fieldId) {
+                    case 'fullName':
+                        if (!value) {
+                            showError(fieldId, 'Full name is required');
+                            return false;
+                        } else if (value.length < 2) {
+                            showError(fieldId, 'Full name must be at least 2 characters');
+                            return false;
+                        } else {
+                            showSuccess(fieldId);
+                            return true;
+                        }
+                        
+                    case 'email':
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!value) {
+                            showError(fieldId, 'Email address is required');
+                            return false;
+                        } else if (!emailRegex.test(value)) {
+                            showError(fieldId, 'Please enter a valid email address');
+                            return false;
+                        } else {
+                            showSuccess(fieldId);
+                            return true;
+                        }
+                        
+                    case 'password':
+                        if (!value) {
+                            showError(fieldId, 'Password is required');
+                            return false;
+                        } else if (value.length < 8) {
+                            showError(fieldId, 'Password must be at least 8 characters');
+                            return false;
+                        } else {
+                            clearErrors(fieldId);
+                            return true;
+                        }
+                        
+                    case 'confirmPassword':
+                        if (!value) {
+                            showError(fieldId, 'Please confirm your password');
+                            return false;
+                        } else if (value !== passwordInput.value) {
+                            showError(fieldId, 'Passwords do not match');
+                            return false;
+                        } else {
+                            showSuccess(fieldId);
+                            return true;
+                        }
+                        
+                    default:
+                        return true;
+                }
+            }
+            
+            function showError(fieldId, message) {
+                const errorElement = document.getElementById(fieldId + 'Error');
+                const successElement = document.getElementById(fieldId + 'Success');
+                const input = document.getElementById(fieldId);
+                
+                if (errorElement) {
+                    errorElement.textContent = message;
+                    errorElement.classList.remove('hidden');
+                }
+                if (successElement) {
+                    successElement.classList.add('hidden');
+                }
+                input.classList.add('border-error-500');
+                input.classList.remove('border-success-500');
+            }
+            
+            function showSuccess(fieldId) {
+                const errorElement = document.getElementById(fieldId + 'Error');
+                const successElement = document.getElementById(fieldId + 'Success');
+                const input = document.getElementById(fieldId);
+                
+                if (errorElement) {
+                    errorElement.classList.add('hidden');
+                }
+                if (successElement) {
+                    successElement.classList.remove('hidden');
+                }
+                input.classList.add('border-success-500');
+                input.classList.remove('border-error-500');
+            }
+            
+            function clearErrors(fieldId) {
+                const errorElement = document.getElementById(fieldId + 'Error');
+                const successElement = document.getElementById(fieldId + 'Success');
+                const input = document.getElementById(fieldId);
+                
+                if (errorElement) {
+                    errorElement.classList.add('hidden');
+                }
+                if (successElement) {
+                    successElement.classList.add('hidden');
+                }
+                input.classList.remove('border-error-500', 'border-success-500');
+            }
+            
+            function calculatePasswordStrength(password) {
+                let strength = 0;
+                
+                // Length check
+                if (password.length >= 8) strength++;
+                if (password.length >= 12) strength++;
+                
+                // Character variety checks
+                if (/[a-z]/.test(password)) strength++;
+                if (/[A-Z]/.test(password)) strength++;
+                if (/[0-9]/.test(password)) strength++;
+                if (/[^A-Za-z0-9]/.test(password)) strength++;
+                
+                return Math.min(strength, 4);
+            }
+            
+            function updatePasswordStrength(strength) {
+                const strengthBars = ['strength1', 'strength2', 'strength3', 'strength4'];
+                const strengthText = document.getElementById('strengthText');
+                const colors = ['bg-error-500', 'bg-warning-500', 'bg-accent-500', 'bg-success-500'];
+                const labels = ['Very Weak', 'Weak', 'Good', 'Strong'];
+                
+                // Reset all bars
+                strengthBars.forEach(barId => {
+                    const bar = document.getElementById(barId);
+                    bar.className = 'h-1 flex-1 bg-gray-200 rounded';
+                });
+                
+                // Fill bars based on strength
+                for (let i = 0; i < strength; i++) {
+                    const bar = document.getElementById(strengthBars[i]);
+                    bar.classList.remove('bg-gray-200');
+                    bar.classList.add(colors[Math.min(strength - 1, 3)]);
+                }
+                
+                // Update text
+                if (strength > 0) {
+                    strengthText.textContent = `Password strength: ${labels[Math.min(strength - 1, 3)]}`;
+                } else {
+                    strengthText.textContent = 'Password strength: Very Weak';
+                }
+            }
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+>>>>>>> 4c84454bdab2ca04d7b2eec30f07ef8efae91901
 </body>
 </html>
