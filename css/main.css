@@ -994,6 +994,10 @@ body {
   margin-left: -0.25rem;
 }
 
+.-mr-1{
+  margin-right: -0.25rem;
+}
+
 .mb-1{
   margin-bottom: 0.25rem;
 }
@@ -1028,6 +1032,10 @@ body {
 
 .ml-2{
   margin-left: 0.5rem;
+}
+
+.ml-3{
+  margin-left: 0.75rem;
 }
 
 .ml-4{
@@ -1105,6 +1113,10 @@ body {
   display: inline-block;
 }
 
+.inline{
+  display: inline;
+}
+
 .flex{
   display: flex;
 }
@@ -1123,6 +1135,10 @@ body {
 
 .h-0\.5{
   height: 0.125rem;
+}
+
+.h-1{
+  height: 0.25rem;
 }
 
 .h-10{
@@ -1217,10 +1233,6 @@ body {
   width: 1rem;
 }
 
-.w-48{
-  width: 12rem;
-}
-
 .w-5{
   width: 1.25rem;
 }
@@ -1239,6 +1251,10 @@ body {
 
 .w-full{
   width: 100%;
+}
+
+.w-48{
+  width: 12rem;
 }
 
 .max-w-2xl{
@@ -1512,11 +1528,6 @@ body {
   border-style: dashed;
 }
 
-.border-blue-200{
-  --tw-border-opacity: 1;
-  border-color: rgb(191 219 254 / var(--tw-border-opacity, 1));
-}
-
 .border-error-500{
   --tw-border-opacity: 1;
   border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
@@ -1537,14 +1548,24 @@ body {
   border-color: rgb(31 41 55 / var(--tw-border-opacity, 1));
 }
 
-.border-green-200{
-  --tw-border-opacity: 1;
-  border-color: rgb(187 247 208 / var(--tw-border-opacity, 1));
-}
-
 .border-primary{
   --tw-border-opacity: 1;
   border-color: rgb(37 99 235 / var(--tw-border-opacity, 1));
+}
+
+.border-success-500{
+  --tw-border-opacity: 1;
+  border-color: rgb(16 185 129 / var(--tw-border-opacity, 1));
+}
+
+.border-blue-200{
+  --tw-border-opacity: 1;
+  border-color: rgb(191 219 254 / var(--tw-border-opacity, 1));
+}
+
+.border-green-200{
+  --tw-border-opacity: 1;
+  border-color: rgb(187 247 208 / var(--tw-border-opacity, 1));
 }
 
 .border-transparent{
@@ -1571,6 +1592,11 @@ body {
   background-color: rgb(255 251 235 / var(--tw-bg-opacity, 1));
 }
 
+.bg-accent-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 158 11 / var(--tw-bg-opacity, 1));
+}
+
 .bg-background{
   --tw-bg-opacity: 1;
   background-color: rgb(250 251 252 / var(--tw-bg-opacity, 1));
@@ -1581,11 +1607,6 @@ body {
   background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
 }
 
-.bg-blue-50{
-  --tw-bg-opacity: 1;
-  background-color: rgb(239 246 255 / var(--tw-bg-opacity, 1));
-}
-
 .bg-error{
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
@@ -1594,6 +1615,11 @@ body {
 .bg-error-100{
   --tw-bg-opacity: 1;
   background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
+}
+
+.bg-error-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
 }
 
 .bg-gray-100{
@@ -1619,11 +1645,6 @@ body {
 .bg-gray-900{
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1));
-}
-
-.bg-green-50{
-  --tw-bg-opacity: 1;
-  background-color: rgb(240 253 244 / var(--tw-bg-opacity, 1));
 }
 
 .bg-primary{
@@ -1671,6 +1692,16 @@ body {
   background-color: rgb(236 253 245 / var(--tw-bg-opacity, 1));
 }
 
+.bg-success-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(16 185 129 / var(--tw-bg-opacity, 1));
+}
+
+.bg-warning-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 158 11 / var(--tw-bg-opacity, 1));
+}
+
 .bg-white{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
@@ -1678,6 +1709,16 @@ body {
 
 .bg-white\/60{
   background-color: rgb(255 255 255 / 0.6);
+}
+
+.bg-blue-50{
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 246 255 / var(--tw-bg-opacity, 1));
+}
+
+.bg-green-50{
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 253 244 / var(--tw-bg-opacity, 1));
 }
 
 .bg-yellow-50{
@@ -1952,16 +1993,6 @@ body {
   color: rgb(217 119 6 / var(--tw-text-opacity, 1));
 }
 
-.text-blue-600{
-  --tw-text-opacity: 1;
-  color: rgb(37 99 235 / var(--tw-text-opacity, 1));
-}
-
-.text-blue-700{
-  --tw-text-opacity: 1;
-  color: rgb(29 78 216 / var(--tw-text-opacity, 1));
-}
-
 .text-error{
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity, 1));
@@ -2002,16 +2033,6 @@ body {
   color: rgb(17 24 39 / var(--tw-text-opacity, 1));
 }
 
-.text-green-600{
-  --tw-text-opacity: 1;
-  color: rgb(22 163 74 / var(--tw-text-opacity, 1));
-}
-
-.text-green-700{
-  --tw-text-opacity: 1;
-  color: rgb(21 128 61 / var(--tw-text-opacity, 1));
-}
-
 .text-primary{
   --tw-text-opacity: 1;
   color: rgb(37 99 235 / var(--tw-text-opacity, 1));
@@ -2025,11 +2046,6 @@ body {
 .text-red-500{
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity, 1));
-}
-
-.text-red-600{
-  --tw-text-opacity: 1;
-  color: rgb(220 38 38 / var(--tw-text-opacity, 1));
 }
 
 .text-secondary{
@@ -2052,6 +2068,31 @@ body {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
+.text-blue-600{
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity, 1));
+}
+
+.text-blue-700{
+  --tw-text-opacity: 1;
+  color: rgb(29 78 216 / var(--tw-text-opacity, 1));
+}
+
+.text-green-600{
+  --tw-text-opacity: 1;
+  color: rgb(22 163 74 / var(--tw-text-opacity, 1));
+}
+
+.text-green-700{
+  --tw-text-opacity: 1;
+  color: rgb(21 128 61 / var(--tw-text-opacity, 1));
+}
+
+.text-red-600{
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity, 1));
+}
+
 .text-yellow-700{
   --tw-text-opacity: 1;
   color: rgb(161 98 7 / var(--tw-text-opacity, 1));
@@ -2060,6 +2101,10 @@ body {
 .text-yellow-800{
   --tw-text-opacity: 1;
   color: rgb(133 77 14 / var(--tw-text-opacity, 1));
+}
+
+.underline{
+  text-decoration-line: underline;
 }
 
 .placeholder-gray-400::-moz-placeholder{
@@ -2347,11 +2392,6 @@ body {
   background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
 }
 
-.hover\:bg-gray-100:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
-}
-
 .hover\:bg-gray-50:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
@@ -2365,6 +2405,11 @@ body {
 .hover\:bg-primary-700:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-gray-100:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:text-accent-600:hover{
