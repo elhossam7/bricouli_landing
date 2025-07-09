@@ -689,10 +689,21 @@
             
             // Get form data
             const formData = new FormData(this);
-            const name = formData.get('name');
+            const firstName = formData.get('firstName');
+            const lastName = formData.get('lastName');
+            const name = `${firstName} ${lastName}`;
             const email = formData.get('email');
+            const phone = formData.get('phone');
+            const businessName = formData.get('businessName');
+            const experienceLevel = formData.get('experienceLevel');
+            const serviceRadius = formData.get('serviceRadius');
+            const zipCode = formData.get('zipCode');
+            const hourlyRate = formData.get('hourlyRate');
             const password = formData.get('password');
             const confirmPassword = formData.get('confirmPassword');
+            
+            // Get selected trade specialties
+            const tradeSpecialties = Array.from(formData.getAll('tradeSpecialties'));
             
             // Basic validation
             if (password !== confirmPassword) {
@@ -706,7 +717,19 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ name, email, password, role: 'artisan' }),
+                    body: JSON.stringify({ 
+                        name, 
+                        email, 
+                        phone, 
+                        password, 
+                        role: 'artisan',
+                        businessName,
+                        experienceLevel,
+                        serviceRadius,
+                        zipCode,
+                        hourlyRate,
+                        skills: tradeSpecialties.join(', ')
+                    }),
                 });
                 
                 const data = await response.json();
@@ -720,8 +743,8 @@
                     // Redirect to login page with email confirmation message
                     window.location.href = 'login.html?message=' + encodeURIComponent(data.message);
                 } else {
-                    // Redirect to login page with success message
-                    window.location.href = 'login.html?message=Registration successful. Please log in.';
+                    // Registration successful with comprehensive profile
+                    window.location.href = 'login.html?message=Registration successful! You can now log in to access your artisan dashboard.';
                 }
             } catch (error) {
                 // Show error message
@@ -754,10 +777,6 @@
             }
         });
     </script>
-<<<<<<< HEAD
 <script id="dhws-dataInjector" src="/dhws-data-injector.js"></script>
-=======
-<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
->>>>>>> 4c84454bdab2ca04d7b2eec30f07ef8efae91901
 </body>
 </html>

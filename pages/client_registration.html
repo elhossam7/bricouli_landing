@@ -151,6 +151,15 @@
                             </div>
 
                             <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                                <div class="mt-1">
+                                    <input id="phone" name="phone" type="tel" autocomplete="tel" required 
+                                           class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                                           placeholder="Enter your phone number">
+                                </div>
+                            </div>
+
+                            <div>
                                 <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                                 <div class="mt-1">
                                     <input id="password" name="password" type="password" autocomplete="new-password" required 
@@ -187,6 +196,7 @@
 
                               const name = document.getElementById('name').value;
                               const email = document.getElementById('email').value;
+                              const phone = document.getElementById('phone').value;
                               const password = document.getElementById('password').value;
                               const confirmPassword = document.getElementById('confirm-password').value;
 
@@ -201,7 +211,7 @@
                                   headers: {
                                     'Content-Type': 'application/json',
                                   },
-                                  body: JSON.stringify({ name, email, password, role: 'client' }),
+                                  body: JSON.stringify({ name, email, phone, password, role: 'client' }),
                                 });
 
                                 const data = await response.json();
@@ -215,8 +225,8 @@
                                   // Redirect to login page with email confirmation message
                                   window.location.href = 'login.html?message=' + encodeURIComponent(data.message);
                                 } else {
-                                  // Redirect to login page with success message
-                                  window.location.href = 'login.html?message=Registration successful. Please log in.';
+                                  // Registration successful with profile completed
+                                  window.location.href = 'login.html?message=Registration successful! You can now log in to access your dashboard.';
                                 }
                               } catch (error) {
                                 errorMessage.textContent = error.message;
@@ -259,10 +269,6 @@
     </main>
 
     <!-- JavaScript for Form Validation and Interactions -->
-<<<<<<< HEAD
-    
-<script id="dhws-dataInjector" src="/dhws-data-injector.js"></script>
-=======
     <script>
         // Form validation and interaction logic
         document.addEventListener('DOMContentLoaded', function() {
@@ -282,7 +288,7 @@
                 const eyeIcon = document.getElementById('eyeIcon');
                 if (type === 'password') {
                     eyeIcon.innerHTML = `
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 018 0z"/>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                     `;
                 } else {
@@ -500,7 +506,8 @@
             }
         });
     </script>
-<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
->>>>>>> 4c84454bdab2ca04d7b2eec30f07ef8efae91901
+    
+    <!-- JavaScript -->
+    <script id="dhws-dataInjector" src="/dhws-data-injector.js"></script>
 </body>
 </html>

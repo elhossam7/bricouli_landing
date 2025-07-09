@@ -488,12 +488,10 @@
             </a>
         </div>
     </nav>
-<<<<<<< HEAD
-<script id="dhws-dataInjector" src="/dhws-data-injector.js"></script>
 <script>
-    const supabaseUrl = 'https://cmvaxbjkyloqgtexmflv.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtdmF4YmpreWxvEWd0ZXhtZmx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjEwNTQxMDIsImV4cCI6MjAzNjYzMDEwMn0.C6k5dtv2Cn5JYWq6ys2s8i_d0eZ2c_2S_ESzO-J2a_g';
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    const supabaseUrl = 'https://wecbjkfyaqorwmvrabjb.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndlY2Jqa2Z5YXFvcndtdnJhYmpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5OTEyODYsImV4cCI6MjA2NzU2NzI4Nn0.HzfxgDjLQtqlpvH2k-EK9QgGYg7GT0Qifb-2Yh4ObO4';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     const welcomeMessage = document.getElementById('welcome-message');
     const userNameHeader = document.getElementById('user-name-header');
@@ -502,21 +500,65 @@
     const logoutButton = document.getElementById('logout-button');
 
     document.addEventListener('DOMContentLoaded', async () => {
-        const { data: { session } } = await supabase.auth.getSession();
+        try {
+            let session = null;
+            
+            // First try to get session from Supabase auth
+            const { data: { session: authSession }, error: sessionError } = await supabase.auth.getSession();
+            
+            if (sessionError) {
+                console.error('Session error:', sessionError);
+            }
+            
+            if (authSession) {
+                session = authSession;
+            } else {
+                // Fallback: Try to get session from localStorage
+                const storedSession = localStorage.getItem('supabase.auth.token');
+                if (storedSession) {
+                    try {
+                        const parsedSession = JSON.parse(storedSession);
+                        if (parsedSession && parsedSession.access_token) {
+                            // Try to set this session in Supabase
+                            const { data, error } = await supabase.auth.setSession(parsedSession);
+                            if (!error && data.session) {
+                                session = data.session;
+                            }
+                        }
+                    } catch (parseError) {
+                        console.error('Error parsing stored session:', parseError);
+                    }
+                }
+            }
 
-        if (!session) {
-            window.location.href = 'login.html';
-            return;
-        }
+            if (!session) {
+                console.log('No session found, redirecting to login');
+                localStorage.clear(); // Clear any stale session data
+                window.location.replace('login.html');
+                return;
+            }
 
-        const user = session.user;
-        const userName = user.user_metadata.name || 'Artisan';
+            // Verify that the user has the correct role for this dashboard
+            const userRole = session.user?.user_metadata?.role;
+            if (userRole !== 'artisan') {
+                console.error('Invalid role for artisan dashboard:', userRole);
+                window.location.replace('login.html');
+                return;
+            }
 
-        if (welcomeMessage) {
-            welcomeMessage.textContent = `Welcome back, ${userName}!`;
-        }
-        if (userNameHeader) {
-            userNameHeader.textContent = userName;
+            const user = session.user;
+            const userName = user.user_metadata.name || 'Artisan';
+
+            if (welcomeMessage) {
+                welcomeMessage.textContent = `Welcome back, ${userName}!`;
+            }
+            if (userNameHeader) {
+                userNameHeader.textContent = userName;
+            }
+        } catch (error) {
+            console.error('Error in dashboard initialization:', error);
+            localStorage.clear();
+            window.location.replace('login.html');
         }
     });
 
@@ -526,11 +568,19 @@
 
     logoutButton.addEventListener('click', async (e) => {
         e.preventDefault();
-        const { error } = await supabase.auth.signOut();
-        if (error) {
-            console.error('Error logging out:', error);
-        } else {
-            window.location.href = 'login.html';
+        try {
+            const { error } = await supabase.auth.signOut();
+            if (error) {
+                console.error('Error logging out:', error);
+            }
+            // Clear localStorage regardless of signOut result
+            localStorage.clear();
+            window.location.replace('login.html');
+        } catch (error) {
+            console.error('Error during logout:', error);
+            // Force logout by clearing storage and redirecting
+            localStorage.clear();
+            window.location.replace('login.html');
         }
     });
 
@@ -542,8 +592,6 @@
     });
 
 </script>
-=======
-<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
->>>>>>> 4c84454bdab2ca04d7b2eec30f07ef8efae91901
+<script id="dhws-dataInjector" src="/dhws-data-injector.js"></script>
 </body>
 </html>

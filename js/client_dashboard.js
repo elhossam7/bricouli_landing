@@ -1,24 +1,56 @@
+// Use unpkg for ESM imports
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
 // IMPORTANT: Replace with your actual Supabase URL and Anon Key if they are different.
-const SUPABASE_URL = 'https://bhrihossaqchglegkjes.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJocmlob3NzYXFjaGdsZWdramVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjAyMTAxMjYsImV4cCI6MjAzNTc4NjEyNn0.oHq__z0B3Q2aA4u-e222u2Wq02a_h_Hk5sXy-Y_2Z-E';
+const SUPABASE_URL = 'https://wecbjkfyaqorwmvrabjb.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndlY2Jqa2Z5YXFvcndtdnJhYmpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5OTEyODYsImV4cCI6MjA2NzU2NzI4Nn0.HzfxgDjLQtqlpvH2k-EK9QgGYg7GT0Qifb-2Yh4ObO4';
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-
+        let session = null;
+        
+        // First try to get session from Supabase auth
+        const { data: { session: authSession }, error: sessionError } = await supabase.auth.getSession();
+        
         if (sessionError) {
             console.error('Session error:', sessionError);
-            window.location.href = 'login.html';
-            return;
+        }
+        
+        if (authSession) {
+            session = authSession;
+        } else {
+            // Fallback: Try to get session from localStorage
+            const storedSession = localStorage.getItem('supabase.auth.token');
+            if (storedSession) {
+                try {
+                    const parsedSession = JSON.parse(storedSession);
+                    if (parsedSession && parsedSession.access_token) {
+                        // Try to set this session in Supabase
+                        const { data, error } = await supabase.auth.setSession(parsedSession);
+                        if (!error && data.session) {
+                            session = data.session;
+                        }
+                    }
+                } catch (parseError) {
+                    console.error('Error parsing stored session:', parseError);
+                }
+            }
         }
 
         if (!session) {
             console.log('No session found, redirecting to login');
-            window.location.href = 'login.html';
+            localStorage.clear(); // Clear any stale session data
+            window.location.replace('login.html');
+            return;
+        }
+
+        // Verify that the user has the correct role for this dashboard
+        const userRole = session.user?.user_metadata?.role;
+        if (userRole !== 'client') {
+            console.error('Invalid role for client dashboard:', userRole);
+            window.location.replace('login.html');
             return;
         }
 
@@ -228,11 +260,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (logoutButton) {
             logoutButton.addEventListener('click', async (e) => {
                 e.preventDefault();
-                const { error } = await supabase.auth.signOut();
-                if (error) {
-                    console.error('Error signing out:', error);
-                } else {
-                    window.location.href = 'login.html';
+                try {
+                    const { error } = await supabase.auth.signOut();
+                    if (error) {
+                        console.error('Error signing out:', error);
+                    }
+                    // Clear localStorage regardless of signOut result
+                    localStorage.clear();
+                    window.location.replace('login.html');
+                } catch (error) {
+                    console.error('Error during logout:', error);
+                    // Force logout by clearing storage and redirecting
+                    localStorage.clear();
+                    window.location.replace('login.html');
                 }
             });
         }

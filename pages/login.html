@@ -186,15 +186,42 @@
                       throw new Error(data.message || 'Something went wrong');
                     }
 
-                    // Store session or token if needed (Supabase handles this automatically)
+                    // Store the session data in localStorage for compatibility
+                    localStorage.setItem('supabase.auth.token', JSON.stringify(data.session));
+                    
+                    // Also set up the session properly for Supabase client
+                    try {
+                      // Create a Supabase client instance for session management
+                      const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
+                      const supabase = createClient('https://wecbjkfyaqorwmvrabjb.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndlY2Jqa2Z5YXFvcndtdnJhYmpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5OTEyODYsImV4cCI6MjA2NzU2NzI4Nn0.HzfxgDjLQtqlpvH2k-EK9QgGYg7GT0Qifb-2Yh4ObO4');
+                      
+                      // Set the session in the Supabase client
+                      if (data.session) {
+                        await supabase.auth.setSession(data.session);
+                      }
+                    } catch (supabaseError) {
+                      console.warn('Could not set Supabase session:', supabaseError);
+                    }
+                    
+                    // Get the user's role and profile completion status
+                    const userRole = data.user?.user_metadata?.role;
+                    const profileCompleted = data.user?.user_metadata?.profile_completed;
+                    
+                    if (!userRole) {
+                      // If no role is set, redirect to landing page for role selection
+                      window.location.replace('landing_page_with_role_selection.html');
+                      return;
+                    }
 
-                    if (data.user.user_metadata.role === 'client') {
-                      window.location.href = 'client_dashboard.html';
-                    } else if (data.user.user_metadata.role === 'artisan') {
-                      window.location.href = 'artisan_dashboard.html';
+                    // For existing users, prioritize dashboard access over profile completion
+                    // Only redirect to registration if this is clearly a new/incomplete account
+                    if (userRole === 'client') {
+                      window.location.replace('client_dashboard.html');
+                    } else if (userRole === 'artisan') {
+                      window.location.replace('artisan_dashboard.html');
                     } else {
-                      // Fallback or error for unknown role
-                      throw new Error('Invalid user role detected.');
+                      // Fallback to landing page for unknown roles
+                      window.location.replace('landing_page_with_role_selection.html');
                     }
                   } catch (error) {
                     errorMessage.textContent = error.message;
