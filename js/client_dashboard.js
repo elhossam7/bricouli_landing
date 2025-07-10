@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 <div class="flex items-center space-x-4 text-sm text-gray-500">
                                     <span>Posted ${new Date(project.created_at).toLocaleDateString()}</span>
                                     ${project.category ? `<span>• ${project.category}</span>` : ''}
-                                    ${project.budget ? `<span>• Budget: ${project.budget}</span>` : ''}
+                                    ${project.budget ? `<span>• Budget: ${formatBudget(project.budget)}</span>` : ''}
                                 </div>
                             </div>
                             <span class="bg-accent-100 text-accent-600 px-3 py-1 rounded-full text-sm font-medium">
@@ -206,6 +206,25 @@ document.addEventListener('DOMContentLoaded', async () => {
             // For saved artisans, we can set it to 0 for now since we don't have this data
             const savedArtisansEl = document.getElementById('saved-artisans-count');
             if(savedArtisansEl) savedArtisansEl.textContent = '0';
+        };
+
+        // Helper function to format budget for display
+        const formatBudget = (budget) => {
+            if (!budget) return 'Not specified';
+            
+            // If it's already a string (legacy data), return as is
+            if (typeof budget === 'string') return budget;
+            
+            // Convert numeric budget back to range display
+            const numBudget = parseInt(budget);
+            if (numBudget <= 500) return 'Under $500';
+            if (numBudget <= 2000) return '$500 - $2,000';
+            if (numBudget <= 5000) return '$2,000 - $5,000';
+            if (numBudget <= 10000) return '$5,000 - $10,000';
+            if (numBudget > 10000) return '$10,000+';
+            
+            // Fallback: format as currency
+            return `$${numBudget.toLocaleString()}`;
         };
 
         // Fetch projects function
@@ -262,7 +281,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.getElementById('modal-project-title').textContent = project.title || 'Untitled Project';
                 document.getElementById('modal-project-description').textContent = project.description || 'No description provided';
                 document.getElementById('modal-project-category').textContent = project.category || project.type || 'N/A';
-                document.getElementById('modal-project-budget').textContent = project.budget || 'Not specified';
+                document.getElementById('modal-project-budget').textContent = formatBudget(project.budget);
                 document.getElementById('modal-project-timeline').textContent = project.timeline || 'Not specified';
                 document.getElementById('modal-project-location').textContent = project.location || 'Not specified';
                 document.getElementById('modal-project-skills').textContent = project.skills_required || 'No specific skills required';

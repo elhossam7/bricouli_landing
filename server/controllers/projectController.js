@@ -131,6 +131,14 @@ const getProjectById = asyncHandler(async (req, res) => {
     throw new Error('Project not found');
   }
 
+  if (!project) {
+    console.error('Project not found with ID:', id);
+    res.status(404);
+    throw new Error('Project not found');
+  }
+
+  console.log('Found project for update:', project);
+
   // Check if user owns this project (try different user field names)
   const userIdFields = ['client_id', 'user_id', 'owner_id', 'created_by'];
   const userOwnsProject = userIdFields.some(field => 
@@ -232,14 +240,9 @@ const getProjectStats = asyncHandler(async (req, res) => {
       cancelled: projects.filter(p => p.status === 'cancelled').length,
       draft: projects.filter(p => p.status === 'draft').length,
       totalBudget: projects.reduce((sum, p) => {
-        if (p.budget && p.budget.includes('-')) {
-          // Handle ranges like "500-1000"
-          const [min, max] = p.budget.replace(/[^0-9-]/g, '').split('-');
-          return sum + (parseInt(max) || 0);
-        } else if (p.budget) {
-          // Handle single values
-          const amount = parseInt(p.budget.replace(/[^0-9]/g, ''));
-          return sum + (amount || 0);
+        if (p.budget) {
+          // Budget is now stored as numeric value
+          return sum + (parseInt(p.budget) || 0);
         }
         return sum;
       }, 0),
@@ -375,6 +378,9 @@ const searchProjects = asyncHandler(async (req, res) => {
 // @access  Private
 const updateProject = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  console.log('Updating project with ID:', id);
+  console.log('Update request body:', req.body);
+  
   const { 
     title, 
     description, 
@@ -384,6 +390,13 @@ const updateProject = asyncHandler(async (req, res) => {
     urgency_level,
     additional_requirements 
   } = req.body;
+
+  // Basic validation - at least one field should be provided for update
+  if (!title && !description && !budget) {
+    console.log('Validation failed: No valid fields provided for update');
+    res.status(400);
+    throw new Error('Please provide at least title, description, or budget to update');
+  }
 
   // First get the project to check ownership
   const { data: project, error: fetchError } = await supabase
@@ -397,6 +410,14 @@ const updateProject = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error('Project not found');
   }
+
+  if (!project) {
+    console.error('Project not found with ID:', id);
+    res.status(404);
+    throw new Error('Project not found');
+  }
+
+  console.log('Found project for update:', project);
 
   // Check if user owns this project
   const userIdFields = ['client_id', 'user_id', 'owner_id', 'created_by'];
@@ -420,6 +441,15 @@ const updateProject = asyncHandler(async (req, res) => {
   // if (location) updateData.location = location;
   // if (urgency_level) updateData.urgency_level = urgency_level;
   // if (additional_requirements) updateData.requirements = additional_requirements;
+
+  console.log('Prepared update data:', updateData);
+
+  // Check if there is anything to update
+  if (Object.keys(updateData).length === 0) {
+    console.log('No valid fields to update, returning existing project');
+    // Nothing to update, just return the project data as is
+    return res.status(200).json(project);
+  }
 
   // Update the project
   const { data: updatedProject, error } = await supabase
