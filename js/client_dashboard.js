@@ -167,21 +167,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <div class="bg-white rounded-lg border border-gray-200 p-6">
                         <div class="flex items-start justify-between mb-4">
                             <div class="flex-1">
-                                <h3 class="font-semibold text-gray-900 mb-1">${project.name}</h3>
+                                <h3 class="font-semibold text-gray-900 mb-1">${project.title || project.name}</h3>
                                 <p class="text-gray-600 text-sm mb-2">${project.description}</p>
                                 <div class="flex items-center space-x-4 text-sm text-gray-500">
                                     <span>Posted ${new Date(project.created_at).toLocaleDateString()}</span>
+                                    ${project.category ? `<span>• ${project.category}</span>` : ''}
+                                    ${project.budget ? `<span>• Budget: ${project.budget}</span>` : ''}
                                 </div>
                             </div>
                             <span class="bg-accent-100 text-accent-600 px-3 py-1 rounded-full text-sm font-medium">
-                                ${project.status || 'New'}
+                                ${project.status || 'Open'}
                             </span>
                         </div>
-                        <div class="flex items-center justify-between">
+                        <div class="flex items-center">
                             <div class="flex items-center space-x-2">
-                                <!-- Artisan info can be added here later -->
+                                ${project.urgency_level ? `<span class="text-xs px-2 py-1 rounded-full bg-primary-100 text-primary-700">${project.urgency_level}</span>` : ''}
+                                ${project.skills_required ? `<span class="text-xs text-gray-500">${project.skills_required}</span>` : ''}
                             </div>
-                            <button class="btn-outline text-sm px-4 py-2">View Details</button>
                         </div>
                     </div>
                 `;
@@ -192,8 +194,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Update stats function
         const updateStats = (projects) => {
             if (!projects) return;
-            const activeProjects = projects.filter(p => p.status !== 'Completed').length;
-            const completedProjects = projects.filter(p => p.status === 'Completed').length;
+            const activeProjects = projects.filter(p => p.status === 'open' || p.status === 'in_progress').length;
+            const completedProjects = projects.filter(p => p.status === 'completed').length;
 
             const activeProjectsEl = document.getElementById('active-projects-count');
             const completedProjectsEl = document.getElementById('completed-projects-count');
@@ -231,6 +233,139 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         };
 
+        // Project Details Modal Functions
+        let currentProjectId = null;
+
+        const openProjectModal = async (projectId) => {
+            currentProjectId = projectId;
+            const modal = document.getElementById('project-details-modal');
+            
+            try {
+                // Show loading state
+                modal.classList.remove('hidden');
+                document.getElementById('modal-project-title').textContent = 'Loading...';
+                
+                // Fetch project details
+                const response = await fetch(`http://localhost:5000/api/projects/${projectId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch project details');
+                }
+
+                const project = await response.json();
+                
+                // Populate modal with project data
+                document.getElementById('modal-project-title').textContent = project.title || 'Untitled Project';
+                document.getElementById('modal-project-description').textContent = project.description || 'No description provided';
+                document.getElementById('modal-project-category').textContent = project.category || project.type || 'N/A';
+                document.getElementById('modal-project-budget').textContent = project.budget || 'Not specified';
+                document.getElementById('modal-project-timeline').textContent = project.timeline || 'Not specified';
+                document.getElementById('modal-project-location').textContent = project.location || 'Not specified';
+                document.getElementById('modal-project-skills').textContent = project.skills_required || 'No specific skills required';
+                document.getElementById('modal-project-requirements').textContent = project.requirements || project.additional_requirements || 'No additional requirements';
+                
+                // Update status display
+                const statusSpan = document.getElementById('modal-project-status');
+                const statusSelect = document.getElementById('status-select');
+                const status = project.status || 'open';
+                
+                statusSpan.textContent = status.charAt(0).toUpperCase() + status.slice(1).replace('_', ' ');
+                statusSpan.className = `px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(status)}`;
+                statusSelect.value = status;
+                
+                // Update dates
+                document.getElementById('modal-project-created').textContent = new Date(project.created_at).toLocaleDateString();
+                document.getElementById('modal-project-updated').textContent = new Date(project.updated_at).toLocaleDateString();
+                
+                // Handle photos
+                const photoGallery = document.getElementById('photo-gallery');
+                if (project.photos && project.photos.length > 0) {
+                    photoGallery.innerHTML = project.photos.map(photo => 
+                        `<img src="${photo}" alt="Project photo" class="w-full h-20 object-cover rounded-lg border border-gray-200">`
+                    ).join('');
+                } else {
+                    photoGallery.innerHTML = '<p class="text-gray-500 text-sm col-span-2">No photos uploaded</p>';
+                }
+                
+            } catch (error) {
+                console.error('Error loading project details:', error);
+                alert('Failed to load project details. Please try again.');
+                modal.classList.add('hidden');
+            }
+        };
+
+        const closeProjectModal = () => {
+            const modal = document.getElementById('project-details-modal');
+            modal.classList.add('hidden');
+            currentProjectId = null;
+        };
+
+        const updateProjectStatus = async (projectId, newStatus) => {
+            try {
+                const response = await fetch(`http://localhost:5000/api/projects/${projectId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ status: newStatus }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to update project status');
+                }
+
+                // Refresh the project list and modal
+                await fetchProjects();
+                if (currentProjectId) {
+                    await openProjectModal(currentProjectId);
+                }
+                
+                alert('Project status updated successfully!');
+                
+            } catch (error) {
+                console.error('Error updating project status:', error);
+                alert('Failed to update project status. Please try again.');
+            }
+        };
+
+        const getStatusColor = (status) => {
+            switch (status) {
+                case 'open':
+                    return 'bg-blue-100 text-blue-800';
+                case 'in_progress':
+                    return 'bg-yellow-100 text-yellow-800';
+                case 'completed':
+                    return 'bg-green-100 text-green-800';
+                case 'cancelled':
+                    return 'bg-red-100 text-red-800';
+                default:
+                    return 'bg-gray-100 text-gray-800';
+            }
+        };
+
+        // Event listeners for modal
+        document.getElementById('close-modal')?.addEventListener('click', closeProjectModal);
+        document.getElementById('project-details-modal')?.addEventListener('click', (e) => {
+            if (e.target.id === 'project-details-modal') {
+                closeProjectModal();
+            }
+        });
+
+        document.getElementById('update-status-btn')?.addEventListener('click', async () => {
+            const newStatus = document.getElementById('status-select').value;
+            if (currentProjectId && newStatus) {
+                await updateProjectStatus(currentProjectId, newStatus);
+            }
+        });
+
+        // Fetch projects
+        fetchProjects();
+        
         // Update user info in the UI
         await updateUserInfo(user);
         
@@ -277,9 +412,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
 
-        // Fetch projects
-        fetchProjects();
-        
         // Test DOM elements availability
         console.log('Testing DOM elements:');
         console.log('user-name-header exists:', !!document.getElementById('user-name-header'));

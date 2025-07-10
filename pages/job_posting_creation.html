@@ -554,10 +554,176 @@
 
         // Initialize form
         document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            checkAuthentication();
+            
+            // Check if we're editing an existing project
+            const urlParams = new URLSearchParams(window.location.search);
+            const editProjectId = urlParams.get('edit');
+            
+            if (editProjectId) {
+                loadProjectForEditing(editProjectId);
+            }
+            
             updateStepIndicator();
             initializeFormHandlers();
             initializeAutoSave();
         });
+
+        // Check if user is authenticated
+        function checkAuthentication() {
+            const storedSession = localStorage.getItem('supabase.auth.token');
+            if (!storedSession) {
+                alert('Please log in to post a project');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            try {
+                const sessionData = JSON.parse(storedSession);
+                if (!sessionData.access_token) {
+                    throw new Error('No access token');
+                }
+            } catch (e) {
+                console.error('Invalid session:', e);
+                alert('Please log in to post a project');
+                window.location.href = 'login.html';
+                return;
+            }
+        }
+
+        // Load project for editing
+        let isEditing = false;
+        let editingProjectId = null;
+
+        async function loadProjectForEditing(projectId) {
+            try {
+                const storedSession = localStorage.getItem('supabase.auth.token');
+                let token = null;
+                
+                if (storedSession) {
+                    try {
+                        const sessionData = JSON.parse(storedSession);
+                        token = sessionData.access_token;
+                    } catch (e) {
+                        console.error('Error parsing session:', e);
+                    }
+                }
+
+                if (!token) {
+                    alert('Please log in to edit a project');
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                const response = await fetch(`http://localhost:5000/api/projects/${projectId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const project = await response.json();
+                
+                // Set editing mode
+                isEditing = true;
+                editingProjectId = projectId;
+                
+                // Update page title
+                document.title = 'Edit Project - Bricouli';
+                
+                // Update publish button text
+                const publishBtn = document.getElementById('publishBtn');
+                if (publishBtn) {
+                    publishBtn.innerHTML = `
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        Update Project
+                    `;
+                }
+                
+                // Populate form with project data
+                populateFormWithProjectData(project);
+                
+            } catch (error) {
+                console.error('Error loading project for editing:', error);
+                alert('Failed to load project for editing. Redirecting to My Projects.');
+                window.location.href = 'my_projects.html';
+            }
+        }
+
+        function populateFormWithProjectData(project) {
+            // Basic fields
+            if (project.title) {
+                document.getElementById('projectTitle').value = project.title;
+            }
+            if (project.description) {
+                document.getElementById('projectDescription').value = project.description;
+                // Update character counter
+                const descriptionCounter = document.getElementById('descriptionCount');
+                if (descriptionCounter) {
+                    descriptionCounter.textContent = `${project.description.length}/2000`;
+                }
+            }
+            
+            // Budget
+            if (project.budget) {
+                const budgetRadios = document.querySelectorAll('input[name="budget"]');
+                budgetRadios.forEach(radio => {
+                    if (radio.value === project.budget) {
+                        radio.checked = true;
+                    }
+                });
+            }
+            
+            // Timeline/Urgency
+            if (project.timeline || project.urgency_level) {
+                const timelineValue = project.timeline || project.urgency_level;
+                const timelineRadios = document.querySelectorAll('input[name="timeline"]');
+                timelineRadios.forEach(radio => {
+                    if (radio.value === timelineValue) {
+                        radio.checked = true;
+                    }
+                });
+            }
+            
+            // Location
+            if (project.location) {
+                const locationParts = project.location.split(', ');
+                if (locationParts.length >= 2) {
+                    const address = locationParts[0];
+                    const cityZip = locationParts[1];
+                    
+                    const addressField = document.getElementById('address');
+                    if (addressField) addressField.value = address;
+                    
+                    // Try to parse city and zip
+                    const cityZipMatch = cityZip.match(/^(.+?)\s+(\d{5})$/);
+                    if (cityZipMatch) {
+                        const cityField = document.getElementById('city');
+                        const zipField = document.getElementById('zipCode');
+                        if (cityField) cityField.value = cityZipMatch[1];
+                        if (zipField) zipField.value = cityZipMatch[2];
+                    }
+                }
+            }
+            
+            // Additional requirements
+            if (project.requirements || project.additional_requirements) {
+                const requirementsField = document.getElementById('requirements');
+                if (requirementsField) {
+                    requirementsField.value = project.requirements || project.additional_requirements;
+                }
+            }
+            
+            // Note: Skills, categories, and photos would need more complex handling
+            // depending on how they're stored and the form structure
+        }
 
         function initializeFormHandlers() {
             // Description character counter
@@ -585,6 +751,32 @@
                     } else {
                         customBudgetInput.classList.add('hidden');
                     }
+                });
+            });
+
+            // Add visual feedback for radio button selections
+            const radioGroups = ['category', 'budget', 'timeline', 'skillLevel'];
+            radioGroups.forEach(groupName => {
+                const radioButtons = document.querySelectorAll(`input[name="${groupName}"]`);
+                radioButtons.forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        // Remove selected class from all options in this group
+                        const allOptions = document.querySelectorAll(`input[name="${groupName}"]`);
+                        allOptions.forEach(option => {
+                            const card = option.nextElementSibling;
+                            if (card) {
+                                card.classList.remove('border-primary', 'bg-primary-50');
+                                card.classList.add('border-gray-200');
+                            }
+                        });
+                        
+                        // Add selected class to the chosen option
+                        const selectedCard = this.nextElementSibling;
+                        if (selectedCard) {
+                            selectedCard.classList.remove('border-gray-200');
+                            selectedCard.classList.add('border-primary', 'bg-primary-50');
+                        }
+                    });
                 });
             });
 
@@ -856,30 +1048,145 @@
         }
 
         function publishProject() {
-            if (validateCurrentStep()) {
-                // Show loading state
-                const publishBtn = document.getElementById('publishBtn');
-                const originalText = publishBtn.innerHTML;
-                publishBtn.innerHTML = `
-                    <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Publishing...
-                `;
-                publishBtn.disabled = true;
+            // Collect form data first
+            const formData = {
+                title: document.getElementById('projectTitle').value,
+                description: document.getElementById('projectDescription').value,
+                category: document.querySelector('input[name="category"]:checked')?.value,
+                budget: getBudgetValue(),
+                timeline: document.querySelector('input[name="timeline"]:checked')?.value,
+                location: `${document.getElementById('address').value}, ${document.getElementById('city').value} ${document.getElementById('zipCode').value}`,
+                skills_required: getSelectedSkills(),
+                project_type: document.querySelector('input[name="skillLevel"]:checked')?.value,
+                urgency_level: document.querySelector('input[name="timeline"]:checked')?.value,
+                additional_requirements: document.getElementById('requirements')?.value,
+                photos: uploadedPhotos
+            };
 
-                // Simulate API call
-                setTimeout(() => {
+            // Validate form data
+            const validationErrors = validateFormData(formData);
+            if (validationErrors.length > 0) {
+                alert('Please fix the following errors:\n' + validationErrors.join('\n'));
+                return;
+            }
+
+            // Show loading state
+            const publishBtn = document.getElementById('publishBtn');
+            const originalText = publishBtn.innerHTML;
+            const loadingText = isEditing ? 'Updating...' : 'Publishing...';
+            publishBtn.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                ${loadingText}
+            `;
+            publishBtn.disabled = true;
+
+                // Get session token
+                const storedSession = localStorage.getItem('supabase.auth.token');
+                let token = null;
+                
+                if (storedSession) {
+                    try {
+                        const sessionData = JSON.parse(storedSession);
+                        token = sessionData.access_token;
+                    } catch (e) {
+                        console.error('Error parsing session:', e);
+                    }
+                }
+
+                if (!token) {
+                    alert('Please log in to publish a project');
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                // Determine API endpoint and method
+                const apiUrl = isEditing 
+                    ? `http://localhost:5000/api/projects/${editingProjectId}` 
+                    : 'http://localhost:5000/api/projects';
+                const method = isEditing ? 'PUT' : 'POST';
+
+                // Send to API
+                fetch(apiUrl, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(async response => {
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || `Server error: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
                     // Clear draft
                     localStorage.removeItem('jobDraft');
                     
-                    // Redirect to success page or dashboard
-                    alert('Project published successfully! You will start receiving proposals soon.');
-                    window.location.href = 'client_dashboard.html';
-                }, 2000);
-            }
+                    // Success message
+                    const successMessage = isEditing 
+                        ? 'Project updated successfully!' 
+                        : 'Project published successfully! You will start receiving proposals soon.';
+                    alert(successMessage);
+                    window.location.href = 'my_projects.html';
+                })
+                .catch(error => {
+                    console.error('Error publishing project:', error);
+                    console.error('Form data sent:', formData);
+                    const errorMessage = isEditing 
+                        ? `Failed to update project: ${error.message}`
+                        : `Failed to publish project: ${error.message}`;
+                    alert(errorMessage);
+                    
+                    // Reset button
+                    publishBtn.innerHTML = originalText;
+                    publishBtn.disabled = false;
+                });
         }
+
+        // Helper function to get budget value
+        function getBudgetValue() {
+            const selectedBudget = document.querySelector('input[name="budget"]:checked');
+            if (selectedBudget) {
+                if (selectedBudget.value === 'custom') {
+                    const minBudget = document.getElementById('budgetMin')?.value || '';
+                    const maxBudget = document.getElementById('budgetMax')?.value || '';
+                    return `$${minBudget} - $${maxBudget}`;
+                }
+                return selectedBudget.value;
+            }
+            return null;
+        }
+
+        // Helper function to get selected skills
+        function getSelectedSkills() {
+            const selectedSkills = [];
+            const skillCheckboxes = document.querySelectorAll('input[name="skills"]:checked');
+            skillCheckboxes.forEach(checkbox => {
+                selectedSkills.push(checkbox.value);
+            });
+            return selectedSkills;
+        }
+
+        // Add form validation
+        function validateFormData(formData) {
+            const errors = [];
+            
+            if (!formData.title) errors.push('Project title is required');
+            if (!formData.description) errors.push('Project description is required');
+            if (!formData.category) errors.push('Please select a category');
+            if (!formData.timeline) errors.push('Please select a timeline');
+            
+            return errors;
+        }
+
+        // Track uploaded photos
+        let uploadedPhotos = [];
     </script>
 <script id="dhws-dataInjector" src="/dhws-data-injector.js"></script>
 </body>

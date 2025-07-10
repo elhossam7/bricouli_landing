@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects Test</title>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .error { color: red; }
+        .success { color: green; }
+        .loading { color: blue; }
+        button { margin: 10px; padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        #results { margin-top: 20px; padding: 10px; background: #f8f9fa; border-radius: 4px; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Projects Test Page</h1>
+        
+        <div class="section">
+            <h2>Authentication Status</h2>
+            <div id="auth-status">Checking...</div>
+            <button onclick="testAuth()">Test Auth</button>
+        </div>
+        
+        <div class="section">
+            <h2>API Tests</h2>
+            <button onclick="testProjectStats()">Test Project Stats</button>
+            <button onclick="testGetProjects()">Test Get Projects</button>
+            <button onclick="testSearchProjects()">Test Search Projects</button>
+            <button onclick="testCreateProject()">Test Create Project</button>
+        </div>
+        
+        <div class="section">
+            <h2>Results</h2>
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://mmqxgkzqpgzjyqmvnzlh.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1tcXhna3pxcGd6anlxbXZuemxoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzEyMjkyMjEsImV4cCI6MjA0NjgwNTIyMX0.ZJnYoKdnEcQCXsWmB_1OLdKUkAMOBnrXRgHU7CYVb2s';
+        
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        let currentUser = null;
+        
+        function log(message, type = 'info') {
+            const results = document.getElementById('results');
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'error' : type === 'success' ? 'success' : 'loading';
+            results.innerHTML += `<div class="${className}">[${timestamp}] ${message}</div>`;
+            results.scrollTop = results.scrollHeight;
+        }
+        
+        async function testAuth() {
+            try {
+                log('Testing authentication...', 'loading');
+                
+                // Try to get session from Supabase
+                const session = await supabase.auth.getSession();
+                
+                if (session.data.session) {
+                    currentUser = {
+                        id: session.data.session.user.id,
+                        access_token: session.data.session.access_token,
+                        email: session.data.session.user.email,
+                        user_metadata: session.data.session.user.user_metadata
+                    };
+                    log('✓ Supabase session found', 'success');
+                    log(`User: ${currentUser.email}`, 'success');
+                } else {
+                    // Try localStorage fallback
+                    const storedSession = localStorage.getItem('supabase.auth.token');
+                    if (storedSession) {
+                        try {
+                            const sessionData = JSON.parse(storedSession);
+                            if (sessionData.access_token) {
+                                currentUser = {
+                                    id: sessionData.user.id,
+                                    access_token: sessionData.access_token,
+                                    email: sessionData.user.email,
+                                    user_metadata: sessionData.user.user_metadata
+                                };
+                                log('✓ localStorage session found', 'success');
+                                log(`User: ${currentUser.email}`, 'success');
+                            }
+                        } catch (e) {
+                            log('✗ Error parsing localStorage session', 'error');
+                        }
+                    }
+                }
+                
+                if (!currentUser) {
+                    log('✗ No valid session found. Please login first.', 'error');
+                    log('Go to login.html to authenticate', 'error');
+                } else {
+                    document.getElementById('auth-status').innerHTML = `
+                        <div class="success">✓ Authenticated as ${currentUser.email}</div>
+                        <div>User ID: ${currentUser.id}</div>
+                    `;
+                }
+            } catch (error) {
+                log(`✗ Auth test failed: ${error.message}`, 'error');
+                console.error('Auth test error:', error);
+            }
+        }
+        
+        async function apiCall(endpoint, options = {}) {
+            if (!currentUser) {
+                log('✗ Please authenticate first', 'error');
+                return;
+            }
+            
+            const url = `http://localhost:5000${endpoint}`;
+            const defaultOptions = {
+                headers: {
+                    'Authorization': `Bearer ${currentUser.access_token}`,
+                    'Content-Type': 'application/json'
+                }
+            };
+            
+            const response = await fetch(url, { ...defaultOptions, ...options });
+            const data = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(data.message || `HTTP ${response.status}`);
+            }
+            
+            return data;
+        }
+        
+        async function testProjectStats() {
+            try {
+                log('Testing project stats...', 'loading');
+                const stats = await apiCall('/api/projects/stats');
+                log('✓ Project stats retrieved successfully', 'success');
+                log(`<pre>${JSON.stringify(stats, null, 2)}</pre>`);
+            } catch (error) {
+                log(`✗ Project stats failed: ${error.message}`, 'error');
+                console.error('Project stats error:', error);
+            }
+        }
+        
+        async function testGetProjects() {
+            try {
+                log('Testing get projects...', 'loading');
+                const projects = await apiCall('/api/projects');
+                log('✓ Projects retrieved successfully', 'success');
+                log(`Found ${projects.length} projects`);
+                if (projects.length > 0) {
+                    log(`<pre>${JSON.stringify(projects[0], null, 2)}</pre>`);
+                }
+            } catch (error) {
+                log(`✗ Get projects failed: ${error.message}`, 'error');
+                console.error('Get projects error:', error);
+            }
+        }
+        
+        async function testSearchProjects() {
+            try {
+                log('Testing search projects...', 'loading');
+                const result = await apiCall('/api/projects/search?page=1&limit=10');
+                log('✓ Search projects successful', 'success');
+                log(`<pre>${JSON.stringify(result, null, 2)}</pre>`);
+            } catch (error) {
+                log(`✗ Search projects failed: ${error.message}`, 'error');
+                console.error('Search projects error:', error);
+            }
+        }
+        
+        async function testCreateProject() {
+            try {
+                log('Testing create project...', 'loading');
+                const projectData = {
+                    title: 'Test Project ' + Date.now(),
+                    description: 'This is a test project created from the test page',
+                    budget: '500-1000',
+                    timeline: 'ASAP',
+                    location: '123 Test St, Test City 12345'
+                };
+                
+                const project = await apiCall('/api/projects', {
+                    method: 'POST',
+                    body: JSON.stringify(projectData)
+                });
+                
+                log('✓ Project created successfully', 'success');
+                log(`<pre>${JSON.stringify(project, null, 2)}</pre>`);
+            } catch (error) {
+                log(`✗ Create project failed: ${error.message}`, 'error');
+                console.error('Create project error:', error);
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            testAuth();
+        });
+    </script>
+</body>
+</html>
