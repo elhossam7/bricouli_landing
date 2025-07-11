@@ -120,6 +120,10 @@ async function initializeApp() {
     // Update user info in header
     updateUserInfo();
     
+    // Initialize navigation enhancements
+    initializeNavigation();
+    addNavigationStyles();
+    
     // Load initial data
     await Promise.all([
         loadProjectStats(),
@@ -136,8 +140,20 @@ function updateUserInfo() {
         const name = currentUser.user_metadata?.full_name || 
                      currentUser.email?.split('@')[0] || 
                      'User';
-        elements.userName.textContent = name;
-        elements.userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=3B82F6&color=fff&size=128`;
+        
+        // Update basic user info
+        if (elements.userName) {
+            elements.userName.textContent = name;
+        }
+        if (elements.userAvatar) {
+            elements.userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=3B82F6&color=fff&size=128`;
+        }
+        
+        // Set full_name for navigation update
+        currentUser.full_name = name;
+        
+        // Update navigation user info
+        updateNavigationUserInfo();
     }
 }
 
@@ -674,6 +690,9 @@ function setupEventListeners() {
             closeProjectDetailsModal();
         }
     });
+
+    // Initialize navigation enhancements
+    initializeNavigation();
 }
 
 // Event handlers
@@ -742,6 +761,224 @@ function switchView(view) {
 function goToPage(page) {
     currentPage = page;
     loadProjects();
+}
+
+// Navigation Enhancement Functions
+function initializeNavigation() {
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburgerLine = mobileMenuButton?.querySelector('.hamburger-line');
+    const closeLine = mobileMenuButton?.querySelector('.close-line');
+
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.contains('hidden');
+            
+            if (isOpen) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'true');
+                hamburgerLine?.classList.add('hidden');
+                closeLine?.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent scroll
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                hamburgerLine?.classList.remove('hidden');
+                closeLine?.classList.add('hidden');
+                document.body.style.overflow = 'auto'; // Restore scroll
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                hamburgerLine?.classList.remove('hidden');
+                closeLine?.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close mobile menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                hamburgerLine?.classList.remove('hidden');
+                closeLine?.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+                mobileMenuButton.focus();
+            }
+        });
+    }
+
+    // User dropdown menu
+    const userMenuButton = document.getElementById('user-menu-button');
+    const userDropdown = document.getElementById('user-dropdown');
+
+    if (userMenuButton && userDropdown) {
+        // Ensure dropdown starts hidden
+        userDropdown.classList.remove('show');
+        userMenuButton.setAttribute('aria-expanded', 'false');
+
+        function hideDropdown() {
+            userDropdown.classList.remove('show');
+            userMenuButton.setAttribute('aria-expanded', 'false');
+            userMenuButton.querySelector('svg:last-child')?.classList.remove('rotate-180');
+        }
+
+        function showDropdown() {
+            userDropdown.classList.add('show');
+            userMenuButton.setAttribute('aria-expanded', 'true');
+            userMenuButton.querySelector('svg:last-child')?.classList.add('rotate-180');
+        }
+
+        userMenuButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isHidden = !userDropdown.classList.contains('show');
+            
+            if (isHidden) {
+                showDropdown();
+            } else {
+                hideDropdown();
+            }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!userMenuButton.contains(e.target) && !userDropdown.contains(e.target)) {
+                hideDropdown();
+            }
+        });
+
+        // Close dropdown on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && userDropdown.classList.contains('show')) {
+                hideDropdown();
+                userMenuButton.focus();
+            }
+        });
+
+        // Force hide on page load
+        setTimeout(() => {
+            hideDropdown();
+        }, 100);
+    }
+
+    // Keyboard navigation for nav links
+    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                link.click();
+            }
+        });
+    });
+
+    // Update user info in navigation
+    updateNavigationUserInfo();
+}
+
+function updateNavigationUserInfo() {
+    if (currentUser) {
+        // Update main user avatar and name
+        const userAvatar = document.getElementById('user-avatar');
+        const userName = document.getElementById('user-name');
+        const mobileUserAvatar = document.getElementById('mobile-user-avatar');
+        const mobileUserName = document.getElementById('mobile-user-name');
+        const dropdownUserName = document.getElementById('dropdown-user-name');
+        const dropdownUserEmail = document.getElementById('dropdown-user-email');
+
+        const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.full_name || 'User')}&background=3B82F6&color=fff&size=128`;
+
+        if (userAvatar) userAvatar.src = avatarUrl;
+        if (userName) userName.textContent = currentUser.full_name || 'User';
+        if (mobileUserAvatar) mobileUserAvatar.src = avatarUrl;
+        if (mobileUserName) mobileUserName.textContent = currentUser.full_name || 'User';
+        if (dropdownUserName) dropdownUserName.textContent = currentUser.full_name || 'User';
+        if (dropdownUserEmail) dropdownUserEmail.textContent = currentUser.email || 'user@email.com';
+    }
+}
+
+// Add CSS for navigation enhancements
+function addNavigationStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+        /* Navigation Enhancement Styles */
+        .nav-dropdown-trigger:hover .nav-dropdown-menu,
+        .nav-dropdown-trigger:focus .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .group:hover .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Mobile menu animations */
+        #mobile-menu {
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Focus styles for better accessibility */
+        .nav-link:focus,
+        .mobile-nav-link:focus {
+            outline: 2px solid rgb(59, 130, 246);
+            outline-offset: 2px;
+        }
+
+        /* Dropdown hover effects */
+        .nav-dropdown-menu a:hover {
+            background-color: rgba(59, 130, 246, 0.05);
+            color: rgb(59, 130, 246);
+        }
+
+        /* Button focus styles */
+        button:focus {
+            outline: 2px solid rgb(59, 130, 246);
+            outline-offset: 2px;
+        }
+
+        /* Smooth transitions for dropdowns */
+        .nav-dropdown-menu,
+        #user-dropdown {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Active navigation indicator animation */
+        .nav-link.active {
+            position: relative;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+        }
+
+        /* Notification pulse animation */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+    `;
+    document.head.appendChild(style);
 }
 
 // Utility functions
