@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saved Artisans - Bricouli</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script type="module" src="../js/saved_artisans.js"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-craft sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="client_dashboard.html" class="flex items-center">
+                        <svg class="h-8 w-8 text-primary" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 4L24 4C26.2091 4 28 5.79086 28 8V24C28 26.2091 26.2091 28 24 28H8C5.79086 28 4 26.2091 4 24V8C4 5.79086 5.79086 4 8 4Z" fill="currentColor"/>
+                            <path d="M12 12H20V14H12V12Z" fill="white"/>
+                            <path d="M12 16H20V18H12V16Z" fill="white"/>
+                            <path d="M12 20H16V22H12V20Z" fill="white"/>
+                        </svg>
+                        <span class="ml-2 text-xl font-bold text-gray-900">Bricouli</span>
+                    </a>
+                </div>
+                <!-- User Menu -->
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <button id="user-menu-button" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-50 transition">
+                            <img id="user-avatar" src="https://ui-avatars.com/api/?name=User&background=3B82F6&color=fff&size=128" alt="User avatar" class="w-8 h-8 rounded-full" />
+                            <span id="user-name-header" class="hidden md:block text-sm font-medium text-gray-700">Loading...</span>
+                        </button>
+                        <div id="user-menu-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                            <a href="#" id="logout-button" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <h1 class="text-2xl font-bold text-gray-900 mb-4">Saved Artisans</h1>
+        <p class="text-gray-600 mb-6">Your favorite professionals</p>
+        <div id="saved-artisans-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Saved artisan cards will render here -->
+        </div>
+    </main>
+
+    <script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

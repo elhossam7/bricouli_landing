@@ -203,9 +203,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             if(activeProjectsEl) activeProjectsEl.textContent = activeProjects;
             if(completedProjectsEl) completedProjectsEl.textContent = completedProjects;
             
-            // For saved artisans, we can set it to 0 for now since we don't have this data
+            // Show saved artisans count from localStorage
             const savedArtisansEl = document.getElementById('saved-artisans-count');
-            if(savedArtisansEl) savedArtisansEl.textContent = '0';
+            if (savedArtisansEl) {
+                const savedList = JSON.parse(localStorage.getItem('savedArtisans') || '[]');
+                savedArtisansEl.textContent = savedList.length;
+            }
         };
 
         // Helper function to format budget for display

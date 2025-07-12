@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artisan Profile - Bricouli</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script type="module" src="../js/artisan_profile.js"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-craft sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="find_artisans.html" class="flex items-center">
+                        <svg class="h-8 w-8 text-primary" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 4L24 4C26.2091 4 28 5.79086 28 8V24C28 26.2091 26.2091 28 24 28H8C5.79086 28 4 26.2091 4 24V8C4 5.79086 5.79086 4 8 4Z" fill="currentColor"/>
+                            <path d="M12 12H20V14H12V12Z" fill="white"/>
+                            <path d="M12 16H20V18H12V16Z" fill="white"/>
+                            <path d="M12 20H16V22H12V20Z" fill="white"/>
+                        </svg>
+                        <span class="ml-2 text-xl font-bold text-gray-900">Bricouli</span>
+                    </a>
+                </div>
+                <div>
+                    <button onclick="history.back()" class="text-primary hover:underline">← Back</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Profile Content -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div id="profile-container" class="space-y-6">
+            <!-- Artisan details will render here -->
+        </div>
+    </main>
+    <script id="dhws-data-injector" src="../public/dhws-data-injector.js"></script>
+    <!-- Quote Request Modal -->
+    <div id="quote-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full">
+            <h3 class="text-lg font-bold mb-4">Request a Quote</h3>
+            <form id="quote-form" class="space-y-4">
+                <input id="quote-subject" type="text" placeholder="Subject" class="w-full border rounded px-3 py-2" />
+                <textarea id="quote-body" placeholder="Your message..." class="w-full border rounded px-3 py-2 h-32"></textarea>
+                <div class="flex justify-end space-x-2">
+                    <button type="button" id="quote-cancel" class="px-4 py-2 bg-gray-200 rounded">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-accent text-white rounded">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
