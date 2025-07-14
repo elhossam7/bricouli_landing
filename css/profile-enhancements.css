@@ -1,0 +1,194 @@
+/* Profile Page Enhancements */
+
+/* Profile Header Animation */
+.profile-header {
+    transition: all 0.3s ease;
+}
+
+.profile-header:hover {
+    transform: translateY(-2px);
+}
+
+/* Avatar Upload Hover Effect */
+#change-avatar-btn {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.profile-avatar-container:hover #change-avatar-btn {
+    opacity: 1;
+}
+
+/* Form Field Focus Enhancement */
+.profile-form input:focus,
+.profile-form textarea:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: rgb(59, 130, 246);
+}
+
+/* Toggle Switch Animation */
+.toggle-switch {
+    transition: all 0.2s ease;
+}
+
+.toggle-switch:checked {
+    background-color: rgb(59, 130, 246);
+}
+
+/* Card Hover Effects */
+.profile-card {
+    transition: all 0.2s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Stats Animation */
+.stat-number {
+    transition: all 0.3s ease;
+}
+
+.stat-number:hover {
+    transform: scale(1.1);
+    color: rgb(59, 130, 246);
+}
+
+/* Verification Badge Animation */
+.verification-badge {
+    transition: all 0.2s ease;
+}
+
+.verification-badge.verified {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Profile Photo Border Animation */
+.profile-photo {
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-photo::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, rgb(59, 130, 246), rgb(16, 185, 129), rgb(245, 101, 101));
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.profile-photo:hover::before {
+    opacity: 1;
+}
+
+/* Quick Action Buttons */
+.quick-action-btn {
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.quick-action-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    transform: translate(-50%, -50%);
+}
+
+.quick-action-btn:hover::before {
+    width: 100%;
+    height: 100%;
+}
+
+/* Mobile Responsive Enhancements */
+@media (max-width: 768px) {
+    .profile-header {
+        padding: 1rem;
+    }
+    
+    .profile-photo {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .stat-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+}
+
+/* Dark Mode Support (if implemented) */
+@media (prefers-color-scheme: dark) {
+    .profile-card {
+        background-color: #1f2937;
+        border-color: #374151;
+    }
+    
+    .profile-form input,
+    .profile-form textarea {
+        background-color: #374151;
+        border-color: #4b5563;
+        color: #f9fafb;
+    }
+}
+
+/* Loading State */
+.loading-skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Notification Styles */
+.notification {
+    animation: slideIn 0.3s ease;
+}
+
+.notification.hiding {
+    animation: slideOut 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
