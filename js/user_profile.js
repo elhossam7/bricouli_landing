@@ -1,4 +1,12 @@
 // User Profile JavaScript
+// User Profile JavaScript
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+// Supabase credentials - using the same ones found in other files
+const SUPABASE_URL = 'https://wecbjkfyaqorwmvrabjb.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndlY2Jqa2Z5YXFvcndtdnJhYmpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5OTEyODYsImV4cCI6MjA2NzU2NzI4Nn0.HzfxgDjLQtqlpvH2k-EK9QgGYg7GT0Qifb-2Yh4ObO4';
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 class UserProfile {
     constructor() {
         this.isEditing = false;
@@ -13,6 +21,15 @@ class UserProfile {
         await this.loadUserProfile(); // Attempt to load data
         this.setupUserMenu();
         console.log('✅ Profile page initialized.');
+    }
+
+    updateStatistics(userData) {
+        if (userData && userData.statistics) {
+            document.getElementById('member-since').textContent = userData.statistics.memberSince || 'N/A';
+            document.getElementById('total-projects').textContent = userData.statistics.totalProjects || '0';
+            document.getElementById('completed-projects').textContent = userData.statistics.completedProjects || '0';
+            document.getElementById('rating').textContent = userData.statistics.rating || 'N/A';
+        }
     }
 
     // This function now only checks if we are in a demo state
@@ -160,58 +177,79 @@ class UserProfile {
     }
 
     async fetchUserData() {
-        const token = localStorage.getItem('bricouli_token');
-        if (!token) {
-            throw new Error('No authentication token found');
+        console.log("Attempting to fetch user data from Supabase...");
+
+        // First try to get the current session
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+
+        if (sessionError) {
+            console.error('Supabase session error:', sessionError);
+            throw new Error('Authentication failed while fetching session.');
         }
 
-        const response = await fetch('/api/users/profile/detailed', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (response.status === 401) {
-            // Authentication failed - remove invalid token and redirect
-            localStorage.removeItem('bricouli_token');
-            localStorage.removeItem('bricouli_user');
-            throw new Error('Authentication failed');
+        if (!session) {
+            console.warn('No active Supabase session found. Falling back to local data.');
+            throw new Error('No active session found');
         }
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        console.log("Supabase session found for user:", session.user.email);
+        console.log("User ID:", session.user.id);
+
+        // Get user profile from the profiles table
+        console.log("Fetching profile for user ID:", session.user.id);
+        const { data: profile, error: profileError } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', session.user.id)
+            .single();
+
+        if (profileError) {
+            console.error('Supabase profile fetch error:', profileError);
+            throw new Error(`Failed to fetch profile data: ${profileError.message}`);
         }
 
-        const data = await response.json();
+        if (!profile) {
+            console.warn("Profile not found in Supabase for user ID:", session.user.id);
+            throw new Error('Profile not found');
+        }
+
+        console.log("Successfully fetched profile data:", profile);
+        
+        // Get project statistics
+        const { data: projectStats, error: projectError } = await supabase
+            .from('projects')
+            .select('id, status')
+            .eq('client_id', session.user.id);
+            
+        const totalProjects = projectStats?.length || 0;
+        const completedProjects = projectStats?.filter(p => p.status === 'completed').length || 0;
         
         // Transform API data to match frontend expectations
         return {
-            id: data.id,
-            firstName: this.extractFirstName(data.name),
-            lastName: this.extractLastName(data.name),
-            email: data.email,
-            phone: data.phone || '',
-            location: data.address || '',
-            bio: data.bio || '',
-            role: data.role || 'Client',
-            avatar: data.avatar || data.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(data.name || 'User')}&background=3B82F6&color=fff&size=256`,
-            memberSince: data.memberSince || data.created_at,
-            totalProjects: data.totalProjects || 0,
-            completedProjects: data.completedProjects || 0,
-            rating: data.rating || 5.0,
+            id: profile.id,
+            firstName: this.extractFirstName(profile.name),
+            lastName: this.extractLastName(profile.name),
+            email: profile.email || session.user.email,
+            phone: profile.phone || '',
+            location: profile.address || '',
+            bio: profile.bio || '',
+            role: profile.role || 'Client',
+            avatar: profile.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.name || 'User')}&background=3B82F6&color=fff&size=256`,
+            memberSince: profile.created_at,
+            totalProjects: totalProjects,
+            completedProjects: completedProjects,
+            rating: 4.8, // You might want to calculate this from reviews
             settings: {
-                emailNotifications: data.email_notifications || true,
-                smsNotifications: data.sms_notifications || false
+                emailNotifications: profile.email_notifications || true,
+                smsNotifications: profile.sms_notifications || false
             },
             // Artisan-specific fields
-            businessName: data.business_name || '',
-            experienceLevel: data.experience_level || '',
-            serviceRadius: data.service_radius || '',
-            zipCode: data.zip_code || '',
-            hourlyRate: data.hourly_rate || '',
-            skills: data.skills || []
+            businessName: profile.business_name || '',
+            experienceLevel: profile.experience_level || '',
+            serviceRadius: profile.service_radius || '',
+            zipCode: profile.zip_code || '',
+            hourlyRate: profile.hourly_rate || '',
+            skills: profile.skills || []
         };
     }
 
