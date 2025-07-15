@@ -164,10 +164,10 @@ class UserProfile {
         this.showLoadingState();
         try {
             const userData = await this.fetchUserData();
+            this.currentUser = userData;
             this.populateProfile(userData);
             this.updateStatistics(userData);
         } catch (error) {
-            console.error('Error loading user profile:', error.message);
             // If fetching fails, load fallback data
             this.loadFallbackData();
             this.showDemoModeWarning(); // Show warning on error
@@ -417,88 +417,190 @@ class UserProfile {
 
     async saveProfile(e) {
         e.preventDefault();
-        
-        const formData = new FormData(e.target);
-        const fullName = `${formData.get('firstName')} ${formData.get('lastName')}`.trim();
-        
-        const profileData = {
-            name: fullName,
-            phone: formData.get('phone'),
-            address: formData.get('location'),
-            bio: formData.get('bio')
+        this.showLoadingState('Saving...');
+
+        const { data: { user }, error: userError } = await supabase.auth.getUser();
+
+        if (userError || !user) {
+            this.showToast(`Error: Not authenticated. ${userError?.message || 'Please log in.'}`, 'error');
+            this.hideLoadingState();
+            return;
+        }
+
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+
+        const updatedProfile = {
+            name: `${firstName} ${lastName}`.trim(),
+            phone: document.getElementById('phone').value,
+            address: document.getElementById('location').value,
+            bio: document.getElementById('bio').value,
+            email_notifications: document.getElementById('email-notifications').checked,
+            sms_notifications: document.getElementById('sms-notifications').checked,
+            updated_at: new Date().toISOString()
         };
 
-        // Add artisan-specific fields if user is an artisan
-        if (this.currentUser.role === 'artisan' || this.currentUser.role === 'Artisan') {
-            profileData.business_name = this.currentUser.businessName;
-            profileData.experience_level = this.currentUser.experienceLevel;
-            profileData.service_radius = this.currentUser.serviceRadius;
-            profileData.zip_code = this.currentUser.zipCode;
-            profileData.hourly_rate = this.currentUser.hourlyRate;
-            profileData.skills = this.currentUser.skills;
+        // Safely add artisan-specific fields if they exist
+        const businessNameEl = document.getElementById('business-name');
+        if (businessNameEl) updatedProfile.business_name = businessNameEl.value;
+
+        const experienceLevelEl = document.getElementById('experience-level');
+        if (experienceLevelEl) updatedProfile.experience_level = experienceLevelEl.value;
+
+        const serviceRadiusEl = document.getElementById('service-radius');
+        if (serviceRadiusEl) updatedProfile.service_radius = serviceRadiusEl.value;
+
+        const zipCodeEl = document.getElementById('zip-code');
+        if (zipCodeEl) updatedProfile.zip_code = zipCodeEl.value;
+
+        const hourlyRateEl = document.getElementById('hourly-rate');
+        if (hourlyRateEl) updatedProfile.hourly_rate = hourlyRateEl.value;
+
+        const skillsEl = document.getElementById('skills');
+        if (skillsEl) updatedProfile.skills = skillsEl.value.split(',').map(s => s.trim());
+
+        const { error } = await supabase
+            .from('profiles')
+            .update(updatedProfile)
+            .eq('id', user.id);
+
+        this.hideLoadingState();
+
+        if (error) {
+            this.showToast(`Error saving profile: ${error.message}`, 'error');
+        } else {
+            this.showToast('Profile saved successfully!', 'success');
+            this.toggleEditMode(false);
+            await this.loadUserProfile();
         }
+    }
 
-        try {
-            const token = localStorage.getItem('bricouli_token');
-            if (!token) {
-                throw new Error('No authentication token found');
+    loadFallbackData() {
+        // Fallback to localStorage or mock data
+        const storedUser = localStorage.getItem('bricouli_user');
+        if (storedUser) {
+            try {
+                const userData = JSON.parse(storedUser);
+                this.currentUser = userData;
+                this.populateProfile(userData);
+                console.info('Loaded user profile from localStorage');
+            } catch (error) {
+                console.error('Error parsing stored user data:', error);
+                this.loadMockData();
             }
-
-            const response = await fetch('/api/users/profile', {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(profileData)
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const result = await response.json();
-            
-            if (result.success) {
-                // Update current user data
-                this.currentUser = {
-                    ...this.currentUser,
-                    firstName: formData.get('firstName'),
-                    lastName: formData.get('lastName'),
-                    phone: formData.get('phone'),
-                    location: formData.get('location'),
-                    bio: formData.get('bio')
-                };
-                
-                // Also update localStorage as backup
-                localStorage.setItem('bricouli_user', JSON.stringify(this.currentUser));
-                
-                this.populateProfile(this.currentUser);
-                this.toggleEditMode();
-                this.showNotification('Profile updated successfully!', 'success');
-            } else {
-                throw new Error(result.message || 'Failed to update profile');
-            }
-        } catch (error) {
-            console.error('Error saving profile:', error);
-            
-            // Fallback to localStorage update
-            const updatedUser = {
-                ...this.currentUser,
-                firstName: formData.get('firstName'),
-                lastName: formData.get('lastName'),
-                phone: formData.get('phone'),
-                location: formData.get('location'),
-                bio: formData.get('bio')
-            };
-            
-            localStorage.setItem('bricouli_user', JSON.stringify(updatedUser));
-            this.currentUser = updatedUser;
-            this.populateProfile(updatedUser);
-            this.toggleEditMode();
-            
-            this.showNotification('Profile updated locally. Changes will sync when connection is restored.', 'warning');
+        } else {
+            this.loadMockData();
         }
+    }
+
+    loadMockData() {
+        // Use mock data as last resort
+        this.currentUser = this.getMockUserData();
+        this.populateProfile(this.currentUser);
+        this.showNotification('Using demo profile data. Please log in to see your actual profile.', 'warning');
+        console.info('Loaded mock user profile data');
+    }
+
+    getMockUserData() {
+        // Mock user data for demonstration when API is not available
+        return {
+            id: 1,
+            firstName: 'John',
+            lastName: 'Doe',
+            email: 'john.doe@example.com',
+            phone: '+1 (555) 123-4567',
+            location: 'New York, NY',
+            bio: 'Experienced homeowner looking for quality craftsmen for various home improvement projects.',
+            role: 'Client',
+            avatar: 'https://ui-avatars.com/api/?name=John+Doe&background=3B82F6&color=fff&size=256',
+            memberSince: '2023-01-15',
+            totalProjects: 12,
+            completedProjects: 8,
+            rating: 4.8,
+            settings: {
+                emailNotifications: true,
+                smsNotifications: false
+            }
+        };
+    }
+
+    populateProfile(userData) {
+        // Profile header
+        const profileName = document.getElementById('profile-name');
+        const profileEmail = document.getElementById('profile-email');
+        const profileLocation = document.getElementById('profile-location');
+        const profileRole = document.getElementById('profile-role');
+        const profileAvatar = document.getElementById('profile-avatar');
+        const userAvatar = document.getElementById('user-avatar');
+        const userNameHeader = document.getElementById('user-name-header');
+
+        if (profileName) profileName.textContent = `${userData.firstName} ${userData.lastName}`;
+        if (profileEmail) profileEmail.textContent = userData.email;
+        if (profileLocation) profileLocation.textContent = userData.location || 'Not specified';
+        if (profileRole) profileRole.textContent = userData.role || 'Client';
+        if (profileAvatar) profileAvatar.src = userData.avatar;
+        if (userAvatar) userAvatar.src = userData.avatar;
+        if (userNameHeader) userNameHeader.textContent = `${userData.firstName} ${userData.lastName}`;
+
+        // Form fields
+        const firstName = document.getElementById('firstName');
+        const lastName = document.getElementById('lastName');
+        const email = document.getElementById('email');
+        const phone = document.getElementById('phone');
+        const location = document.getElementById('location');
+        const bio = document.getElementById('bio');
+
+        if (firstName) firstName.value = userData.firstName || '';
+        if (lastName) lastName.value = userData.lastName || '';
+        if (email) email.value = userData.email || '';
+        if (phone) phone.value = userData.phone || '';
+        if (location) location.value = userData.location || '';
+        if (bio) bio.value = userData.bio || '';
+
+        // Stats
+        const memberSince = document.getElementById('member-since');
+        const totalProjects = document.getElementById('total-projects');
+        const completedProjects = document.getElementById('completed-projects');
+        const userRating = document.getElementById('user-rating');
+
+        if (memberSince) memberSince.textContent = this.formatDate(userData.memberSince);
+        if (totalProjects) totalProjects.textContent = userData.totalProjects || 0;
+        if (completedProjects) completedProjects.textContent = userData.completedProjects || 0;
+        if (userRating) userRating.textContent = userData.rating || '5.0';
+
+        // Settings
+        const emailNotifications = document.getElementById('email-notifications');
+        const smsNotifications = document.getElementById('sms-notifications');
+
+        if (emailNotifications) emailNotifications.checked = userData.settings?.emailNotifications || false;
+        if (smsNotifications) smsNotifications.checked = userData.settings?.smsNotifications || false;
+    }
+
+    toggleEditMode() {
+        this.isEditing = !this.isEditing;
+        const formInputs = document.querySelectorAll('#profile-form input, #profile-form textarea');
+        const editBtn = document.getElementById('edit-profile-btn');
+        const formActions = document.getElementById('form-actions');
+
+        formInputs.forEach(input => {
+            if (input.id !== 'email') { // Email shouldn't be editable
+                input.disabled = !this.isEditing;
+            }
+        });
+
+        if (this.isEditing) {
+            editBtn.style.display = 'none';
+            formActions.classList.remove('hidden');
+        } else {
+            editBtn.style.display = 'flex';
+            formActions.classList.add('hidden');
+        }
+    }
+
+    cancelEdit() {
+        this.isEditing = false;
+        this.populateProfile(this.currentUser); // Reset form to original values
+        this.toggleEditMode();
     }
 
     async handleAvatarChange(e) {
