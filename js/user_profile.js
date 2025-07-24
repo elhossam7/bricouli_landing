@@ -422,7 +422,7 @@ class UserProfile {
         const { data: { user }, error: userError } = await supabase.auth.getUser();
 
         if (userError || !user) {
-            this.showToast(`Error: Not authenticated. ${userError?.message || 'Please log in.'}`, 'error');
+            this.showNotification(`Error: Not authenticated. ${userError?.message || 'Please log in.'}`, 'error');
             this.hideLoadingState();
             return;
         }
@@ -433,11 +433,10 @@ class UserProfile {
         const updatedProfile = {
             name: `${firstName} ${lastName}`.trim(),
             phone: document.getElementById('phone').value,
-            address: document.getElementById('location').value,
+            address: document.getElementById('location').value, // Corrected from 'location'
             bio: document.getElementById('bio').value,
             email_notifications: document.getElementById('email-notifications').checked,
-            sms_notifications: document.getElementById('sms-notifications').checked,
-            updated_at: new Date().toISOString()
+            sms_notifications: document.getElementById('sms-notifications').checked
         };
 
         // Safely add artisan-specific fields if they exist
@@ -448,16 +447,29 @@ class UserProfile {
         if (experienceLevelEl) updatedProfile.experience_level = experienceLevelEl.value;
 
         const serviceRadiusEl = document.getElementById('service-radius');
-        if (serviceRadiusEl) updatedProfile.service_radius = serviceRadiusEl.value;
+        if (serviceRadiusEl) {
+            const val = serviceRadiusEl.value.trim();
+            updatedProfile.service_radius = val ? parseInt(val, 10) : null;
+        }
 
         const zipCodeEl = document.getElementById('zip-code');
         if (zipCodeEl) updatedProfile.zip_code = zipCodeEl.value;
 
         const hourlyRateEl = document.getElementById('hourly-rate');
-        if (hourlyRateEl) updatedProfile.hourly_rate = hourlyRateEl.value;
+        if (hourlyRateEl) {
+            const val = hourlyRateEl.value.trim();
+            updatedProfile.hourly_rate = val ? parseFloat(val) : null;
+        }
 
         const skillsEl = document.getElementById('skills');
-        if (skillsEl) updatedProfile.skills = skillsEl.value.split(',').map(s => s.trim());
+        if (skillsEl) {
+            const skillsArr = skillsEl.value.split(',').map(s => s.trim()).filter(Boolean);
+            if (skillsArr.length > 0) {
+                updatedProfile.skills = skillsArr;
+            } else {
+                updatedProfile.skills = []; // Ensure skills is always an array
+            }
+        }
 
         const { error } = await supabase
             .from('profiles')
@@ -467,9 +479,9 @@ class UserProfile {
         this.hideLoadingState();
 
         if (error) {
-            this.showToast(`Error saving profile: ${error.message}`, 'error');
+            this.showNotification(`Error saving profile: ${error.message}`, 'error');
         } else {
-            this.showToast('Profile saved successfully!', 'success');
+            this.showNotification('Profile saved successfully!', 'success');
             this.toggleEditMode(false);
             await this.loadUserProfile();
         }
